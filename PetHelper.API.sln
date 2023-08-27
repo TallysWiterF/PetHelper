@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetHelper.API", "PetHelper.API\PetHelper.API.csproj", "{C3339866-0657-4A66-B1A9-FD2DC3263690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetHelper.API", "PetHelper.API\PetHelper.API.csproj", "{C3339866-0657-4A66-B1A9-FD2DC3263690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetHelper.Application", "PetHelper.Application\PetHelper.Application.csproj", "{16983519-7365-4219-86DE-2FCBF72F5B3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetHelper.Domain", "PetHelper.Domain\PetHelper.Domain.csproj", "{E8B27D8F-A3C7-499F-8540-85AED4B8B963}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetHelper.Persistence", "PetHelper.Persistence\PetHelper.Persistence.csproj", "{93592D6B-B5EA-48B4-82F8-68B264F59421}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{C3339866-0657-4A66-B1A9-FD2DC3263690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3339866-0657-4A66-B1A9-FD2DC3263690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3339866-0657-4A66-B1A9-FD2DC3263690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16983519-7365-4219-86DE-2FCBF72F5B3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16983519-7365-4219-86DE-2FCBF72F5B3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16983519-7365-4219-86DE-2FCBF72F5B3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16983519-7365-4219-86DE-2FCBF72F5B3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B27D8F-A3C7-499F-8540-85AED4B8B963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B27D8F-A3C7-499F-8540-85AED4B8B963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B27D8F-A3C7-499F-8540-85AED4B8B963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B27D8F-A3C7-499F-8540-85AED4B8B963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93592D6B-B5EA-48B4-82F8-68B264F59421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93592D6B-B5EA-48B4-82F8-68B264F59421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93592D6B-B5EA-48B4-82F8-68B264F59421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93592D6B-B5EA-48B4-82F8-68B264F59421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
