@@ -1,79 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Agendamento } from 'src/app/models/agendamento';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-calendario',
+  templateUrl: './calendario.component.html',
+  styleUrls: ['./calendario.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class CalendarioComponent implements OnInit {
 
   @Input() initialYear: number = new Date().getFullYear();
   @Input() initialMonth: number = new Date().getMonth() + 1;
 
   private currentDate: Date;
   public markedDay: number | null = null;
-  public year: number;
-  public month: number;
 
-  public agendamentos: Agendamento[] = [
-    {
-      cliente: "João",
-      telefone: "(123) 456-7890",
-      endereco: "Rua A, 123",
-      servico: "Banho e Tosa",
-      horario: "08:00 - 09:00",
-      status: "Em rota de entrega",
-    },
-    {
-      cliente: "Maria",
-      telefone: "(987) 654-3210",
-      endereco: "Avenida B, 456",
-      servico: "Tosa",
-      horario: "10:00 - 11:00",
-      status: "Em andamento",
-    },
-    {
-      cliente: "Carlos",
-      telefone: "(555) 123-4567",
-      endereco: "Praça C, 789",
-      servico: "Banho",
-      horario: "12:00 - 13:00",
-      status: "Em rota de busca",
-    },
-    {
-      cliente: "Ana",
-      telefone: "(111) 222-3333",
-      endereco: "Rua D, 987",
-      servico: "Banho, Tosa e vermífugo",
-      horario: "14:00 - 15:00",
-      status: "Aguardando",
-    },
-    {
-      cliente: "Pedro",
-      telefone: "(444) 555-6666",
-      endereco: "Avenida E, 789",
-      servico: "Banho e Tosa",
-      horario: "15:00 - 16:00",
-      status: "Aguardando",
-    },
-    {
-      cliente: "Antonio",
-      telefone: "(222) 333-4444",
-      endereco: "Rua Spx, 444",
-      servico: "Banho e Tosa",
-      horario: "16:00 - 17:00",
-      status: "Aguardando",
-    },
-    {
-      cliente: "Marcos",
-      telefone: "(222) 111-9999",
-      endereco: "Rua Camapuan, 789",
-      servico: "Banho",
-      horario: "17:00 - 18:00",
-      status: "Aguardando",
-    },
-  ];
+  year: number;
+  month: number;
 
   constructor() {
     this.currentDate = new Date(this.initialYear, this.initialMonth - 1, 1);
@@ -101,7 +42,7 @@ export class HomeComponent implements OnInit {
 
   dayHasEvent(day: number) {
 
-    if(day == 2){
+    if(day == 2 || day == 25 || day == 14 ){
       return true;
     }
     return false;

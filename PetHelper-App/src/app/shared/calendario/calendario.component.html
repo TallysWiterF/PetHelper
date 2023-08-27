@@ -1,0 +1,27 @@
+<div class="calendar">
+  <div class="header">
+    <div class="month-year">
+      <button class="navigation-button fa fa-arrow-alt-circle-left" (click)="navigateToPreviousMonth()"></button>
+      {{ monthYear }}
+      <button class="navigation-button fa fa-arrow-alt-circle-right" (click)="navigateToNextMonth()"></button>
+    </div>
+    <button class="today-button" (click)="goToToday()">Hoje</button>
+  </div>
+  <div class="days">
+    <div class="day-name">Dom</div>
+    <div class="day-name">Seg</div>
+    <div class="day-name">Ter</div>
+    <div class="day-name">Qua</div>
+    <div class="day-name">Qui</div>
+    <div class="day-name">Sex</div>
+    <div class="day-name">Sáb</div>
+    <ng-container *ngFor="let offset of dayOffsets">
+      <div></div>
+    </ng-container>
+    <div *ngFor="let day of daysInMonth" class="day" (click)="onDayClick(day)"
+      [ngClass]="{'clicked': markedDay === day}">
+      {{ day }}
+      <span *ngIf="dayHasEvent(day)" class="event-marker"></span>
+    </div>
+  </div>
+</div>

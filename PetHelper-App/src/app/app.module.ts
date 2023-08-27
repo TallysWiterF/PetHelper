@@ -10,6 +10,9 @@ import { SideNavComponent } from './shared/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
 import { HomeComponent } from './components/home/home.component';
 import { ServicosComponent } from './components/servicos/servicos.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { CalendarioComponent } from './shared/calendario/calendario.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { ServicosComponent } from './components/servicos/servicos.component';
     BodyComponent,
     SideNavComponent,
     HomeComponent,
-    ServicosComponent
+    ServicosComponent,
+    LoginComponent,
+    CalendarioComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +30,7 @@ import { ServicosComponent } from './components/servicos/servicos.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

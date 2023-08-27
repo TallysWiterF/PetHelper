@@ -1,0 +1,36 @@
+<div class="container" id="container">
+  <div class="form-container sign-up-container">
+    <form action="#">
+      <h1>Inscreva-se</h1>
+      <input type="text" placeholder="Nome" />
+      <input type="email" placeholder="E-mail" />
+      <input type="password" placeholder="Senha" />
+      <button>Entrar em contato</button>
+    </form>
+  </div>
+  <div class="form-container sign-in-container">
+    <form action="#">
+      <h1>Login</h1>
+      <input type="email" placeholder="E-mail" />
+      <input type="password" placeholder="Senha" />
+      <a href="#">Esqueceu sua senha?</a>
+      <button (click)="realizarLogin()">Entrar</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Possuí conta?</h1>
+        <p>Para acessar o portal, faça o login com suas informações de cadastro</p>
+        <button class="ghost" id="signIn">Entrar</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Primeira vez?</h1>
+        <p>Forneça suas informações de contato para que possamos agendar uma reunião e realizar o seu cadastro</p>
+        <button class="ghost" id="signUp">Criar Conta</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

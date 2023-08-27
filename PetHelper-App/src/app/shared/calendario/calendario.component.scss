@@ -1,0 +1,135 @@
+.calendar {
+  background-color: #f4f7fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 400px;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  margin-right: 15px;
+}
+
+.header {
+  background-color: #263238;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  padding: 10px;
+  align-items: start; /* Alinhe os dias do mês com o início da célula */
+}
+
+.day {
+  position: relative;
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.day.clicked {
+  background-color: #5fa4ee; /* Cor de fundo para o dia clicado */
+  color: white;
+}
+
+.day:active {
+  transform: scale(0.95);
+}
+
+.event-marker {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(0, 136, 0);
+  border-radius: 50%;
+}
+
+.month-year {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navigation-button {
+  background-color: #388ae7e3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px; /* Aumente o padding para ajustar o tamanho do botão */
+  font-size: 25px; /* Aumente o tamanho da fonte */
+  cursor: pointer;
+}
+
+.navigation-button:hover {
+  background-color: #0056b3;
+}
+
+.day-name {
+  font-size: 14px;
+  text-align: center;
+  color: #aaa;
+}
+
+.today-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.today-button:hover {
+  background-color: #0056b3;
+}
+
+@media screen and (max-width: 600px) {
+  .calendar {
+    font-size: 14px; /* Reduza o tamanho da fonte em telas menores */
+  }
+
+  .days {
+    grid-template-columns: repeat(7, 1fr); /* Exiba uma coluna por dia em telas menores */
+    padding: 5px; /* Reduza o espaço entre os dias */
+  }
+
+  .day {
+    padding: 10px; /* Reduza o tamanho dos dias */
+    font-size: 12px; /* Reduza o tamanho da fonte dos dias */
+  }
+
+  .event-marker {
+    width: 6px; /* Reduza o tamanho dos marcadores de eventos */
+    height: 6px;
+  }
+
+  .month-year {
+    font-size: 16px; /* Reduza o tamanho da fonte do mês e ano */
+    margin-bottom: 5px; /* Reduza o espaço abaixo do mês e ano */
+  }
+
+  .navigation-button{
+    font-size: 15px;
+  }
+
+  .today-button {
+    font-size: 12px; /* Reduza o tamanho da fonte do botão "Hoje" */
+    padding: 3px 6px; /* Reduza o tamanho do botão "Hoje" */
+  }
+}
