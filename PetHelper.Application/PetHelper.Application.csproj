@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PetHelper.Domain\PetHelper.Domain.csproj" />
+    <ProjectReference Include="..\PetHelper.Persistence\PetHelper.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
