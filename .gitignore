@@ -9,3 +9,8 @@
 .vs/PetHelper.API/v17/.suo
 .vs/ProjectEvaluation/pethelper.api.metadata.v2
 .vs/ProjectEvaluation/pethelper.api.projects.v2
+*.db
+*.db-shm
+*.db-wal
+*.config
+*.vsidx
