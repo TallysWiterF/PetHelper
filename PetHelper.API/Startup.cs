@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using PetHelper.Application;
+using PetHelper.Application.Contratos;
+using PetHelper.Persistence;
+using PetHelper.Persistence.Contexto;
+using PetHelper.Persistence.Contratos;
 
 namespace PetHelper.API;
 
@@ -17,17 +22,15 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        //services.AddDbContext<ProEventosContext>(context => context.UseSqlite(Configuration.GetConnectionString("PetHelperConnectionString")));
-
-        services.AddControllers()
-            .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
-                               ReferenceLoopHandling.Ignore);
+        services.AddDbContext<PetHelperContext>(
+            context => context.UseSqlite(Configuration.GetConnectionString("PetHelperConnectionString"),  b => b.MigrationsAssembly("PetHelper.API"))
+        );
+        
+        services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
        
-        //services.AddScoped<IEventoService, EventoService>();
-        //services.AddScoped<IGeralPersist, GeralPersist>();
-        //services.AddScoped<IEventoPersist, EventoPersist>();
-
-
+        services.AddScoped<IPetShopService, PetShopService>();
+        services.AddScoped<IGeralPersist, GeralPersist>();
+        services.AddScoped<IPetShopPersist, PetShopPersist>();
 
         services.AddCors();
         services.AddSwaggerGen(c =>
