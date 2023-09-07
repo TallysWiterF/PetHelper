@@ -1,0 +1,62 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div>
+        <input type="text" id="nome" placeholder="Nome do cliente:"
+          [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome">
+        <div *ngIf="controls.nome.errors?.required" class="invalid-feedback mensagemErro">
+          Nome é obrigatório.
+        </div>
+        <div *ngIf="controls.nome.errors?.minlength" class="invalid-feedback mensagemErro">
+          Nome deve ter no mínimo 4 caracteres.
+        </div>
+        <div *ngIf="controls.nome.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Nome deve ter no máximo 50 caracteres.
+        </div>
+      </div>
+
+      <div>
+        <input id="telefone" placeholder="Número de WhatsApp:" formControlName="telefone" mask="(00) 00000-0000"
+          [ngClass]="{'is-invalid': controls.telefone.errors && controls.telefone.touched }">
+        <div *ngIf="controls.telefone.errors?.required" class="invalid-feedback mensagemErro">
+          Telefone é obrigatório.
+        </div>
+        <div *ngIf="controls.telefone.errors?.minlength" class="invalid-feedback mensagemErro">
+          Telefone deve ter no mínimo 11 caracteres.
+        </div>
+      </div>
+
+      <div>
+        <input type="text" id="endereco" placeholder="Endereço do cliente:" formControlName="endereco"
+          [ngClass]="{'is-invalid': controls.endereco.errors && controls.endereco.touched }">
+        <div *ngIf="controls.endereco.errors?.required" class="invalid-feedback mensagemErro">
+          Endereço é obrigatório.
+        </div>
+        <div *ngIf="controls.endereco.errors?.minlength" class="invalid-feedback mensagemErro">
+          Endereço deve ter no mínimo 8 caracteres.
+        </div>
+        <div *ngIf="controls.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Endereço deve ter no máximo 240 caracteres.
+        </div>
+      </div>
+
+      <div>
+        <input type="text" id="complemento" placeholder="Complemento do endereço:" formControlName="complemento"
+          [ngClass]="{'is-invalid': controls.complemento.errors && controls.complemento.touched }">
+        <div *ngIf="controls.complemento.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Complemento deve ter no máximo 240 caracteres.
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="fecharModal()">Cancelar</button>
+    <button type="button" [disabled]="form.invalid" class="btn btn-success">Salvar Cliente</button>
+  </div>
+</div>

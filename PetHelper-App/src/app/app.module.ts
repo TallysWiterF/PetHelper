@@ -11,18 +11,24 @@ import { BodyComponent } from './components/body/body.component';
 import { HomeComponent } from './components/home/home.component';
 import { ServicosComponent } from './components/servicos/servicos.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarioComponent } from './shared/calendario/calendario.component';
+import { ClienteComponent } from './components/cliente/cliente.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgbCalendar, NgbCalendarGregorian } from '@ng-bootstrap/ng-bootstrap';
+import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BodyComponent,
     SideNavComponent,
+    ClienteComponent,
     HomeComponent,
     ServicosComponent,
     LoginComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    ClienteDetailComponent
   ],
   imports: [
     CommonModule,
@@ -31,8 +37,12 @@ import { CalendarioComponent } from './shared/calendario/calendario.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgxMaskModule.forRoot(),
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: NgbCalendar, useClass: NgbCalendarGregorian}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
