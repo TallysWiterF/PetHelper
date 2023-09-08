@@ -17,3 +17,7 @@
 **/bin/
 **/obj/
 *.vs
+*.v2
+.vs/PetHelper.API/v17/.suo
+*.v2
+*.v2
