@@ -17,6 +17,8 @@ import { ClienteComponent } from './components/cliente/cliente.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { NgbCalendar, NgbCalendarGregorian } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,14 @@ import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.c
     BrowserAnimationsModule,
     FormsModule,
     NgxMaskModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressBar: true
+    }),
+    NgxSpinnerModule,
   ],
   providers: [{
     provide: NgbCalendar, useClass: NgbCalendarGregorian}

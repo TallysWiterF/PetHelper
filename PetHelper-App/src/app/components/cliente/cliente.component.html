@@ -1,2 +1,57 @@
-<button class="btn btn-primary"(click)="openModal()">Abrir Modal</button>
 
+<div class="d-flex">
+  <div class="flex-fill pr-3">
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Filtro:</div>
+      </div>
+      <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="Filtrar por Nome e Endereço"
+      [(ngModel)]="filtroLista">
+    </div>
+  </div>
+  <div>
+    <a class="d-flex btn btn-outline-primary">
+      <i class="fa fa-plus-circle my-1"></i>
+      <b class="ml-1 d-none d-sm-block" (click)="novoCliente()">Novo</b>
+    </a>
+  </div>
+</div>
+
+<div class="row row-container" >
+  <div class="col">
+    <table class="table table-striped table-hover">
+      <thead  class="thead-dark"  style="background-color: #263238; color: white;">
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Endereço</th>
+          <th>Complemento</th>
+          <th>Última Atualização</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="clientes && clientes.length">
+        <tr *ngFor="let cliente of clientesFiltrados"
+          style="cursor: pointer;"
+          (click)="editarCliente(cliente.id)">
+          <td>{{cliente.nome}}</td>
+          <td>{{cliente.telefone}}</td>
+          <td>{{cliente.endereco}}</td>
+          <td>{{cliente.complemento}}</td>
+          <td>{{cliente.dataUltimaAtualizacao}}</td>
+          <td>
+            <button type="button" class="btn btn-danger btn-g mr-2" tooltip="Deletar">
+              <i class="fa fa-trash"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-g" tooltip="Iniciar conversa Whatsapp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

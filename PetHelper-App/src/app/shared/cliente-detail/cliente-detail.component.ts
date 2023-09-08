@@ -13,6 +13,7 @@ export class ClienteDetailComponent implements OnInit {
   @Input() isOpen: boolean = true;
   @Input() title: string = 'Modal';
   @Input() public cliente: Cliente = {
+    id: 0,
     nome: '',
     telefone: '',
     endereco: '',
