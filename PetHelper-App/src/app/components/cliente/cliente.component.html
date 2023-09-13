@@ -1,29 +1,24 @@
-
 <div class="d-flex">
   <div class="flex-fill pr-3">
     <div class="input-group mb-2">
       <div class="input-group-prepend">
         <div class="input-group-text">Filtro:</div>
       </div>
-      <input
-      type="text"
-      class="form-control mr-2"
-      placeholder="Filtrar por Nome e Endereço"
-      [(ngModel)]="filtroLista">
+      <input type="text" class="form-control mr-2" placeholder="Filtrar por Nome e Endereço" [(ngModel)]="filtroLista">
     </div>
   </div>
   <div>
-    <a class="d-flex btn btn-outline-primary">
+    <a class="d-flex btn btn-outline-primary" (click)="novoCliente()">
       <i class="fa fa-plus-circle my-1"></i>
-      <b class="ml-1 d-none d-sm-block" (click)="novoCliente()">Novo</b>
+      <b class="ml-1 d-none d-sm-block">Novo</b>
     </a>
   </div>
 </div>
 
-<div class="row row-container" >
+<div class="row row-container">
   <div class="col">
     <table class="table table-striped table-hover">
-      <thead  class="thead-dark"  style="background-color: #263238; color: white;">
+      <thead class="thead-dark" style="background-color: #263238; color: white;">
         <tr>
           <th>Nome</th>
           <th>Telefone</th>
@@ -34,16 +29,14 @@
         </tr>
       </thead>
       <tbody *ngIf="clientes && clientes.length">
-        <tr *ngFor="let cliente of clientesFiltrados"
-          style="cursor: pointer;"
-          (click)="editarCliente(cliente.id)">
-          <td>{{cliente.nome}}</td>
-          <td>{{cliente.telefone}}</td>
+        <tr *ngFor="let cliente of clientesFiltrados" style="cursor: pointer;" (click)="editarCliente(cliente.id)">
+          <td >{{cliente.nome}}</td>
+          <td>{{cliente.telefone | TelefoneFormat }}</td>
           <td>{{cliente.endereco}}</td>
           <td>{{cliente.complemento}}</td>
-          <td>{{cliente.dataUltimaAtualizacao}}</td>
+          <td>{{cliente.dataAtualizacao | DateTimeFormat }}</td>
           <td>
-            <button type="button" class="btn btn-danger btn-g mr-2" tooltip="Deletar">
+            <button type="button" class="btn btn-danger btn-g mr-2" (click)="abrirTemplate(deletarTemplate, cliente.id, $event)" tooltip="Deletar">
               <i class="fa fa-trash"></i>
             </button>
             <button type="button" class="btn btn-success btn-g" tooltip="Iniciar conversa Whatsapp">
@@ -55,3 +48,11 @@
     </table>
   </div>
 </div>
+
+<ng-template #deletarTemplate>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar esse Cliente?</p>
+    <button type="button" class="btn btn-primary mr-2" (click)="fecharTemplate()">Não</button>
+    <button type="button" class="btn btn-secondary" (click)="excluirCliente()">Sim</button>
+  </div>
+</ng-template>

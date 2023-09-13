@@ -29,8 +29,11 @@ public class Startup
         services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
        
         services.AddScoped<IPetShopService, PetShopService>();
+        services.AddScoped<IClienteService, ClienteService>();
+        
         services.AddScoped<IGeralPersist, GeralPersist>();
         services.AddScoped<IPetShopPersist, PetShopPersist>();
+        services.AddScoped<IClientePersist, ClientePersist>();
 
         services.AddCors();
         services.AddSwaggerGen(c =>

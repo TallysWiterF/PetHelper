@@ -27,7 +27,7 @@
     "ngx-mask": "^12.0.0",
     "ngx-mask-2": "^6.5.23",
     "ngx-spinner": "^12.0.0",
-    "ngx-toastr": "^14.3.0",
+    "ngx-toastr": "^13.2.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",

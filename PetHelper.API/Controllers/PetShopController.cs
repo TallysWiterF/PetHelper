@@ -18,13 +18,13 @@ public class PetShopController : ControllerBase
         {
             PetShop petShop = await _petShopService.GetPetShopByIdAsync(id);
             if (petShop is null)
-                return NotFound("PetShop não encontrado.");
+                return NotFound(new { resposta = "PetShop não encontrado." });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erro ao tentar recuperar a Pet Shop. Erro: {ex.Message}");
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar a Pet Shop. Erro: {ex.Message}" });
         }
     }
 
@@ -35,13 +35,13 @@ public class PetShopController : ControllerBase
         {
             PetShop? petShop = await _petShopService.AddPetShop(model);
             if (petShop is null)
-                return BadRequest("Erro ao tentar adicionar a Pet Shop.");
+                return BadRequest(new { resposta = "Erro ao tentar adicionar a Pet Shop." });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erro ao tentar adicionar a Pet Shop. Erro: {ex.Message}");
+            return StatusCode(500, new { resposta = $"Erro ao tentar adicionar a Pet Shop. Erro: {ex.Message}" });
         }
     }
 
@@ -52,13 +52,13 @@ public class PetShopController : ControllerBase
         {
             PetShop? petShop = await _petShopService.UpdatePetShop(id, model);
             if (petShop is null)
-                return BadRequest("Erro ao tentar atualizar a Pet Shop.");
+                return BadRequest(new { resposta = "Erro ao tentar atualizar a Pet Shop." });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erro ao tentar atualizar a Pet Shop. Erro: {ex.Message}");
+            return StatusCode(500, new { resposta = $"Erro ao tentar atualizar a Pet Shop. Erro: {ex.Message}" });
         }
     }
 
@@ -68,11 +68,11 @@ public class PetShopController : ControllerBase
         try
         {
             return await _petShopService.DeletePetShop(id) ?
-                Ok("Pet Shop deletada.") : BadRequest("Ocorreu um erro ao deletar a Pet Shop");
+                Ok(new { resposta = "Pet Shop deletada." }) : BadRequest(new { resposta = "Ocorreu um erro ao deletar a Pet Shop" });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erro ao tentar deletar Pet Shop. Erro: {ex.Message}");
+            return StatusCode(500, new { resposta = $"Erro ao tentar deletar Pet Shop. Erro: {ex.Message}"});
         }
     }
 }

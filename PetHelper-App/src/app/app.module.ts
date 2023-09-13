@@ -14,11 +14,13 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarioComponent } from './shared/calendario/calendario.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { NgbCalendar, NgbCalendarGregorian } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ServicosComponent,
     LoginComponent,
     CalendarioComponent,
-    ClienteDetailComponent
+    ClienteDetailComponent,
+    DateTimeFormatPipe,
+    TelefoneFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -39,18 +43,19 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    NgxMaskModule.forRoot(),
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
     ToastrModule.forRoot({
-      timeOut: 4000,
+      timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
     }),
     NgxSpinnerModule,
   ],
-  providers: [{
-    provide: NgbCalendar, useClass: NgbCalendarGregorian}
+  providers: [
+    {provide: NgbCalendar, useClass: NgbCalendarGregorian}
+
   ],
   bootstrap: [AppComponent]
 })
