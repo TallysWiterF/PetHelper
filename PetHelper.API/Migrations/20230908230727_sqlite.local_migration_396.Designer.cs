@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetHelper.Persistence.Contexto;
 
@@ -10,9 +11,11 @@ using PetHelper.Persistence.Contexto;
 namespace PetHelper.API.Migrations
 {
     [DbContext(typeof(PetHelperContext))]
-    partial class PetHelperContextModelSnapshot : ModelSnapshot
+    [Migration("20230908230727_sqlite.local_migration_396")]
+    partial class sqlitelocal_migration_396
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");

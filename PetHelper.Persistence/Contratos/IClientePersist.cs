@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PetHelper.Domain;
 
-namespace PetHelper.Persistence.Contratos
+namespace PetHelper.Persistence.Contratos;
+
+public interface IClientePersist
 {
-    internal interface IClientePersist
-    {
-    }
+    Task<Cliente[]> GetAllClientesByPetShopIdAsync(int petShopId);
+    Task<Cliente> GetClienteByIdAsync(int clienteId);
 }

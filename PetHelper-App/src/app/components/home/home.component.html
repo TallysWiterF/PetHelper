@@ -83,7 +83,7 @@
         <tr *ngFor="let agendamento of agendamentos"
           style="cursor: pointer;">
           <td>{{agendamento.cliente}}</td>
-          <td>{{agendamento.telefone}}</td>
+          <td>{{agendamento.telefone | TelefoneFormat}}</td>
           <td>{{agendamento.endereco}}</td>
           <td>{{agendamento.servico}}</td>
           <td>{{agendamento.horario}}</td>
