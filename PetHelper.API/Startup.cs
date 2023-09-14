@@ -23,17 +23,19 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<PetHelperContext>(
-            context => context.UseSqlite(Configuration.GetConnectionString("PetHelperConnectionString"),  b => b.MigrationsAssembly("PetHelper.API"))
+            context => context.UseSqlite(Configuration.GetConnectionString("PetHelperConnectionString"), b => b.MigrationsAssembly("PetHelper.API"))
         );
-        
+
         services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-       
+
         services.AddScoped<IPetShopService, PetShopService>();
         services.AddScoped<IClienteService, ClienteService>();
-        
+        services.AddScoped<IServicoService, ServicoService>();
+
         services.AddScoped<IGeralPersist, GeralPersist>();
         services.AddScoped<IPetShopPersist, PetShopPersist>();
         services.AddScoped<IClientePersist, ClientePersist>();
+        services.AddScoped<IServicoPersist, ServicoPersist>();
 
         services.AddCors();
         services.AddSwaggerGen(c =>
