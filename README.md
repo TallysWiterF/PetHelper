@@ -43,5 +43,14 @@ Uma aplicação web utilizando Angular 12 e .NET 6 para realizar a gestão de um
         </sub>
       </a>
     </td>
+     <td align="center">
+      <a href="https://github.com/felpBigStack">
+        <img src="https://avatars.githubusercontent.com/u/144967655?v=4" width="100px;" alt="Profile"/>
+        <br />
+        <sub>
+          <b>Felipe Frade</b>
+        </sub>
+      </a>
+    </td>
   </tr>  
 </table>
