@@ -31,7 +31,7 @@ Uma aplicação web utilizando Angular 12 e .NET 6 para realizar a gestão de um
 
 <br /> 
 
-<h3 align="center">🎨 Contributor(s)</h4>
+<h3 align="center">🎨 Contribuidores</h4>
 <table align="center">
   <tr>
     <td align="center">
