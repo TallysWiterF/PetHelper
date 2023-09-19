@@ -1,6 +1,6 @@
 export interface Cliente {
   id: number;
-  petShopId?: number;
+  petShopId: number;
   nome: string;
   telefone: string;
   endereco: string;

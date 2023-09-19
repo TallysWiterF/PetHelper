@@ -1,3 +1,72 @@
-<p>
-  servicos works!
-</p>
+<div class="d-flex">
+  <div class="flex-fill pr-3">
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Filtro:</div>
+      </div>
+      <input type="text" class="form-control mr-2" placeholder="Filtrar por nome" [(ngModel)]="filtroLista">
+    </div>
+  </div>
+  <div>
+    <a class="d-flex btn btn-outline-primary" (click)="novoServico()">
+      <i class="fa fa-plus-circle my-1"></i>
+      <b class="ml-1 d-none d-sm-block">Novo</b>
+    </a>
+  </div>
+</div>
+
+<div class="row row-container">
+  <div class="col">
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark" style="background-color: #263238; color: white;">
+        <tr>
+          <th class="d-none d-md-table-cell">
+            <button type="button" class="btn btn-outline-light btn-sm"
+            tooltip="{{exibirImagem ? 'Visualizar Logo' : 'Ocultar Logo' }}"  (click)="alterarVisibilidade()">
+              <i class="{{exibirImagem ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
+              {{exibirImagem ? 'Exibir' : 'Ocultar' }}</button>
+          </th>
+          <th>Nome</th>
+          <th class="d-none d-sm-table-cell">Descrição</th>
+          <th>Preço</th>
+          <th class="d-none d-sm-table-cell">Última Atualização</th>
+          <th>Ativo</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="servicos && servicos.length">
+        <tr *ngFor="let servico of servicosFiltrados" style="cursor: pointer;" (click)="editarServico(servico.id)">
+          <td class="d-none d-md-table-cell">
+            <img [collapse]="exibirImagem"
+            [isAnimated]="true"
+            [style.width.px]="larguraImagem"
+            [style.margin.px]="margemImagem">
+          </td>
+          <td>{{servico.nome}}</td>
+          <td class="d-none d-sm-table-cell">{{servico.descricao}}</td>
+          <td>{{servico.preco | PrecoFormat}}</td>
+          <td class="d-none d-sm-table-cell">{{servico.dataAtualizacao | DateTimeFormat }}</td>
+          <td>
+            <div class="toggle-switch" (click)="habilitarServico(servico)" [class.on]="servico.ativo"
+              [class.off]="!servico.ativo">
+            </div>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger btn-g mr-2"
+              (click)="abrirTemplate(deletarTemplate, servico.id, $event)" tooltip="Deletar">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #deletarTemplate>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar esse Serviço?</p>
+    <button type="button" class="btn btn-primary mr-2" (click)="fecharTemplate()">Não</button>
+    <button type="button" class="btn btn-secondary" (click)="excluirServico()">Sim</button>
+  </div>
+</ng-template>

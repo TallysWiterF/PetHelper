@@ -36,16 +36,16 @@ export class ClienteComponent implements OnInit {
   public clientesFiltrados: Cliente[] = [];
   public activeModal?: NgbActiveModal;
   public clienteId: number = 0;
+
   ngOnInit() {
     this.spinner.show();
     this.getClientes();
     setTimeout(() => {
     }, 300);
 
-    this.clientesFiltrados = this.clientes;
   }
 
-  filtrarClientes(filtroLista: string): Cliente[] {
+  private filtrarClientes(filtroLista: string): Cliente[] {
     filtroLista = filtroLista.toLocaleLowerCase();
 
     return this.clientes.filter(
@@ -60,7 +60,7 @@ export class ClienteComponent implements OnInit {
     event.stopPropagation();
   }
 
-  excluirCliente() {
+  public excluirCliente() {
     this.spinner.show();
     this.clienteService.deletarCliente(this.clienteId).subscribe({
       next: (object: any) => {
@@ -77,18 +77,18 @@ export class ClienteComponent implements OnInit {
     this.fecharTemplate();
   }
 
-  fecharTemplate() {
+  public fecharTemplate() {
     if (this.activeModal)
       this.activeModal.dismiss();
    }
 
-  novoCliente() {
+  public novoCliente() {
     const cadastroModal = this.modalService.open(ClienteDetailComponent, { ariaLabelledBy: 'modal-basic-title', size: 'md', centered: true });
     cadastroModal.componentInstance.title = "Cadastro de Cliente";
     cadastroModal.componentInstance.clienteComponent = this;
   }
 
-  editarCliente(id: number) {
+  public editarCliente(id: number) {
     const editarModal = this.modalService.open(ClienteDetailComponent, { ariaLabelledBy: 'modal-basic-title', size: 'md', centered: true });
     editarModal.componentInstance.title = "Editar Cliente";
     editarModal.componentInstance.cliente = this.clientes.find(x => x.id == id);

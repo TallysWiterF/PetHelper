@@ -1,26 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SideNavComponent } from './shared/sidenav/sidenav.component';
+
 import { BodyComponent } from './components/body/body.component';
 import { HomeComponent } from './components/home/home.component';
 import { ServicosComponent } from './components/servicos/servicos.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CalendarioComponent } from './shared/calendario/calendario.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
-import { NgxMaskModule } from 'ngx-mask';
-import { NgbCalendar, NgbCalendarGregorian } from '@ng-bootstrap/ng-bootstrap';
-import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.component';
+
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxMaskModule } from 'ngx-mask';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
+import { SideNavComponent } from './shared/sidenav/sidenav.component';
+import { CalendarioComponent } from './shared/calendario/calendario.component';
+import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.component';
+
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
+import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,7 @@ import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
     ClienteDetailComponent,
     DateTimeFormatPipe,
     TelefoneFormatPipe,
+    PrecoFormatPipe
   ],
   imports: [
     CommonModule,
@@ -44,6 +51,8 @@ import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    CollapseModule.forRoot(),
+    TooltipModule.forRoot(),
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
@@ -53,10 +62,9 @@ import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
     }),
     NgxSpinnerModule,
   ],
-  providers: [
-    {provide: NgbCalendar, useClass: NgbCalendarGregorian}
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas:[],
 
-  ],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
