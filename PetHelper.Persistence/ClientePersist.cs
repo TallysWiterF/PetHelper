@@ -19,7 +19,7 @@ public class ClientePersist : IClientePersist
         IQueryable<Cliente> query = _context.Clientes;
 
         query = query.Where(p => p.PetShopId == petShopId);
-        query = query.OrderByDescending(p => p.DataAtualizacao);
+        query = query.OrderBy(p => p.Nome);
 
         return await query.ToArrayAsync();
     }

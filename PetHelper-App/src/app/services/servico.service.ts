@@ -17,7 +17,7 @@ export class ServicoService {
     return this.http.get<Servico[]>(this.baseURL + "petShopId/" + petShopId);
   }
 
-  public adicionarServico(servico: Servico): Observable<Servico> {
+  public async adicionarServico(servico: Servico): Promise<Observable<Servico>>{
     return this.http.post<Servico>(this.baseURL, servico);
   }
 

@@ -10,9 +10,11 @@ import { AppComponent } from './app.component';
 
 import { BodyComponent } from './components/body/body.component';
 import { HomeComponent } from './components/home/home.component';
-import { ServicosComponent } from './components/servicos/servicos.component';
+import { ServicoComponent } from './components/servico/servico.component';
+import { ServicoDetailComponent } from './components/servico/servico-detail/servico-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
+import { ClienteDetailComponent } from './components/cliente/cliente-detail/cliente-detail.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -22,7 +24,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { SideNavComponent } from './shared/sidenav/sidenav.component';
 import { CalendarioComponent } from './shared/calendario/calendario.component';
-import { ClienteDetailComponent } from './shared/cliente-detail/cliente-detail.component';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
@@ -35,10 +36,11 @@ import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
     SideNavComponent,
     ClienteComponent,
     HomeComponent,
-    ServicosComponent,
+    ServicoComponent,
     LoginComponent,
     CalendarioComponent,
     ClienteDetailComponent,
+    ServicoDetailComponent,
     DateTimeFormatPipe,
     TelefoneFormatPipe,
     PrecoFormatPipe

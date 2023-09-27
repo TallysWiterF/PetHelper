@@ -39,49 +39,49 @@ export class ClienteDetailComponent implements OnInit {
     return this.form.controls;
   }
 
-  inicializarFormulario(): void {
+  private inicializarFormulario(): void {
     this.form = this.formBuilder.group({
       nome: [this.cliente.nome, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       telefone: [this.cliente.telefone, [Validators.required, Validators.minLength(11)]],
-      endereco: [this.cliente.endereco, [Validators.required, Validators.minLength(8), Validators.maxLength(240)]],
-      complemento: [this.cliente.complemento, Validators.maxLength(240)],
+      endereco: [this.cliente.endereco, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+      complemento: [this.cliente.complemento, Validators.maxLength(130)],
     });
   }
 
-  fecharModal() {
+  public fecharModal() {
     this.activeModal.dismiss();
-      this.clienteComponent?.getClientes();
   }
 
   async salvarCliente() {
     this.clienteComponent?.spinner.show();
-    if (this.cliente.id != 0) {
-       (await this.clienteService.editarCliente(this.cliente)).subscribe({
-        next: (object: any) => {
-          this.clienteComponent?.toastr.success(object.resposta, 'Sucesso');
-          this.fecharModal();
-        },
-        error: (objectError: any) => {
-          this.clienteComponent?.spinner.hide();
-          this.clienteComponent?.toastr.error(objectError.error.resposta, 'Erro!')
-        },
-        complete: () => this.clienteComponent?.spinner.hide()
-      });
+    this.cliente.id != 0 ? this.editarCliente() : this.adicionarCliente();
+  }
 
-    }
-    else {
-      this.clienteService.adicionarCliente(this.cliente).subscribe({
-        next: (object: any) => {
-          this.clienteComponent?.toastr.success(object.resposta, 'Sucesso');
-          this.fecharModal();
-        },
-        error: (objectError: any) => {
-          this.clienteComponent?.spinner.hide();
-          this.clienteComponent?.toastr.error(objectError.error.resposta, 'Erro!')
-        },
-        complete: () => this.clienteComponent?.spinner.hide()
-      });
-    }
+  private async adicionarCliente() {
+    (await this.clienteService.editarCliente(this.cliente)).subscribe({
+      next: (object: any) => {
+        this.clienteComponent?.toastr.success(object.resposta, 'Sucesso');
+        this.fecharModal();
+      },
+      error: (objectError: any) => {
+        this.clienteComponent?.spinner.hide();
+        this.clienteComponent?.toastr.error(objectError.error.resposta, 'Erro!')
+      },
+      complete: () => this.clienteComponent?.spinner.hide()
+    });
+  }
 
+  private async editarCliente() {
+    (await this.clienteService.adicionarCliente(this.cliente)).subscribe({
+      next: (object: any) => {
+        this.clienteComponent?.toastr.success(object.resposta, 'Sucesso');
+        this.fecharModal();
+      },
+      error: (objectError: any) => {
+        this.clienteComponent?.spinner.hide();
+        this.clienteComponent?.toastr.error(objectError.error.resposta, 'Erro!');
+      },
+      complete: () => this.clienteComponent?.spinner.hide()
+    });
   }
 }

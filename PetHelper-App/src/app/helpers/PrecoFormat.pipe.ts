@@ -15,4 +15,9 @@ export class PrecoFormatPipe implements PipeTransform {
 
     return 'R$ ' + value.toFixed(2).replace('.', ',');
   }
+
+  parse(value: string): number {
+    const cleanValue = value.replace('R$ ', '').replace(',', '.');
+    return parseFloat(cleanValue);
+  }
 }

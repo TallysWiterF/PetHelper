@@ -3,8 +3,8 @@ export interface Servico {
   petShopId: number;
   nome: string;
   descricao?: String;
-  preco: Number;
-  logoServico?: File;
+  preco: number;
+  logoServico?: string;
   ativo: boolean;
   dataCriacao?: Date
   dataAtualizacao?: Date;

@@ -9,13 +9,13 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  private baseURL: string = environment.baseURL +'Cliente/';
+  private baseURL: string = environment.baseURL + 'Cliente/';
 
   public getAllClientes(petShopId: number): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.baseURL + "petShopId/" + petShopId);
   }
 
-  public adicionarCliente(cliente: Cliente): Observable<Cliente> {
+  public async adicionarCliente(cliente: Cliente): Promise<Observable<Cliente>> {
     return this.http.post<Cliente>(this.baseURL, cliente);
   }
 

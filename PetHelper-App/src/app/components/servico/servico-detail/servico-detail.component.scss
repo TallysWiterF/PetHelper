@@ -1,0 +1,31 @@
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+input {
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 10px 13px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+img {
+  width: 130px;
+  height: 130px;
+  cursor: pointer;
+}
+
+button {
+  border-radius: 20px;
+}
+
+.mensagemErro{
+  margin-left: 15px;
+  margin-bottom: 0.25rem;
+  margin-top: 0px !important
+}

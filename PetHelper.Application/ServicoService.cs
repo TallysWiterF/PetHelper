@@ -43,6 +43,11 @@ public class ServicoService : IServicoService
     {
         try
         {
+            servicoModel.Nome = servicoModel.Nome.TrimEnd();
+
+            if (!string.IsNullOrEmpty(servicoModel.Descricao))
+                servicoModel.Descricao = servicoModel.Descricao?.TrimEnd();
+
             servicoModel.DataCriacao = servicoModel.DataAtualizacao = DateTime.UtcNow;
             _geralPersist.Add(servicoModel);
 

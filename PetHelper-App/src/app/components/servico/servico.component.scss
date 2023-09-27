@@ -6,7 +6,7 @@
   border-radius: 25px;
   position: relative;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Adicione uma transição suave para a cor de fundo */
+  transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
 }
 
 .toggle-switch::before {
@@ -18,7 +18,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Adicione uma transição suave para a cor do botão e transformação */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor do botão e transformação */
 }
 
 /* Estilo para o toggle switch quando ativo */
