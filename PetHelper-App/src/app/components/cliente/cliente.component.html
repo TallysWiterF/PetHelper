@@ -4,7 +4,7 @@
       <div class="input-group-prepend">
         <div class="input-group-text">Filtro:</div>
       </div>
-      <input type="text" class="form-control mr-2" placeholder="Filtrar por Nome e Endereço" [(ngModel)]="filtroLista">
+      <input type="text" class="form-control mr-2" placeholder="Filtrar por nome ou endereço" [(ngModel)]="filtroLista">
     </div>
   </div>
   <div>
@@ -23,18 +23,18 @@
           <th>Nome</th>
           <th>Telefone</th>
           <th>Endereço</th>
-          <th>Complemento</th>
-          <th>Última Atualização</th>
+          <th class="d-none d-sm-table-cell">Complemento</th>
+          <th class="d-none d-sm-table-cell">Última Atualização</th>
           <th>Opções</th>
         </tr>
       </thead>
       <tbody *ngIf="clientes && clientes.length">
         <tr *ngFor="let cliente of clientesFiltrados" style="cursor: pointer;" (click)="editarCliente(cliente.id)">
-          <td >{{cliente.nome}}</td>
+          <td>{{cliente.nome}}</td>
           <td>{{cliente.telefone | TelefoneFormat }}</td>
           <td>{{cliente.endereco}}</td>
-          <td>{{cliente.complemento}}</td>
-          <td>{{cliente.dataAtualizacao | DateTimeFormat }}</td>
+          <td class="d-none d-sm-table-cell">{{cliente.complemento}}</td>
+          <td class="d-none d-sm-table-cell">{{cliente.dataAtualizacao | DateTimeFormat }}</td>
           <td>
             <button type="button" class="btn btn-danger btn-g mr-2" (click)="abrirTemplate(deletarTemplate, cliente.id, $event)" tooltip="Deletar">
               <i class="fa fa-trash"></i>

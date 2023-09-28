@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { ClienteDetailComponent } from 'src/app/shared/cliente-detail/cliente-detail.component';
+import { ClienteDetailComponent } from 'src/app/components/cliente/cliente-detail/cliente-detail.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -20,6 +20,20 @@ export class ClienteComponent implements OnInit {
     public toastr: ToastrService,
     private modalService: NgbModal) { }
 
+  private _filtroLista: string = '';
+
+  public clientes: Cliente[] = [];
+  public clientesFiltrados: Cliente[] = [];
+  public activeModal?: NgbActiveModal;
+  public clienteId: number = 0;
+
+  ngOnInit() {
+    this.spinner.show();
+    this.getClientes();
+    setTimeout(() => {
+    }, 300);
+
+  }
 
   public get filtroLista() {
     return this._filtroLista
@@ -30,22 +44,7 @@ export class ClienteComponent implements OnInit {
     this.clientesFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
   }
 
-  private _filtroLista: string = '';
-
-  public clientes: Cliente[] = [];
-  public clientesFiltrados: Cliente[] = [];
-  public activeModal?: NgbActiveModal;
-  public clienteId: number = 0;
-  ngOnInit() {
-    this.spinner.show();
-    this.getClientes();
-    setTimeout(() => {
-    }, 300);
-
-    this.clientesFiltrados = this.clientes;
-  }
-
-  filtrarClientes(filtroLista: string): Cliente[] {
+  private filtrarClientes(filtroLista: string): Cliente[] {
     filtroLista = filtroLista.toLocaleLowerCase();
 
     return this.clientes.filter(
@@ -60,11 +59,16 @@ export class ClienteComponent implements OnInit {
     event.stopPropagation();
   }
 
-  excluirCliente() {
+  public fecharTemplate() {
+    if (this.activeModal)
+      this.activeModal.dismiss();
+  }
+
+  public excluirCliente() {
     this.spinner.show();
     this.clienteService.deletarCliente(this.clienteId).subscribe({
       next: (object: any) => {
-        this.toastr.info(object.resposta, 'Informativo');
+        this.toastr.info(object.resposta, 'Aviso!');
         this.getClientes();
       },
       error: (objectError: any) => {
@@ -77,22 +81,27 @@ export class ClienteComponent implements OnInit {
     this.fecharTemplate();
   }
 
-  fecharTemplate() {
-    if (this.activeModal)
-      this.activeModal.dismiss();
-   }
-
-  novoCliente() {
+  public novoCliente() {
     const cadastroModal = this.modalService.open(ClienteDetailComponent, { ariaLabelledBy: 'modal-basic-title', size: 'md', centered: true });
     cadastroModal.componentInstance.title = "Cadastro de Cliente";
     cadastroModal.componentInstance.clienteComponent = this;
+    cadastroModal.result.then((result) => {
+      this.getClientes();
+    }, (reason) => {
+      this.getClientes();
+    });
   }
 
-  editarCliente(id: number) {
+  public editarCliente(id: number) {
     const editarModal = this.modalService.open(ClienteDetailComponent, { ariaLabelledBy: 'modal-basic-title', size: 'md', centered: true });
     editarModal.componentInstance.title = "Editar Cliente";
     editarModal.componentInstance.cliente = this.clientes.find(x => x.id == id);
     editarModal.componentInstance.clienteComponent = this;
+    editarModal.result.then((result) => {
+      this.getClientes();
+    }, (reason) => {
+      this.getClientes();
+    });
   }
 
   public getClientes() {

@@ -13,7 +13,7 @@ public class PetHelperContext : DbContext
     public DbSet<PetShop> PetShops { get; set; }
     public DbSet<Servico> Servicos { get; set; }
     public DbSet<OrdemServico> OrdemServicos { get; set; }
-
+     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<OrdemServico>().HasKey(x => new { x.PetShopId, x.ClienteId, x.ServicoId });

@@ -1,0 +1,42 @@
+/* Estilo para o toggle switch */
+.toggle-switch {
+  width: 50px;
+  height: 25px;
+  background-color: #ccc; /* Cor de fundo neutra */
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+.toggle-switch::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-color: #fff; /* Cor do botão neutra */
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transição suave para a cor do botão e transformação */
+}
+
+/* Estilo para o toggle switch quando ativo */
+.toggle-switch.on {
+  background-color: #388ae7e3; /* Cor azul de fundo quando ativo */
+}
+
+.toggle-switch.on::before {
+  transform: translateX(25px);
+  background-color: #353a40; /* Cor preta igual a do header da tabela para o botão quando ativo */
+}
+
+/* Estilo para o toggle switch quando desativado */
+.toggle-switch.off {
+  background-color: #ccc; /* Cor de fundo neutra quando desativado */
+}
+
+.toggle-switch.off::before {
+  transform: translateX(0);
+  background-color: #fff; /* Cor do botão neutra quando desativado */
+}

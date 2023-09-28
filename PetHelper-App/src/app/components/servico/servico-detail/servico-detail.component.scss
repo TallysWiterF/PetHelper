@@ -1,0 +1,55 @@
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+input {
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 10px 13px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+img {
+  width: 130px;
+  height: 130px;
+  cursor: pointer;
+}
+
+button {
+  border-radius: 20px;
+}
+
+.mensagemErro{
+  margin-left: 15px;
+  margin-bottom: 0.25rem;
+  margin-top: 0px !important
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Tonalidade branca com transparência */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease; /* Animação de fade */
+}
+
+.overlay:hover {
+  opacity: 1;
+}

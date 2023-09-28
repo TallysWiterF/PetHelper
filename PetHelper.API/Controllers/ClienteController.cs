@@ -52,11 +52,11 @@ public class ClienteController : ControllerBase
         {
             return await _clienteService.AddCliente(model) ?
                   Ok(new { resposta = "Cliente adicionado com sucesso!" }) :
-                  BadRequest(new { resposta = "Ocorreu um erro ao tentar editar o cliente." });
+                  BadRequest(new { resposta = "Ocorreu um erro ao tentar adicionar o cliente." });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar adicionar cliente. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = $"Erro ao tentar adicionar o cliente. Erro: {ex.Message}" });
         }
     }
 

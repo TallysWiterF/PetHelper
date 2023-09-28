@@ -1,0 +1,56 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+
+      <div class="text-center" (mouseover)="ocultarImagem = true" (mouseleave)="ocultarImagem = false">
+        <input type="file" (change)="imagemChange($event)" accept="image/*" id="fileInput" style="display: none;">
+        <div class="image-container " (click)="abrirSeletorArquivo()">
+          <img [src]="servico.logoServico || '/assets/logoServicoDefault.png'" alt="Imagem" class="rounded-circle">
+          <div class="overlay rounded-circle" *ngIf="ocultarImagem">
+            <i class="fa-solid fa-pencil fa-xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <input type="text" id="nome" placeholder="Título do serviço:" [(ngModel)]="servico.nome"
+          [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome">
+        <div *ngIf="controls.nome.errors?.required" class="invalid-feedback mensagemErro">
+          Nome é obrigatório.
+        </div>
+        <div *ngIf="controls.nome.errors?.minlength" class="invalid-feedback mensagemErro">
+          Nome deve ter no mínimo 4 caracteres.
+        </div>
+        <div *ngIf="controls.nome.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Nome deve ter no máximo 50 caracteres.
+        </div>
+      </div>
+
+      <div>
+        <input type="text" id="preco" placeholder="R$ 0,00" [(ngModel)]="precoFormatado" formControlName="preco"
+          mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','" prefix="R$ ">
+      </div>
+
+      <div>
+        <input type="text" id="descricao" placeholder="Descrição do serviço:" [(ngModel)]="servico.descricao"
+          [ngClass]="{'is-invalid': controls.descricao.errors && controls.descricao.touched }"
+          formControlName="descricao">
+        <div *ngIf="controls.descricao.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Descrição deve ter no máximo 100 caracteres.
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="fecharModal()">Cancelar</button>
+    <button type="button" class="btn btn-success" [disabled]="form.invalid" data-dismiss="modal"
+      (click)="salvarServico()">Salvar Serviço</button>
+  </div>
+</div>

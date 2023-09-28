@@ -18,9 +18,7 @@ public class ClienteService : IClienteService
     {
         try
         {
-            Cliente? cliente = await _clientePersist.GetClienteByIdAsync(clienteId);
-
-            return cliente;
+            return await _clientePersist.GetClienteByIdAsync(clienteId);
         }
         catch (Exception ex)
         {
@@ -32,12 +30,7 @@ public class ClienteService : IClienteService
     {
         try
         {
-            Cliente[]? clientes = await _clientePersist.GetAllClientesByPetShopIdAsync(petShopId);
-
-            if (clientes is null)
-                return null;
-
-            return clientes;
+            return await _clientePersist.GetAllClientesByPetShopIdAsync(petShopId);
         }
         catch (Exception ex)
         {
@@ -51,7 +44,8 @@ public class ClienteService : IClienteService
         {
             clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.UtcNow;
             _geralPersist.Add(clienteModel);
-            return await _geralPersist.SaveChangesAsync(); 
+
+            return await _geralPersist.SaveChangesAsync();
         }
         catch (Exception ex)
         {
@@ -63,12 +57,11 @@ public class ClienteService : IClienteService
     {
         try
         {
-            Cliente cliente = await _clientePersist.GetClienteByIdAsync(clienteModel.Id);
-            if (cliente != null)
+            if (await _clientePersist.GetClienteByIdAsync(clienteModel.Id) != null)
             {
                 clienteModel.DataAtualizacao = DateTime.UtcNow;
-
                 _geralPersist.Update(clienteModel);
+
                 return await _geralPersist.SaveChangesAsync();
             }
 

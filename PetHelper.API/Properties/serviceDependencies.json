@@ -10,7 +10,7 @@
     },
     "sqlite1": {
       "type": "sqlite",
-      "connectionId": "ConnectionStrings:PetHelperConnectionString",
+      "connectionId": "PetHelperConnectionString",
       "dynamicId": null
     }
   }

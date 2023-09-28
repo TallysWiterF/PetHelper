@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Cliente } from '../models/cliente';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  private baseURL: string = 'https://localhost:7233/api/Cliente/';
+  private baseURL: string = environment.baseURL + 'Cliente/';
 
   public getAllClientes(petShopId: number): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.baseURL + "petShopId/" + petShopId);
   }
 
-  public adicionarCliente(cliente: Cliente): Observable<Cliente> {
+  public async adicionarCliente(cliente: Cliente): Promise<Observable<Cliente>> {
     return this.http.post<Cliente>(this.baseURL, cliente);
   }
 

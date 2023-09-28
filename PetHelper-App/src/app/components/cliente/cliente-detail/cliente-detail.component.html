@@ -42,7 +42,7 @@
           Endereço deve ter no mínimo 8 caracteres.
         </div>
         <div *ngIf="controls.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
-          Endereço deve ter no máximo 240 caracteres.
+          Endereço deve ter no máximo 100 caracteres.
         </div>
       </div>
 
@@ -50,7 +50,7 @@
         <input type="text" id="complemento" placeholder="Complemento do endereço:" [(ngModel)]="cliente.complemento" formControlName="complemento"
           [ngClass]="{'is-invalid': controls.complemento.errors && controls.complemento.touched }">
         <div *ngIf="controls.complemento.errors?.maxlength" class="invalid-feedback mensagemErro">
-          Complemento deve ter no máximo 240 caracteres.
+          Complemento deve ter no máximo 130 caracteres.
         </div>
       </div>
     </form>
