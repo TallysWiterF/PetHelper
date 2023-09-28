@@ -1,56 +1,50 @@
-<h1 align="center">PetHelper🐶🐱</h1>
-
-<p align="center">
-Uma aplicação web utilizando Angular 12 e .NET 6 para realizar a gestão de uma PetShop
-</p>
-
-<br />
-
-<h3 align="center">🟡 Status: Em desenvolvimento</h3>
-
-<br />
-
-<h3 align="center">📸 Prints do Sistema</h3>
-<p align="center">Veja alguns prints do sistema abaixo</p>
-<table align="center">
-  <tr>
-    <td align="center">
-      <img width="200px" height="200px" src="https://user-images.githubusercontent.com/63269777/262832346-4de2c9d2-270c-4d00-ac4f-df9969e58d78.png" alt="Login">
-    </td>
-     <td align="center">
-      <img width="200px" height="200px" src="https://user-images.githubusercontent.com/63269777/262832382-31bc7328-467b-4a59-bc89-75ae103695e5.png" alt="Login">
-    </td>
-    <td align="center">
-      <img width="200px" height="200px" src="https://user-images.githubusercontent.com/63269777/263553004-5cde86b7-3370-47e5-9c3e-c5c37bb9f630.png" alt="Home">
-    </td>
-    <td align="center">
-      <img width="200px" height="200px" src="https://user-images.githubusercontent.com/63269777/263553021-922bf2f1-3cfb-40d3-8791-3ebb1342275b.png" alt="Home">
-    </td>
-  </tr>
-</table>
-
-<br /> 
-
-<h3 align="center">🎨 Contribuidores</h4>
-<table align="center">
-  <tr>
-    <td align="center">
-      <a href="https://github.com/TallysWiterF">
-        <img src="https://avatars.githubusercontent.com/u/63269777?v=4" width="100px;" alt="Profile"/>
-        <br />
-        <sub>
-          <b>Tallys Witer</b>
-        </sub>
-      </a>
-    </td>
-     <td align="center">
-      <a href="https://github.com/felpBigStack">
-        <img src="https://avatars.githubusercontent.com/u/144967655?v=4" width="100px;" alt="Profile"/>
-        <br />
-        <sub>
-          <b>Felipe Frade</b>
-        </sub>
-      </a>
-    </td>
-  </tr>  
-</table>
+<body>
+  <h1>PetHelper🐶🐱</h1>
+  <p>O PetHelper é uma ferramenta web criada com Angular 12 e .NET 6 para profissionais que trabalham com animais de
+    estimação, como veterinários, groomers, passeadores de cachorros, e qualquer pessoa dedicada ao cuidado e bem-estar
+    dos nossos amados animais.</p>
+  <h2>Funcionalidades Principais</h2>
+  <ul>
+    <li><strong>Agendamento de Serviços:</strong> Agende facilmente compromissos para atender os clientes e seus animais
+      de estimação. Configure datas, horários e informações relevantes para manter um calendário organizado de
+      compromissos.</li>
+    <li><strong>Cadastro de Clientes:</strong> Armazene informações detalhadas sobre seus clientes, como nome, contato,
+      endereço e preferências específicas de cuidado para cada animal de estimação.</li>
+    <li><strong>Cadastro de Serviços:</strong> Registre os serviços oferecidos, incluindo descrições, preços e duração.
+      Isso facilita o gerenciamento e a comunicação das opções disponíveis para os clientes.</li>
+  </ul>
+  <h2>Demonstração</h2>
+  <img src="https://encurtador.com.br/szGP7" alt="Tela de Login">
+  <img src="https://encurtador.com.br/krxJQ" alt="Tela Inicial">
+  <p>Abaixo gravações das funcionalidades de cada menu do sistema:</p>
+  <video width="640" height="360" controls>
+  <source src="https://github-production-user-asset-6210df.s3.amazonaws.com/63269777/267517364-1ccd02e4-36df-429f-9978-8dbfbfa6e2da.mp4" type="video/mp4">
+</video>
+  <p>Menu Cliente: <a href="https://encurtador.com.br/hnJMN">https://encurtador.com.br/hnJMN</a></p>
+  <p>Menu Serviço: <a href="https://encurtador.com.br/rN057">https://encurtador.com.br/rN057</a></p>
+  <h2>Autores</h2>
+  <ul>
+    <table align="center">
+      <tr>
+        <td align="center">
+          <a href="https://github.com/TallysWiterF">
+            <img src="https://avatars.githubusercontent.com/u/63269777?v=4" width="100px;" alt="Profile" />
+            <br />
+            <sub>
+              <b>Tallys Witer</b>
+            </sub>
+          </a>
+        </td>
+        <td align="center">
+          <a href="https://github.com/felpBigStack">
+            <img src="https://avatars.githubusercontent.com/u/144967655?v=4" width="100px;" alt="Profile" />
+            <br />
+            <sub>
+              <b>Felipe Frade</b>
+            </sub>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </ul>
+</body>
