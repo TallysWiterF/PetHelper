@@ -27,7 +27,7 @@ public class GeralPersist : IGeralPersist
                 string? currentValue = property?.GetValue(obj, null) as string;
                 if (!string.IsNullOrEmpty(currentValue))
                 {
-                    string trimmedValue = currentValue.TrimEnd();
+                    string trimmedValue = currentValue.Trim();
                     property?.SetValue(obj, trimmedValue, null);
                 }
             }

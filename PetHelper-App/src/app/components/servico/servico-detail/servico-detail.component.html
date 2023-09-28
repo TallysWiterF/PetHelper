@@ -8,15 +8,19 @@
   <div class="modal-body">
     <form [formGroup]="form">
 
-      <div class="text-center">
+      <div class="text-center" (mouseover)="ocultarImagem = true" (mouseleave)="ocultarImagem = false">
         <input type="file" (change)="imagemChange($event)" accept="image/*" id="fileInput" style="display: none;">
-        <img [src]="servico.logoServico || '/assets/logoServicoDefault.png'" alt="Imagem" class="rounded-circle"
-          (click)="abrirSeletorArquivo()">
+        <div class="image-container " (click)="abrirSeletorArquivo()">
+          <img [src]="servico.logoServico || '/assets/logoServicoDefault.png'" alt="Imagem" class="rounded-circle">
+          <div class="overlay rounded-circle" *ngIf="ocultarImagem">
+            <i class="fa-solid fa-pencil fa-xl"></i>
+          </div>
+        </div>
       </div>
 
       <div>
         <input type="text" id="nome" placeholder="Título do serviço:" [(ngModel)]="servico.nome"
-        [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome">
+          [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome">
         <div *ngIf="controls.nome.errors?.required" class="invalid-feedback mensagemErro">
           Nome é obrigatório.
         </div>
@@ -30,18 +34,16 @@
 
       <div>
         <input type="text" id="preco" placeholder="R$ 0,00" [(ngModel)]="precoFormatado" formControlName="preco"
-          mask="separator.2"
-          [thousandSeparator]="'.'"
-          [decimalMarker]="','"
-          prefix="R$ ">
+          mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','" prefix="R$ ">
       </div>
 
       <div>
         <input type="text" id="descricao" placeholder="Descrição do serviço:" [(ngModel)]="servico.descricao"
-          [ngClass]="{'is-invalid': controls.descricao.errors && controls.descricao.touched }" formControlName="descricao">
-          <div *ngIf="controls.descricao.errors?.maxlength" class="invalid-feedback mensagemErro">
-            Descrição deve ter no máximo 100 caracteres.
-          </div>
+          [ngClass]="{'is-invalid': controls.descricao.errors && controls.descricao.touched }"
+          formControlName="descricao">
+        <div *ngIf="controls.descricao.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Descrição deve ter no máximo 100 caracteres.
+        </div>
       </div>
 
     </form>

@@ -37,7 +37,8 @@
       <tbody *ngIf="servicos && servicos.length">
         <tr *ngFor="let servico of servicosFiltrados" style="cursor: pointer;" (click)="editarServico(servico.id)">
           <td class="d-none d-md-table-cell">
-            <img [src]="servico.logoServico || '/assets/logoServicoDefault.png'" [collapse]="exibirImagem"
+            <img [src]="servico.logoServico || '/assets/logoServicoDefault.png'"  class="rounded-circle"
+            [collapse]="exibirImagem"
             [isAnimated]="true"
             [style.width.px]="larguraImagem"
             [style.margin.px]="margemImagem">

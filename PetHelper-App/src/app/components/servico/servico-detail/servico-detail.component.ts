@@ -27,7 +27,8 @@ export class ServicoDetailComponent implements OnInit {
   };
 
   public precoFormatado: string = this.precoFormatPipe.transform(this.servico.preco);
-  form: FormGroup = this.formBuilder.group({});
+  public form: FormGroup = this.formBuilder.group({});
+  public ocultarImagem: boolean = false;
 
   constructor(private servicoService: ServicoService,
     private activeModal: NgbActiveModal,

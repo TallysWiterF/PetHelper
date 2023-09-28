@@ -29,3 +29,27 @@ button {
   margin-bottom: 0.25rem;
   margin-top: 0px !important
 }
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Tonalidade branca com transparência */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease; /* Animação de fade */
+}
+
+.overlay:hover {
+  opacity: 1;
+}
