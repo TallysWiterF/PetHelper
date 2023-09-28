@@ -14,14 +14,12 @@
       Isso facilita o gerenciamento e a comunicação das opções disponíveis para os clientes.</li>
   </ul>
   <h2>Demonstração</h2>
-  <img src="https://encurtador.com.br/szGP7" alt="Tela de Login">
-  <img src="https://encurtador.com.br/krxJQ" alt="Tela Inicial">
-  <p>Abaixo gravações das funcionalidades de cada menu do sistema:</p>
-  <video width="640" height="360" controls>
-  <source src="https://github-production-user-asset-6210df.s3.amazonaws.com/63269777/267517364-1ccd02e4-36df-429f-9978-8dbfbfa6e2da.mp4" type="video/mp4">
-</video>
-  <p>Menu Cliente: <a href="https://encurtador.com.br/hnJMN">https://encurtador.com.br/hnJMN</a></p>
-  <p>Menu Serviço: <a href="https://encurtador.com.br/rN057">https://encurtador.com.br/rN057</a></p>
+  <p>Abaixo gravações das funcionalidades de cada menu do sistema:</p> 
+
+https://github.com/TallysWiterF/PetHelper/assets/63269777/1997294d-3e4f-4975-ada6-aded6c795881
+
+https://github.com/TallysWiterF/PetHelper/assets/63269777/3f6fa3db-aec1-48b4-9a83-7f97de8c5d8d
+
   <h2>Autores</h2>
   <ul>
     <table align="center">
