@@ -14,7 +14,7 @@
       Isso facilita o gerenciamento e a comunicação das opções disponíveis para os clientes.</li>
   </ul>
   <h2>Demonstração</h2>
-  <p>Abaixo gravações das funcionalidades de cada menu do sistema:</p> 
+  <p>Abaixo, gravações das funcionalidades de cada menu do sistema:</p> 
 
 https://github.com/TallysWiterF/PetHelper/assets/63269777/1997294d-3e4f-4975-ada6-aded6c795881
 
