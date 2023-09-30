@@ -24,7 +24,7 @@ public class ClientePersist : IClientePersist
         return await query.ToArrayAsync();
     }
 
-    public async Task<Cliente> GetClienteByIdAsync(int clienteId)
+    public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
     {
         IQueryable<Cliente> query = _context.Clientes;
 

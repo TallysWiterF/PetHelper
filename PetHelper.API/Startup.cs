@@ -31,11 +31,13 @@ public class Startup
         services.AddScoped<IPetShopService, PetShopService>();
         services.AddScoped<IClienteService, ClienteService>();
         services.AddScoped<IServicoService, ServicoService>();
+        services.AddScoped<IAgendamentoService, AgendamentoService>();
 
         services.AddScoped<IGeralPersist, GeralPersist>();
         services.AddScoped<IPetShopPersist, PetShopPersist>();
         services.AddScoped<IClientePersist, ClientePersist>();
         services.AddScoped<IServicoPersist, ServicoPersist>();
+        services.AddScoped<IAgendamentoPersist, AgendamentoPersist>();
 
         services.AddCors();
         services.AddSwaggerGen(c =>

@@ -1,6 +1,6 @@
 ﻿namespace PetHelper.Domain;
 
-public class Cliente : IEntidadeBase
+public class Cliente : IEntidadeBase, IEquatable<Cliente>
 {
     public int Id { get; set; }
     public int PetShopId { get; set; }
@@ -10,4 +10,11 @@ public class Cliente : IEntidadeBase
     public string Complemento { get; set; } = string.Empty;
     public DateTime DataCriacao { get; set; }
     public DateTime DataAtualizacao { get; set; }
+
+    public bool Equals(Cliente cliente) => Id == cliente.Id &&
+                                           PetShopId == cliente.PetShopId &&
+                                           Nome == cliente.Nome.Trim() &&
+                                           Telefone == cliente.Telefone &&
+                                           Endereco == cliente.Endereco.Trim() &&
+                                           Complemento == cliente.Complemento.Trim();
 }

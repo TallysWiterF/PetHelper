@@ -1,9 +1,9 @@
 ﻿namespace PetHelper.Domain;
 
-public class OrdemServico : IEntidadeBase
+public class Agendamento : IEntidadeBase
 {
+    public int AgendamentoId { get; set; }
     public int PetShopId { get; set; }
-    public PetShop? PetShop { get; set; }
     public int ClienteId { get; set; }
     public Cliente? Cliente { get; set; }
     public int ServicoId { get; set; }
