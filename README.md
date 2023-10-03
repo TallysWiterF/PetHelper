@@ -1,5 +1,5 @@
 <body>
-  <h1>PetHelper🐶🐱</h1>
+  <h1 align="center">PetHelper🐶🐱</h1>
   <p>O PetHelper é uma ferramenta web criada com Angular 12 e .NET 6 para profissionais que trabalham com animais de
     estimação, como veterinários, groomers, passeadores de cachorros, e qualquer pessoa dedicada ao cuidado e bem-estar
     dos nossos amados animais.</p>
