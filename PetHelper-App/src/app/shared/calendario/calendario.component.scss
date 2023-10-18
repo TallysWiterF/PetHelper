@@ -22,7 +22,7 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
   padding: 10px;
-  align-items: start; /* Alinhe os dias do mês com o início da célula */
+  align-items: start; /* Alinha os dias do mês com o início da célula */
 }
 
 .day {
@@ -69,8 +69,8 @@
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 8px 16px; /* Aumente o padding para ajustar o tamanho do botão */
-  font-size: 25px; /* Aumente o tamanho da fonte */
+  padding: 8px 16px; /* Aumenta o padding para ajustar o tamanho do botão */
+  font-size: 25px;
   cursor: pointer;
 }
 
@@ -101,27 +101,27 @@
 
 @media screen and (max-width: 600px) {
   .calendar {
-    font-size: 14px; /* Reduza o tamanho da fonte em telas menores */
+    font-size: 14px;
   }
 
   .days {
-    grid-template-columns: repeat(7, 1fr); /* Exiba uma coluna por dia em telas menores */
-    padding: 5px; /* Reduza o espaço entre os dias */
+    grid-template-columns: repeat(7, 1fr);
+    padding: 5px;
   }
 
   .day {
-    padding: 10px; /* Reduza o tamanho dos dias */
-    font-size: 12px; /* Reduza o tamanho da fonte dos dias */
+    padding: 10px;
+    font-size: 12px;
   }
 
   .event-marker {
-    width: 6px; /* Reduza o tamanho dos marcadores de eventos */
+    width: 6px;
     height: 6px;
   }
 
   .month-year {
-    font-size: 16px; /* Reduza o tamanho da fonte do mês e ano */
-    margin-bottom: 5px; /* Reduza o espaço abaixo do mês e ano */
+    font-size: 16px;
+    margin-bottom: 5px;
   }
 
   .navigation-button{
@@ -129,7 +129,7 @@
   }
 
   .today-button {
-    font-size: 12px; /* Reduza o tamanho da fonte do botão "Hoje" */
-    padding: 3px 6px; /* Reduza o tamanho do botão "Hoje" */
+    font-size: 12px;
+    padding: 3px 6px;
   }
 }

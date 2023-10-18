@@ -11,19 +11,19 @@ export class ClienteService {
 
   private baseURL: string = environment.baseURL + 'Cliente/';
 
-  public getAllClientes(petShopId: number): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.baseURL + "petShopId/" + petShopId);
+  public async getAllClientes(petShopId: number): Promise<Observable<Cliente[]>> {
+    return this.http.get<Cliente[]>(`${this.baseURL}petShopId/${petShopId}`);
   }
 
   public async adicionarCliente(cliente: Cliente): Promise<Observable<Cliente>> {
     return this.http.post<Cliente>(this.baseURL, cliente);
   }
 
-  public async editarCliente(cliente: Cliente): Promise<Observable<Cliente>>{
+  public async editarCliente(cliente: Cliente): Promise<Observable<Cliente>> {
     return this.http.put<Cliente>(this.baseURL, cliente);
   }
 
-  public deletarCliente(clienteId: number): Observable<string> {
-    return this.http.delete<string>(this.baseURL + clienteId);
+  public async deletarCliente(clienteId: number): Promise<Observable<string>> {
+    return this.http.delete<string>(`${this.baseURL}${clienteId}`);
   }
 }

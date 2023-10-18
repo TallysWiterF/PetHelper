@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using PetHelper.API.Hubs;
 using PetHelper.Application;
 using PetHelper.Application.Contratos;
 using PetHelper.Persistence;
@@ -11,7 +12,6 @@ namespace PetHelper.API;
 
 public class Startup
 {
-
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
@@ -26,6 +26,7 @@ public class Startup
             context => context.UseSqlite(Configuration.GetConnectionString("PetHelperConnectionString"), b => b.MigrationsAssembly("PetHelper.API"))
         );
 
+        services.AddSignalR();
         services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
         services.AddScoped<IPetShopService, PetShopService>();
@@ -39,7 +40,17 @@ public class Startup
         services.AddScoped<IServicoPersist, ServicoPersist>();
         services.AddScoped<IAgendamentoPersist, AgendamentoPersist>();
 
-        services.AddCors();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowLocalhost4200",
+                builder => builder
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials());
+        });
+
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "PetHelper.API", Version = "v1" });
@@ -62,13 +73,12 @@ public class Startup
 
         app.UseAuthorization();
 
-        app.UseCors(x => x.AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowAnyOrigin());
+        app.UseCors("AllowLocalhost4200");
 
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapHub<AgendamentoHub>("/agendamentoHub");
         });
     }
 }

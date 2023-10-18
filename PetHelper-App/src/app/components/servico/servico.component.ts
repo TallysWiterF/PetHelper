@@ -81,9 +81,9 @@ export class ServicoComponent implements OnInit {
       this.activeModal.dismiss();
   }
 
-  public excluirServico() {
+  public async excluirServico() {
     this.spinner.show();
-    this.servicoService.deletarServico(this.servicoId).subscribe({
+    (await this.servicoService.deletarServico(this.servicoId)).subscribe({
       next: (object: any) => {
         this.toastr.info(object.resposta, 'Aviso!');
         this.getServicos();
@@ -122,12 +122,11 @@ export class ServicoComponent implements OnInit {
     });
   }
 
-  private getServicos() {
+  private async getServicos() {
     this.spinner.show();
-    this.servicoService.getAllServicos(1).subscribe({
+    (await this.servicoService.getAllServicos(1, true)).subscribe({
       next: (servicos: Servico[]) => {
-        this.servicos = servicos;
-        this.servicosFiltrados = this.servicos;
+        this.servicosFiltrados = this.servicos = servicos;
       },
       error: (objectError: any) => {
         this.spinner.hide();

@@ -42,7 +42,7 @@ public class ClienteService : IClienteService
     {
         try
         {
-            clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.UtcNow;
+            clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Add(clienteModel);
 
             return await _geralPersist.SaveChangesAsync();
@@ -59,7 +59,7 @@ public class ClienteService : IClienteService
         {
             if (await _clientePersist.GetClienteByIdAsync(clienteModel.Id) != null)
             {
-                clienteModel.DataAtualizacao = DateTime.UtcNow;
+                clienteModel.DataAtualizacao = DateTime.Now.Date;
                 _geralPersist.Update(clienteModel);
 
                 return await _geralPersist.SaveChangesAsync();

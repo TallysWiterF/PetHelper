@@ -27,11 +27,11 @@ public class ServicoService : IServicoService
         }
     }
 
-    public async Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId)
+    public async Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId, bool retornarLogoServico)
     {
         try
         {
-            return await _servicoPersist.GetAllServicosByPetShopIdAsync(petShopId);
+            return await _servicoPersist.GetAllServicosByPetShopIdAsync(petShopId, retornarLogoServico);
         }
         catch (Exception ex)
         {
@@ -48,7 +48,7 @@ public class ServicoService : IServicoService
             if (!string.IsNullOrEmpty(servicoModel.Descricao))
                 servicoModel.Descricao = servicoModel.Descricao?.TrimEnd();
 
-            servicoModel.DataCriacao = servicoModel.DataAtualizacao = DateTime.UtcNow;
+            servicoModel.DataCriacao = servicoModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Add(servicoModel);
 
             return await _geralPersist.SaveChangesAsync();
@@ -65,7 +65,7 @@ public class ServicoService : IServicoService
         {
             if (await _servicoPersist.GetServicoByIdAsync(servicoModel.Id) != null)
             {
-                servicoModel.DataAtualizacao = DateTime.UtcNow;
+                servicoModel.DataAtualizacao = DateTime.Now.Date;
                 _geralPersist.Update(servicoModel);
 
                 return await _geralPersist.SaveChangesAsync();

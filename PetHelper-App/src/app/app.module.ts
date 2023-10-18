@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BodyComponent } from './components/body/body.component';
-import { HomeComponent } from './components/home/home.component';
+import { AgendamentoComponent } from './components/agendamento/agendamento.component';
 import { ServicoComponent } from './components/servico/servico.component';
 import { ServicoDetailComponent } from './components/servico/servico-detail/servico-detail.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +18,9 @@ import { ClienteDetailComponent } from './components/cliente/cliente-detail/clie
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -28,6 +31,7 @@ import { CalendarioComponent } from './shared/calendario/calendario.component';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
 import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
+import { AgendamentoDetailComponent } from './components/agendamento/agendamento-detail/agendamento-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +39,13 @@ import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
     BodyComponent,
     SideNavComponent,
     ClienteComponent,
-    HomeComponent,
+    AgendamentoComponent,
     ServicoComponent,
     LoginComponent,
     CalendarioComponent,
     ClienteDetailComponent,
     ServicoDetailComponent,
+    AgendamentoDetailComponent,
     DateTimeFormatPipe,
     TelefoneFormatPipe,
     PrecoFormatPipe
@@ -55,6 +60,8 @@ import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
     ReactiveFormsModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    TabsModule.forRoot(),
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
@@ -66,7 +73,7 @@ import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas:[],
+  schemas: [],
 
 })
 export class AppModule { }

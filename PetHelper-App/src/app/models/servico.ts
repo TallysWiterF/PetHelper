@@ -6,6 +6,6 @@ export interface Servico {
   preco: number;
   logoServico?: string;
   ativo: boolean;
-  dataCriacao?: Date
+  dataCriacao?: Date;
   dataAtualizacao?: Date;
 }

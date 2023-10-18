@@ -1,22 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DateTimeFormatPipe } from 'src/app/helpers/DateTimeFormat.pipe';
+import { MonthNames } from '../const/monthNames';
+import { AgendamentoService } from 'src/app/services/agendamento.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['./calendario.component.scss']
+  styleUrls: ['./calendario.component.scss'],
+  providers: [DateTimeFormatPipe]
 })
 export class CalendarioComponent implements OnInit {
 
   @Input() initialYear: number = new Date().getFullYear();
   @Input() initialMonth: number = new Date().getMonth() + 1;
+  @Output() diaSelecionado: EventEmitter<Date> = new EventEmitter<Date>();
 
   private currentDate: Date;
   public markedDay: number | null = null;
-
+  private diasComAgendamentos: number[] = []
   year: number;
   month: number;
 
-  constructor() {
+  constructor(private agendamentoService: AgendamentoService,
+    public spinner: NgxSpinnerService,
+    public toastr: ToastrService,
+    private dateTimeFormatPipe: DateTimeFormatPipe) {
     this.currentDate = new Date(this.initialYear, this.initialMonth - 1, 1);
     this.year = this.currentDate.getFullYear();
     this.month = this.currentDate.getMonth() + 1;
@@ -24,6 +34,10 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     this.goToToday();
+
+    this.agendamentoService.metodoCalendario.subscribe(() => {
+      this.getAllDiasComAgendamentos(this.month);
+    });
   }
 
   get daysInMonth(): number[] {
@@ -32,7 +46,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   get monthYear(): string {
-    return `${this.getMonthName(this.month)} ${this.year}`;
+    return `${MonthNames.getMonthName(this.month)} ${this.year}`;
   }
 
   get dayOffsets(): number[] {
@@ -41,50 +55,50 @@ export class CalendarioComponent implements OnInit {
   }
 
   dayHasEvent(day: number) {
-
-    if(day == 2 || day == 25 || day == 14 ){
-      return true;
-    }
-    return false;
+    return this.diasComAgendamentos.find(x => x == day) != null
   }
 
-  private getMonthName(month: number): string {
-    const monthNames = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril',
-      'Maio', 'Junho', 'Julho', 'Agosto',
-      'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    return monthNames[month - 1];
-  }
-
-  navigateToPreviousMonth() {
+  public navigateToPreviousMonth() {
     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
     this.year = this.currentDate.getFullYear();
     this.month = this.currentDate.getMonth() + 1;
     this.markedDay = null;
+    this.getAllDiasComAgendamentos(this.month);
   }
 
-  navigateToNextMonth() {
+  public navigateToNextMonth() {
     this.currentDate.setMonth(this.currentDate.getMonth() + 1);
     this.year = this.currentDate.getFullYear();
     this.month = this.currentDate.getMonth() + 1;
     this.markedDay = null;
+    this.getAllDiasComAgendamentos(this.month);
   }
 
-  goToToday() {
+  public goToToday() {
     const today = new Date();
     this.year = today.getFullYear();
     this.month = today.getMonth() + 1;
     this.currentDate = today;
-
-    this.markedDay = today.getDate(); // Marque o dia de hoje
+    this.getAllDiasComAgendamentos(this.month);
+    this.onDayClick(today.getDate())
   }
 
-  onDayClick(day: number) {
-    if (this.markedDay === day) {
-      this.markedDay = null; // Se o mesmo dia for clicado novamente, desmarque-o
-    } else {
-      this.markedDay = day;
-    }
+  public onDayClick(day: number) {
+    this.markedDay = day;
+    this.diaSelecionado.emit(this.dateTimeFormatPipe.parseDate(new Date(this.year, this.month - 1 , this.markedDay ?? 0 )));
+  }
+
+  private async getAllDiasComAgendamentos(mes: number) {
+    this.spinner.show();
+    (await this.agendamentoService.getAllDiasComAgendamentos(1, mes)).subscribe({
+      next: (diasComAgendamentos: number[]) => {
+        this.diasComAgendamentos = diasComAgendamentos;
+      },
+      error: (objectError: any) => {
+        this.spinner.hide();
+        this.toastr.error(objectError.error.resposta, 'Erro!')
+      },
+      complete: () => this.spinner.hide()
+    });
   }
 }

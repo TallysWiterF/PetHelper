@@ -11,25 +11,23 @@ public class ClientePersist : IClientePersist
     public ClientePersist(PetHelperContext context)
     {
         _context = context;
-        _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking; 
+        _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 
     public async Task<Cliente[]> GetAllClientesByPetShopIdAsync(int petShopId)
     {
         IQueryable<Cliente> query = _context.Clientes;
 
-        query = query.Where(p => p.PetShopId == petShopId);
-        query = query.OrderBy(p => p.Nome);
-
-        return await query.ToArrayAsync();
+        return await query.Where(p => p.PetShopId == petShopId)
+                     .OrderBy(p => p.Nome)
+                     .ToArrayAsync();
     }
 
     public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
     {
         IQueryable<Cliente> query = _context.Clientes;
 
-        query = query.Where(p => p.Id == clienteId);
-
-        return await query.FirstOrDefaultAsync();
+        return await query.Where(p => p.Id == clienteId)
+                          .FirstOrDefaultAsync();
     }
 }

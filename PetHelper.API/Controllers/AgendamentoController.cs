@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using PetHelper.API.Hubs;
 using PetHelper.Application.Contratos;
 using PetHelper.Domain;
 
@@ -9,8 +11,13 @@ namespace PetHelper.API.Controllers;
 public class AgendamentoController : ControllerBase
 {
     IAgendamentoService _agendamentoService;
+    readonly IHubContext<AgendamentoHub> _hubContext;
 
-    public AgendamentoController(IAgendamentoService agendamentoService) => _agendamentoService = agendamentoService;
+    public AgendamentoController(IAgendamentoService agendamentoService, IHubContext<AgendamentoHub> hubContext)
+    {
+        _agendamentoService = agendamentoService;
+        _hubContext = hubContext;
+    }
 
     [HttpGet("{agendamentoId}")]
     public async Task<IActionResult> GetById(int agendamentoId)
@@ -46,14 +53,67 @@ public class AgendamentoController : ControllerBase
         }
     }
 
+    [HttpGet("petShopId/{petShopId}/{dataAgendamento}")]
+    public async Task<IActionResult> GetAllHorariosDisponiveisByPetShopIdDataAgendamento(int petShopId, DateTime dataAgendamento)
+    {
+        try
+        {
+            string[] horariosMarcados = await _agendamentoService.GetAllHorariosDisponiveisByPetShopIdDataAgendamentoAsync(petShopId, dataAgendamento);
+            if (horariosMarcados is null)
+                return NotFound(new { resposta = "Horários marcados não encontrados." });
+
+            return Ok(horariosMarcados);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar agendamentos. Erro: {ex.Message}" });
+        }
+    }
+
+    [HttpGet("informativos/{petShopId}/{dataAgendamento}")]
+    public async Task<IActionResult> GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
+    {
+        try
+        {
+            Informativo informativos = await _agendamentoService.GetInformativosPetShop(petShopId, dataAgendamento);
+            if (informativos is null)
+                return NotFound(new { resposta = "Informativos não encontrados." });
+
+            return Ok(informativos);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar informativos. Erro: {ex.Message}" });
+        }
+    }
+
+    [HttpGet("petShopId/{petShopId}/mes/{mes}")]
+    public async Task<IActionResult> GetAllDiasComAgendamentosByPetShopIdMes(int petShopId, int mes)
+    {
+        try
+        {
+            int[] diasAgendamentos = await _agendamentoService.GetAllDiasComAgendamentosByPetShopIdMesAsync(petShopId, mes);
+
+            return Ok(diasAgendamentos);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar datas dos agendamentos. Erro: {ex.Message}" });
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(Agendamento model)
     {
         try
         {
-            return await _agendamentoService.AddAgendamento(model) ?
-                  Ok(new { resposta = "Agendamento adicionado com sucesso!" }) :
-                  BadRequest(new { resposta = "Ocorreu um erro ao tentar adicionar o agendamento." });
+            if (await _agendamentoService.AddAgendamento(model))
+            {
+                await _hubContext.Clients.All.SendAsync("NovoAgendamentoCadastrado");
+                return Ok(new { resposta = "Agendamento adicionado com sucesso!" });
+            }
+            else
+                return BadRequest(new { resposta = "Ocorreu um erro ao tentar adicionar o agendamento." });
         }
         catch (Exception ex)
         {

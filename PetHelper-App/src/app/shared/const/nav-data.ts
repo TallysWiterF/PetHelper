@@ -1,8 +1,8 @@
 export const navbarData = [
   {
-      routeLink: 'home',
-      icon: 'fal fa-home',
-      label: 'Tela Inicial'
+      routeLink: 'agendamento',
+      icon: 'fa-solid fa-calendar-days',
+      label: 'Agendamentos'
   },
   {
       routeLink: 'cliente',
@@ -14,10 +14,4 @@ export const navbarData = [
     icon: 'fal fa-briefcase',
     label: 'Serviços'
   },
-  {
-      routeLink: 'estoque',
-      icon: 'fal fa-box-open',
-      label: 'Estoque'
-  },
-
 ];

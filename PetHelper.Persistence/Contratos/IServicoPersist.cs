@@ -4,6 +4,6 @@ namespace PetHelper.Persistence.Contratos;
 
 public interface IServicoPersist
 {
-    Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId);
+    Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId, bool retornarLogoServico);
     Task<Servico> GetServicoByIdAsync(int servicoId);
 }

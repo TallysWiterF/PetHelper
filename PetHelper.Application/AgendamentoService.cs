@@ -48,13 +48,49 @@ public class AgendamentoService : IAgendamentoService
         }
     }
 
+    public async Task<string[]> GetAllHorariosDisponiveisByPetShopIdDataAgendamentoAsync(int petShopId, DateTime dataAgendamento)
+    {
+        try
+        {
+            return await _agendamentoPersist.GetAllHorariosDisponiveisByPetShopIdDataAgendamentoAsync(petShopId, dataAgendamento);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<int[]> GetAllDiasComAgendamentosByPetShopIdMesAsync(int petShopId, int mes)
+    {
+        try
+        {
+            return await _agendamentoPersist.GetAllDiasComAgendamentosByPetShopIdMesAsync(petShopId, mes);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<Informativo> GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
+    {
+        try
+        {
+            return await _agendamentoPersist.GetInformativosPetShop(petShopId, dataAgendamento);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public async Task<bool> AddAgendamento(Agendamento agendamentoModel)
     {
         try
         {
             agendamentoModel = await ValidarAgendamento(agendamentoModel);
 
-            agendamentoModel.DataCriacao = agendamentoModel.DataAtualizacao = DateTime.UtcNow;
+            agendamentoModel.DataCriacao = agendamentoModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Add(agendamentoModel);
             return await _geralPersist.SaveChangesAsync();
         }
@@ -70,7 +106,7 @@ public class AgendamentoService : IAgendamentoService
         {
             agendamentoModel = await ValidarAgendamento(agendamentoModel);
 
-            agendamentoModel.DataAtualizacao = DateTime.UtcNow;
+            agendamentoModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Update(agendamentoModel);
             return await _geralPersist.SaveChangesAsync();
         }
@@ -98,6 +134,7 @@ public class AgendamentoService : IAgendamentoService
         }
     }
 
+    #region ValidacoesAgendamentos
     private async Task<Agendamento[]> RecuperarDadosAgendamentos(Agendamento[] agendamentosModel)
     {
         foreach (var agendamentoItem in agendamentosModel)
@@ -112,8 +149,11 @@ public class AgendamentoService : IAgendamentoService
 
     private async Task<Agendamento> ValidarAgendamento(Agendamento agendamento)
     {
-        agendamento.Cliente = await ValidarCliente(agendamento.Cliente);
-        agendamento.Servico = await ValidarServico(agendamento.Servico);
+        if (agendamento.Cliente != null)
+            agendamento.Cliente = await ValidarCliente(agendamento.Cliente);
+
+        if (agendamento.Servico != null)
+            agendamento.Servico = await ValidarServico(agendamento.Servico);
 
         return agendamento;
     }
@@ -123,7 +163,10 @@ public class AgendamentoService : IAgendamentoService
         Cliente cliente = await _clienteService.GetClienteByIdAsync(clienteModel.Id);
 
         if (cliente == null)
+        {
+            clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
             return clienteModel;
+        }
         else if (!cliente.Equals(clienteModel))
             await _clienteService.UpdateCliente(clienteModel);
 
@@ -135,10 +178,15 @@ public class AgendamentoService : IAgendamentoService
         Servico servico = await _servicoService.GetServicoByIdAsync(servicoModel.Id);
 
         if (servico == null)
+        {
+            servicoModel.DataCriacao = servicoModel.DataAtualizacao = DateTime.Now.Date;
             return servicoModel;
+        }
         else if (!servico.Equals(servicoModel))
             await _servicoService.UpdateServico(servicoModel);
 
         return null;
     }
+
+    #endregion
 }

@@ -12,4 +12,7 @@ export class DateTimeFormatPipe extends DatePipe implements PipeTransform {
     return super.transform(value, Constants.DATE_FMT);
   }
 
+  parseDate(dataOriginal: Date): any {
+    return super.transform(dataOriginal, Constants.DATE_FMT_US);
+  }
 }

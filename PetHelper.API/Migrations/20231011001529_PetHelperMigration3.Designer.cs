@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetHelper.Persistence.Contexto;
 
@@ -10,12 +11,45 @@ using PetHelper.Persistence.Contexto;
 namespace PetHelper.API.Migrations
 {
     [DbContext(typeof(PetHelperContext))]
-    partial class PetHelperContextModelSnapshot : ModelSnapshot
+    [Migration("20231011001529_PetHelperMigration3")]
+    partial class PetHelperMigration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
+
+            modelBuilder.Entity("PetHelper.Domain.Agenda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataAtualizacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DiaSemana")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Horario")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PetShopId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetShopId");
+
+                    b.ToTable("Agendas");
+                });
 
             modelBuilder.Entity("PetHelper.Domain.Agendamento", b =>
                 {
@@ -166,6 +200,17 @@ namespace PetHelper.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Servicos");
+                });
+
+            modelBuilder.Entity("PetHelper.Domain.Agenda", b =>
+                {
+                    b.HasOne("PetHelper.Domain.PetShop", "PetShop")
+                        .WithMany()
+                        .HasForeignKey("PetShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PetShop");
                 });
 
             modelBuilder.Entity("PetHelper.Domain.Agendamento", b =>
