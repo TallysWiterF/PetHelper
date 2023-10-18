@@ -13,8 +13,8 @@ export class ServicoService {
 
   private baseURL: string = environment.baseURL + "Servico/";
 
-  public getAllServicos(petShopId: number): Observable<Servico[]> {
-    return this.http.get<Servico[]>(this.baseURL + "petShopId/" + petShopId);
+  public async getAllServicos(petShopId: number, retornarLogoServico: boolean): Promise<Observable<Servico[]>> {
+    return this.http.get<Servico[]>(`${this.baseURL}petShopId/${petShopId}/${retornarLogoServico}`);
   }
 
   public async adicionarServico(servico: Servico): Promise<Observable<Servico>>{
@@ -25,7 +25,7 @@ export class ServicoService {
     return this.http.put<Servico>(this.baseURL, servico);
   }
 
-  public deletarServico(servicoId: number): Observable<string> {
-    return this.http.delete<string>(this.baseURL + servicoId);
+  public async deletarServico(servicoId: number): Promise<Observable<string>> {
+    return this.http.delete<string>(`${this.baseURL}${servicoId}`);
   }
 }

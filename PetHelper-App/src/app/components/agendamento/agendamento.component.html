@@ -1,0 +1,128 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+  <div class="col">
+    <div class="card radius-10 border-start border-0 border-3 border-info">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <p class="mb-0 text-secondary">Total de Agendamentos</p>
+            <h4 class="my-1 text-info">{{informativo.totalAgendamentos}}</h4>
+            <p class="mb-0 font-13">{{informativo.porcentagemAgendamentos}} que o último mês</p>
+          </div>
+          <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+              class="fa fa-shopping-cart"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-start border-0 border-3 border-warning">
+      <div class="card-body">
+        <div class="d-flex ">
+          <div>
+            <p class="mb-0 text-secondary">Novos Serviços</p>
+            <h4 class="my-1 text-warning">{{informativo.totalServicos}}</h4>
+            <p class="mb-0 font-13">{{informativo.porcentagemServicos}} que o último mês</p>
+          </div>
+          <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class="fa fa-users"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-start border-0 border-3 border-danger">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <p class="mb-0 text-secondary">Novos Clientes</p>
+            <h4 class="my-1 text-danger">{{informativo.totalClientes}}</h4>
+            <p class="mb-0 font-13">{{informativo.porcentagemClientes}} que o último mês</p>
+          </div>
+          <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class="fa fa-dollar"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-start border-0 border-3 border-success">
+      <div class="card-body">
+        <div class="d-flex">
+          <div>
+            <p class="mb-0 text-secondary">Rendimento Total</p>
+            <h4 class="my-1 text-success">{{informativo.totalRendimentos | PrecoFormat}}</h4>
+            <p class="mb-0 font-13">{{informativo.porcentagemRendimentos}} que o último mês</p>
+          </div>
+          <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+              class="fa fa-bar-chart"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div class="row row-container">
+  <div class="col">
+    <div class="d-flex">
+      <div class="flex-fill pr-3">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Filtro:</div>
+          </div>
+          <input type="text" class="form-control mr-2" placeholder="Filtrar por cliente, endereço ou serviço" [(ngModel)]="filtroLista">
+        </div>
+      </div>
+      <div>
+        <a class="d-flex btn btn-outline-primary" (click)="novoAgendamento()">
+          <i class="fa fa-plus-circle my-1"></i>
+          <b class="ml-1 d-none d-sm-block">Novo</b>
+        </a>
+      </div>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark" style="background-color: #263238; color: white;">
+        <tr>
+          <th>Cliente</th>
+          <th>Telefone</th>
+          <th>Endereço</th>
+          <th>Serviço</th>
+          <th>Preço</th>
+          <th>Horário</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="agendamentos && agendamentos.length">
+        <tr *ngFor="let agendamento of agendamentosFiltrados" style="cursor: pointer;" (click)="editarAgendamento(agendamento.id)">
+          <td>{{agendamento.cliente.nome}}</td>
+          <td>{{agendamento.cliente.telefone | TelefoneFormat}}</td>
+          <td>{{agendamento.cliente.endereco}}</td>
+          <td>{{agendamento.servico.nome}}</td>
+          <td>{{agendamento.servico.preco | PrecoFormat}}</td>
+          <td>{{agendamento.horarioMarcado}}</td>
+          <td>
+            <button type="button" class="btn btn-danger btn-g mr-2"
+            (click)="abrirTemplate(deletarTemplate, agendamento.id, $event)" tooltip="Deletar">
+              <i class="fa fa-trash"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-g" tooltip="Iniciar conversa Whatsapp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
+    <app-calendario (diaSelecionado)="getAllAgendamentos($event)"></app-calendario>
+</div>
+
+<ng-template #deletarTemplate>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar esse Serviço?</p>
+    <button type="button" class="btn btn-primary mr-2" (click)="fecharDeletarTemplate()">Não</button>
+    <button type="button" class="btn btn-secondary" (click)="excluirAgendamento()">Sim</button>
+  </div>
+</ng-template>

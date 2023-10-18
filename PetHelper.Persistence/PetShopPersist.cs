@@ -18,9 +18,8 @@ public class PetShopPersist : IPetShopPersist
     public async Task<PetShop> GetPetShopByIdAsync(int petShopId)
     {
         IQueryable<PetShop> query = _context.PetShops;
-         
-        query = query.Where(p => p.Id == petShopId);
 
-        return await query.FirstOrDefaultAsync(); 
+        return await query.Where(p => p.Id == petShopId)
+                          .FirstOrDefaultAsync(); 
     }
 }

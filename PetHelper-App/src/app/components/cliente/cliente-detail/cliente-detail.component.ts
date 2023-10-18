@@ -13,7 +13,6 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class ClienteDetailComponent implements OnInit {
 
-  @Input() isOpen: boolean = true;
   @Input() title: string = 'Modal';
   @Input() clienteComponent?: ClienteComponent;
   @Input() public cliente: Cliente = {
@@ -41,7 +40,7 @@ export class ClienteDetailComponent implements OnInit {
 
   private inicializarFormulario(): void {
     this.form = this.formBuilder.group({
-      nome: [this.cliente.nome, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      nome: [this.cliente.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       telefone: [this.cliente.telefone, [Validators.required, Validators.minLength(11)]],
       endereco: [this.cliente.endereco, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
       complemento: [this.cliente.complemento, Validators.maxLength(130)],
@@ -58,7 +57,7 @@ export class ClienteDetailComponent implements OnInit {
   }
 
   private async adicionarCliente() {
-    (await this.clienteService.editarCliente(this.cliente)).subscribe({
+    (await this.clienteService.adicionarCliente(this.cliente)).subscribe({
       next: (object: any) => {
         this.clienteComponent?.toastr.success(object.resposta, 'Sucesso');
         this.fecharModal();
@@ -72,7 +71,7 @@ export class ClienteDetailComponent implements OnInit {
   }
 
   private async editarCliente() {
-    (await this.clienteService.adicionarCliente(this.cliente)).subscribe({
+    (await this.clienteService.editarCliente(this.cliente)).subscribe({
       next: (object: any) => {
         this.clienteComponent?.toastr.success(object.resposta, 'Sucesso');
         this.fecharModal();

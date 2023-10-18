@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   realizarLogin(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/agendamento']);
   }
 
 }

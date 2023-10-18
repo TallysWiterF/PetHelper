@@ -28,12 +28,12 @@ public class ServicoController : ControllerBase
         }
     }
 
-    [HttpGet("petShopId/{petShopId}")]
-    public async Task<IActionResult> GetAllByPetShopId(int petShopId)
+    [HttpGet("petShopId/{petShopId}/{retornarLogoServico}")]
+    public async Task<IActionResult> GetAllByPetShopId(int petShopId, bool retornarLogoServico)
     {
         try
         {
-            Servico[] servicos = await _servicoService.GetAllServicosByPetShopIdAsync(petShopId);
+            Servico[] servicos = await _servicoService.GetAllServicosByPetShopIdAsync(petShopId, retornarLogoServico);
             if (servicos is null)
                 return NotFound(new { resposta = "Serviços não encontrados." });
 

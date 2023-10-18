@@ -15,22 +15,40 @@ public class ServicoPersist : IServicoPersist
         _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 
-    public async Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId)
+    public async Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId, bool retornarLogoServico)
     {
         IQueryable<Servico> query = _context.Servicos;
 
-        query = query.Where(p => p.PetShopId == petShopId);
-        query = query.OrderBy(p => p.Nome);
-
-        return await query.ToArrayAsync();
+        if (retornarLogoServico)
+        {
+            return await query.Where(p => p.PetShopId == petShopId)
+                              .OrderBy(p => p.Nome)
+                              .ToArrayAsync();
+        }
+        else
+        {
+            return await query.Where(p => p.PetShopId == petShopId)
+                              .OrderBy(p => p.Nome)
+                              .Select(p => new Servico
+                              {
+                                  Id = p.Id,
+                                  PetShopId = p.PetShopId,
+                                  Nome = p.Nome,
+                                  Descricao = p.Descricao,
+                                  Preco = p.Preco,
+                                  Ativo = p.Ativo,
+                                  DataCriacao = p.DataCriacao,
+                                  DataAtualizacao = p.DataAtualizacao,
+                              })
+                              .ToArrayAsync();
+        }
     }
 
     public async Task<Servico> GetServicoByIdAsync(int servicoId)
     {
         IQueryable<Servico> query = _context.Servicos;
 
-        query = query.Where(p => p.Id == servicoId);
-
-        return await query.FirstOrDefaultAsync();
+        return await query.Where(p => p.Id == servicoId)
+                          .FirstOrDefaultAsync();
     }
 }

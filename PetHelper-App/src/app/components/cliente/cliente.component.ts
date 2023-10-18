@@ -64,9 +64,9 @@ export class ClienteComponent implements OnInit {
       this.activeModal.dismiss();
   }
 
-  public excluirCliente() {
+  public async excluirCliente() {
     this.spinner.show();
-    this.clienteService.deletarCliente(this.clienteId).subscribe({
+    (await this.clienteService.deletarCliente(this.clienteId)).subscribe({
       next: (object: any) => {
         this.toastr.info(object.resposta, 'Aviso!');
         this.getClientes();
@@ -104,12 +104,11 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  public getClientes() {
+  public async getClientes() {
     this.spinner.show();
-    this.clienteService.getAllClientes(1).subscribe({
+    (await this.clienteService.getAllClientes(1)).subscribe({
       next: (clientes: Cliente[]) => {
-        this.clientes = clientes;
-        this.clientesFiltrados = this.clientes;
+        this.clientesFiltrados = this.clientes = clientes;
       },
       error: (objectError: any) => {
         this.spinner.hide();

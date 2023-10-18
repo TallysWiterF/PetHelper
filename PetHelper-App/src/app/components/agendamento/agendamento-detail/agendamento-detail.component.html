@@ -1,0 +1,145 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="etapa === 'cliente'">
+      <form [formGroup]="formCliente">
+        <div>
+          <input type="text" id="nome" placeholder="Nome do cliente:" [(ngModel)]="agendamento.cliente.nome"
+            [typeahead]="clientes"
+            typeaheadOptionField="nome"
+            [typeaheadScrollable]="true"
+            [typeaheadOptionsInScrollableView]="10"
+            (typeaheadOnSelect)="onSelectCliente($event)"
+            [ngClass]="{'is-invalid': controlsCliente.nome.errors && controlsCliente.nome.touched }"
+            formControlName="nome">
+          <div *ngIf="controlsCliente.nome.errors?.required" class="invalid-feedback mensagemErro">
+            Nome é obrigatório.
+          </div>
+          <div *ngIf="controlsCliente.nome.errors?.minlength" class="invalid-feedback mensagemErro">
+            Nome deve ter no mínimo 3 caracteres.
+          </div>
+          <div *ngIf="controlsCliente.nome.errors?.maxlength" class="invalid-feedback mensagemErro">
+            Nome deve ter no máximo 50 caracteres.
+          </div>
+        </div>
+
+        <div>
+          <input id="telefone" placeholder="Número de WhatsApp:" [(ngModel)]="agendamento.cliente.telefone"
+            formControlName="telefone" mask="(00) 00000-0000"
+            [ngClass]="{'is-invalid': controlsCliente.telefone.errors && controlsCliente.telefone.touched }">
+          <div *ngIf="controlsCliente.telefone.errors?.required" class="invalid-feedback mensagemErro">
+            Telefone é obrigatório.
+          </div>
+          <div *ngIf="controlsCliente.telefone.errors?.minlength" class="invalid-feedback mensagemErro">
+            Telefone deve ter no mínimo 11 caracteres.
+          </div>
+        </div>
+
+        <div>
+          <input type="text" id="endereco" placeholder="Endereço do cliente:" [(ngModel)]="agendamento.cliente.endereco"
+            formControlName="endereco"
+            [ngClass]="{'is-invalid': controlsCliente.endereco.errors && controlsCliente.endereco.touched }">
+          <div *ngIf="controlsCliente.endereco.errors?.required" class="invalid-feedback mensagemErro">
+            Endereço é obrigatório.
+          </div>
+          <div *ngIf="controlsCliente.endereco.errors?.minlength" class="invalid-feedback mensagemErro">
+            Endereço deve ter no mínimo 8 caracteres.
+          </div>
+          <div *ngIf="controlsCliente.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
+            Endereço deve ter no máximo 100 caracteres.
+          </div>
+        </div>
+
+        <div>
+          <input type="text" id="complemento" placeholder="Complemento do endereço:"
+            [(ngModel)]="agendamento.cliente.complemento" formControlName="complemento"
+            [ngClass]="{'is-invalid': controlsCliente.complemento.errors && controlsCliente.complemento.touched }">
+          <div *ngIf="controlsCliente.complemento.errors?.maxlength" class="invalid-feedback mensagemErro">
+            Complemento deve ter no máximo 130 caracteres.
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="etapa === 'servico'">
+      <form [formGroup]="formServico">
+        <div>
+          <input type="text" id="nome" placeholder="Título do serviço:" [(ngModel)]="agendamento.servico.nome"
+            [typeahead]="servicos"
+            typeaheadOptionField="nome"
+            [typeaheadScrollable]="true"
+            [typeaheadOptionsInScrollableView]="10"
+            (typeaheadOnSelect)="onSelectServico($event)"
+            [ngClass]="{'is-invalid': controlsServico.nome.errors && controlsServico.nome.touched }"
+            formControlName="nome">
+          <div *ngIf="controlsServico.nome.errors?.required" class="invalid-feedback mensagemErro">
+            Nome é obrigatório.
+          </div>
+          <div *ngIf="controlsServico.nome.errors?.minlength" class="invalid-feedback mensagemErro">
+            Nome deve ter no mínimo 4 caracteres.
+          </div>
+          <div *ngIf="controlsServico.nome.errors?.maxlength" class="invalid-feedback mensagemErro">
+            Nome deve ter no máximo 50 caracteres.
+          </div>
+        </div>
+
+        <div>
+          <input type="text" id="preco" placeholder="R$ 0,00" [(ngModel)]="precoFormatado" formControlName="preco"
+            mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','" prefix="R$ ">
+        </div>
+
+        <div>
+          <input type="text" id="descricao" placeholder="Descrição do serviço:"
+            [(ngModel)]="agendamento.servico.descricao"
+            [ngClass]="{'is-invalid': controlsServico.descricao.errors && controlsServico.descricao.touched }"
+            formControlName="descricao">
+          <div *ngIf="controlsServico.descricao.errors?.maxlength" class="invalid-feedback mensagemErro">
+            Descrição deve ter no máximo 100 caracteres.
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="etapa === 'agendamento'">
+      <!-- ... Conteúdo do agendamento ... -->
+      <h5>Cliente:</h5>
+      <li>Nome: {{agendamento.cliente.nome}} </li>
+      <li>Telefone: {{agendamento.cliente.telefone | TelefoneFormat}}</li>
+      <li>Endereço: {{agendamento.cliente.endereco}}</li>
+      <li>Complemento: {{agendamento.cliente.complemento}}</li>
+
+      <br>
+      <h5>Serviço:</h5>
+      <li>Nome: {{agendamento.servico.nome}}</li>
+      <li>Preço: {{precoFormatado}}</li>
+      <li>Descrição: {{agendamento.servico.descricao}}</li>
+
+      <br>
+      <h5>Horário:</h5>
+      <div class="d-flex flex-wrap">
+          <button
+            type="button" *ngFor="let horario of horariosDisponiveis"
+            class="btn btn-primary d-inline-block mx-2 my-2"
+            [class.btn-secondary]="agendamento.horarioMarcado !== horario"
+            (click)="agendamento.horarioMarcado = horario">
+            {{ horario }}
+          </button>
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="voltar()">Voltar</button>
+    <button type="button" *ngIf="etapa != 'agendamento'" class="btn btn-primary" [disabled]="avancarDisabled()"
+      (click)="avancar()">
+      Avançar <i class="fa-solid fa-arrow-right my-1"></i>
+    </button>
+
+    <button type="button" *ngIf="etapa === 'agendamento'" class="btn btn-success"
+      [disabled]="formCliente.invalid || formServico.invalid" data-dismiss="modal" (click)="salvarAgendamento()">Salvar
+      Agendamento</button>
+  </div>
+</div>

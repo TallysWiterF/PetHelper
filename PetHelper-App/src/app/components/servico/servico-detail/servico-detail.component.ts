@@ -14,7 +14,6 @@ import { ServicoService } from 'src/app/services/servico.service';
 })
 export class ServicoDetailComponent implements OnInit {
 
-  @Input() isOpen: boolean = true;
   @Input() title: string = 'Modal';
   @Input() ServicoComponent?: ServicoComponent;
   @Input() public servico: Servico = {
@@ -26,8 +25,8 @@ export class ServicoDetailComponent implements OnInit {
     ativo: true
   };
 
-  public precoFormatado: string = this.precoFormatPipe.transform(this.servico.preco);
   public form: FormGroup = this.formBuilder.group({});
+  public precoFormatado: string = this.precoFormatPipe.transform(this.servico.preco);
   public ocultarImagem: boolean = false;
 
   constructor(private servicoService: ServicoService,
