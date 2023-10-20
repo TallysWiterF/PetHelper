@@ -39,7 +39,7 @@
             <button type="button" class="btn btn-danger btn-g mr-2" (click)="abrirTemplate(deletarTemplate, cliente.id, $event)" tooltip="Deletar">
               <i class="fa fa-trash"></i>
             </button>
-            <button type="button" class="btn btn-success btn-g" tooltip="Iniciar conversa Whatsapp">
+            <button type="button" class="btn btn-success btn-g" (click)="abrirWhatsAppComMensagem(cliente.telefone, $event)" tooltip="Iniciar conversa Whatsapp">
               <i class="fa-brands fa-whatsapp"></i>
             </button>
           </td>

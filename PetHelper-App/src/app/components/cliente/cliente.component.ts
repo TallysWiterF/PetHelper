@@ -64,6 +64,10 @@ export class ClienteComponent implements OnInit {
       this.activeModal.dismiss();
   }
 
+  public abrirWhatsAppComMensagem(telefone: string ,event: Event) {
+    window.open(`https://wa.me/${telefone}`, '_blank');
+  }
+
   public async excluirCliente() {
     this.spinner.show();
     (await this.clienteService.deletarCliente(this.clienteId)).subscribe({

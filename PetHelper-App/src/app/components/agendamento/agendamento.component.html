@@ -107,7 +107,7 @@
             (click)="abrirTemplate(deletarTemplate, agendamento.id, $event)" tooltip="Deletar">
               <i class="fa fa-trash"></i>
             </button>
-            <button type="button" class="btn btn-success btn-g" tooltip="Iniciar conversa Whatsapp">
+            <button type="button" class="btn btn-success btn-g" (click)="abrirWhatsAppComMensagem(agendamento.cliente.telefone, $event)" tooltip="Iniciar conversa Whatsapp">
               <i class="fa-brands fa-whatsapp"></i>
             </button>
           </td>
