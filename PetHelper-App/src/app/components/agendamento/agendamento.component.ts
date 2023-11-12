@@ -98,10 +98,9 @@ export class AgendamentoComponent implements OnInit {
       this.activeModal.dismiss();
   }
 
-  abrirWhatsAppComMensagem(telefone: string ,event: Event) {
+  public abrirWhatsAppComMensagem(telefone: string ,event: Event) {
     window.open(`https://wa.me/${telefone}`, '_blank');
   }
-
 
   public async excluirAgendamento() {
     this.spinner.show();

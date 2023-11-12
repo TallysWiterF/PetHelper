@@ -21,7 +21,7 @@ public class AgendamentoService : IAgendamentoService
         _servicoService = new ServicoService(geralPersist, servicoPersist);
     }
 
-    public async Task<Agendamento> GetAgendamentoByIdAsync(int agendamentoId)
+    public async Task<Agendamento?> GetAgendamentoByIdAsync(int agendamentoId)
     {
         try
         {
@@ -72,11 +72,11 @@ public class AgendamentoService : IAgendamentoService
         }
     }
 
-    public async Task<Informativo> GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
+    public Informativo GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
     {
         try
         {
-            return await _agendamentoPersist.GetInformativosPetShop(petShopId, dataAgendamento);
+            return _agendamentoPersist.GetInformativosPetShop(petShopId, dataAgendamento);
         }
         catch (Exception ex)
         {
@@ -120,7 +120,7 @@ public class AgendamentoService : IAgendamentoService
     {
         try
         {
-            Agendamento agendamento = await _agendamentoPersist.GetAgendamentoByIdAsync(agendamentoId);
+            Agendamento? agendamento = await _agendamentoPersist.GetAgendamentoByIdAsync(agendamentoId);
             if (agendamento is null)
                 throw new Exception("Agendamento não encontrado.");
 
@@ -160,7 +160,7 @@ public class AgendamentoService : IAgendamentoService
 
     private async Task<Cliente?> ValidarCliente(Cliente clienteModel)
     {
-        Cliente cliente = await _clienteService.GetClienteByIdAsync(clienteModel.Id);
+        Cliente? cliente = await _clienteService.GetClienteByIdAsync(clienteModel.Id);
 
         if (cliente == null)
         {

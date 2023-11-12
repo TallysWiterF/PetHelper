@@ -14,20 +14,10 @@ public class ClientePersist : IClientePersist
         _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 
-    public async Task<Cliente[]> GetAllClientesByPetShopIdAsync(int petShopId)
-    {
-        IQueryable<Cliente> query = _context.Clientes;
+    public async Task<Cliente[]> GetAllClientesByPetShopIdAsync(int petShopId) => await _context.Clientes.Where(p => p.PetShopId == petShopId)
+                                                                                                         .OrderBy(p => p.Nome)
+                                                                                                         .ToArrayAsync();
 
-        return await query.Where(p => p.PetShopId == petShopId)
-                     .OrderBy(p => p.Nome)
-                     .ToArrayAsync();
-    }
-
-    public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
-    {
-        IQueryable<Cliente> query = _context.Clientes;
-
-        return await query.Where(p => p.Id == clienteId)
-                          .FirstOrDefaultAsync();
-    }
+    public async Task<Cliente?> GetClienteByIdAsync(int clienteId) => await _context.Clientes.Where(p => p.Id == clienteId)
+                                                                                             .FirstOrDefaultAsync();
 }

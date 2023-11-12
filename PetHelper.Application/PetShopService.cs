@@ -1,6 +1,7 @@
 ﻿using PetHelper.Application.Contratos;
 using PetHelper.Domain;
 using PetHelper.Persistence.Contratos;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace PetHelper.Application;
 
@@ -15,10 +16,38 @@ public class PetShopService : IPetShopService
         _petShopPersist = petShopPersist;
     }
 
+    public async Task<PetShop?> GetPetShopByIdAsync(int petShopId)
+    {
+        try
+        {
+            PetShop? petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
+
+            return petShop;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<PetShop?> GetPetShopByEmailSenha(string email, string senha)
+    {
+        try
+        {
+            return await _petShopPersist.GetPetShopByEmailSenha(email, senha); 
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public async Task<PetShop?> AddPetShop(PetShop petShopModel)
     {
         try
         {
+            petShopModel.Senha = BCryptNet.HashPassword(petShopModel.Senha, BCryptNet.GenerateSalt());
+
             _geralPersist.Add(petShopModel);
             if (await _geralPersist.SaveChangesAsync())
                 return await _petShopPersist.GetPetShopByIdAsync(petShopModel.Id);
@@ -35,7 +64,7 @@ public class PetShopService : IPetShopService
     {
         try
         {
-            PetShop petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
+            PetShop? petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
             if (petShop != null)
             {
                 model.Id = petShop.Id;
@@ -57,9 +86,9 @@ public class PetShopService : IPetShopService
     {
         try
         {
-            PetShop petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
+            PetShop? petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
             if (petShop is null)
-                throw new Exception("PetShop não encontrada");
+                throw new Exception("Pet Shop não encontrada");
 
             _geralPersist.Delete(petShop);
             return await _geralPersist.SaveChangesAsync();
@@ -71,13 +100,11 @@ public class PetShopService : IPetShopService
         }
     }
 
-    public async Task<PetShop?> GetPetShopByIdAsync(int petShopId)
+    public async Task<bool> ValidarEmailJaCadastrado(string email)
     {
         try
         {
-            PetShop? petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
-
-            return petShop;
+            return await _petShopPersist.ValidarEmailJaCadastrado(email);
         }
         catch (Exception ex)
         {

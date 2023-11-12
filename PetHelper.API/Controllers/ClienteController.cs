@@ -16,7 +16,7 @@ public class ClienteController : ControllerBase
     {
         try
         {
-            Cliente cliente = await _clienteService.GetClienteByIdAsync(clienteId);
+            Cliente? cliente = await _clienteService.GetClienteByIdAsync(clienteId);
             if (cliente is null)
                 return NotFound(new { resposta = "Cliente não encontrado." });
 

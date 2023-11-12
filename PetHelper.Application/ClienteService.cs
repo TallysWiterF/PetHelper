@@ -14,7 +14,7 @@ public class ClienteService : IClienteService
         _geralPersist = geralPersist;
         _clientePersist = clientePersist;
     }
-    public async Task<Cliente> GetClienteByIdAsync(int clienteId)
+    public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
     {
         try
         {
@@ -77,7 +77,7 @@ public class ClienteService : IClienteService
     {
         try
         {
-            Cliente cliente = await _clientePersist.GetClienteByIdAsync(clienteId);
+            Cliente? cliente = await _clientePersist.GetClienteByIdAsync(clienteId);
             if (cliente is null)
                 throw new Exception("Cliente não encontrado");
 

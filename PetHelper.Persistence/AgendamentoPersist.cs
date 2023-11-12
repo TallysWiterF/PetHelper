@@ -18,29 +18,20 @@ public class AgendamentoPersist : IAgendamentoPersist
         _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 
-    public async Task<Agendamento?> GetAgendamentoByIdAsync(int agendamentoId)
-    {
-        IQueryable<Agendamento> query = _context.Agendamentos;
-
-        return await query.Where(p => p.Id == agendamentoId)
-                    .OrderBy(p => p.DataAgendamento)
-                    .FirstOrDefaultAsync();
-    }
+    public async Task<Agendamento?> GetAgendamentoByIdAsync(int agendamentoId) => await _context.Agendamentos.Where(p => p.Id == agendamentoId)
+                                                                                                             .OrderBy(p => p.DataAgendamento)
+                                                                                                             .FirstOrDefaultAsync(); 
 
     public async Task<Agendamento[]> GetAllAgendamentosByPetShopIdDataAgendamentoAsync(int petShopId, DateTime dataAgendamento)
     {
-        IQueryable<Agendamento> query = _context.Agendamentos;
-
-        return await query.Where(p => p.PetShopId == petShopId && p.DataAgendamento == dataAgendamento)
+        return await _context.Agendamentos.Where(p => p.PetShopId == petShopId && p.DataAgendamento == dataAgendamento)
                      .OrderBy(p => p.DataAgendamento)
                      .ToArrayAsync();
     }
 
     public async Task<int[]> GetAllDiasComAgendamentosByPetShopIdMesAsync(int petShopId, int mes)
     {
-        IQueryable<Agendamento> query = _context.Agendamentos;
-
-        return await query.Where(a => a.PetShopId == petShopId && a.DataAgendamento.Month == mes)
+        return await _context.Agendamentos.Where(a => a.PetShopId == petShopId && a.DataAgendamento.Month == mes)
                                   .Select(a => a.DataAgendamento.Day)
                                   .Distinct()
                                   .ToArrayAsync();
@@ -48,7 +39,6 @@ public class AgendamentoPersist : IAgendamentoPersist
 
     public async Task<string[]> GetAllHorariosDisponiveisByPetShopIdDataAgendamentoAsync(int petShopId, DateTime dataAgendamento)
     {
-        IQueryable<Agendamento> query = _context.Agendamentos;
         string[] horariosDisponiveis = { "8:00 - 9:00",
                                          "9:00 - 10:00",
                                          "10:00 - 11:00",
@@ -59,7 +49,7 @@ public class AgendamentoPersist : IAgendamentoPersist
                                          "16:00 - 17:00",
                                        };
 
-        string[] horariosMarcados = await query.Where(a => a.PetShopId == petShopId && a.DataAgendamento.Date == dataAgendamento)
+        string[] horariosMarcados = await _context.Agendamentos.Where(a => a.PetShopId == petShopId && a.DataAgendamento.Date == dataAgendamento)
                                   .Select(a => a.HorarioMarcado)
                                   .Distinct()
                                   .ToArrayAsync();
@@ -67,7 +57,7 @@ public class AgendamentoPersist : IAgendamentoPersist
         return horariosDisponiveis.Except(horariosMarcados).ToArray();
     }
 
-    public async Task<Informativo> GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
+    public Informativo GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
     {
         IQueryable<Agendamento> queryAgendamentos = _context.Agendamentos;
         IQueryable<Cliente> queryClientes = _context.Clientes;
@@ -76,7 +66,7 @@ public class AgendamentoPersist : IAgendamentoPersist
         _primeiroDiaDoMes = new(dataAgendamento.Year, dataAgendamento.Month, 1);
         _ultimoDiaDoMes = _primeiroDiaDoMes.AddMonths(1).AddDays(-1);
 
-        Informativo informativos = new()
+        return new()
         {
             TotalAgendamentos = queryAgendamentos.Where(a => a.PetShopId == petShopId
                                                           && a.DataAgendamento >= _primeiroDiaDoMes
@@ -113,8 +103,6 @@ public class AgendamentoPersist : IAgendamentoPersist
 
             PorcentagemServicos = GetPorcentagemServicos(ref queryServicos, petShopId, dataAgendamento)
         };
-
-        return informativos;
     }
 
     #region PorcentagensInformativos
