@@ -123,6 +123,10 @@ namespace PetHelper.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("TEXT");
