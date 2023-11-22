@@ -110,7 +110,7 @@ export class ClienteComponent implements OnInit {
 
   public async getClientes() {
     this.spinner.show();
-    (await this.clienteService.getAllClientes(1)).subscribe({
+    (await this.clienteService.getAllClientes()).subscribe({
       next: (clientes: Cliente[]) => {
         this.clientesFiltrados = this.clientes = clientes;
       },

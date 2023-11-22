@@ -1,36 +1,87 @@
 <div class="container" id="container">
   <div class="form-container sign-up-container">
-    <form action="#">
+    <form [formGroup]="formInscricao">
       <h1>Inscreva-se</h1>
-      <input type="text" placeholder="Nome" />
-      <input type="email" placeholder="E-mail" />
-      <input type="password" placeholder="Senha" />
-      <button>Entrar em contato</button>
+      <input type="text" id="proprietario" placeholder="Nome do proprietário:" [(ngModel)]="inscricao.proprietario"
+          [ngClass]="{'is-invalid': controlsInscricao.proprietario.errors && controlsInscricao.proprietario.touched }" formControlName="proprietario">
+        <div *ngIf="controlsInscricao.proprietario.errors?.required" class="invalid-feedback mensagemErro">
+          Nome do proprietário é obrigatório.
+        </div>
+        <div *ngIf="controlsInscricao.proprietario.errors?.minlength" class="invalid-feedback mensagemErro">
+          Nome do proprietário deve ter no mínimo 3 caracteres.
+        </div>
+        <div *ngIf="controlsInscricao.proprietario.errors?.maxlength" class="invalid-feedback mensagemErro">
+          Nome do proprietário deve ter no máximo 50 caracteres.
+        </div>
+
+      <input type="text" id="nomePetShop" placeholder="Nome da pet shop:" [(ngModel)]="inscricao.nomePetShop"
+        [ngClass]="{'is-invalid': controlsInscricao.nomePetShop.errors && controlsInscricao.nomePetShop.touched }" formControlName="nomePetShop">
+      <div *ngIf="controlsInscricao.nomePetShop.errors?.required" class="invalid-feedback mensagemErro">
+        Nome da pet shop é obrigatório.
+      </div>
+      <div *ngIf="controlsInscricao.nomePetShop.errors?.minlength" class="invalid-feedback mensagemErro">
+        Nome da pet shop deve ter no mínimo 3 caracteres.
+      </div>
+      <div *ngIf="controlsInscricao.nomePetShop.errors?.maxlength" class="invalid-feedback mensagemErro">
+        Nome da pet shop deve ter no máximo 50 caracteres.
+      </div>
+
+      <input type="email" id="inscricaoEmail" placeholder="E-mail" [(ngModel)]="inscricao.email"
+        [ngClass]="{'is-invalid': controlsInscricao.email.errors && controlsInscricao.email.touched }"
+        formControlName="email" />
+      <div *ngIf="controlsInscricao.email.errors?.required" class="invalid-feedback mensagemErro">
+        E-mail obrigatório.
+      </div>
+      <div *ngIf="controlsInscricao.email.errors?.email" class="invalid-feedback mensagemErro">
+        E-mail inválido.
+      </div>
+
+      <input id="telefone" placeholder="Número de WhatsApp:" [(ngModel)]="inscricao.telefone" formControlName="telefone" mask="(00) 00000-0000"
+          [ngClass]="{'is-invalid': controlsInscricao.telefone.errors && controlsInscricao.telefone.touched }">
+        <div *ngIf="controlsInscricao.telefone.errors?.required" class="invalid-feedback mensagemErro">
+          Telefone é obrigatório.
+        </div>
+        <div *ngIf="controlsInscricao.telefone.errors?.minlength" class="invalid-feedback mensagemErro">
+          Telefone deve ter no mínimo 11 caracteres.
+        </div>
+
+      <button [disabled]="formInscricao.invalid" (click)="realizarInscricao()">Entrar em contato</button>
     </form>
   </div>
   <div class="form-container sign-in-container">
-    <form action="#">
+    <form [formGroup]="formLogin">
       <h1>Login</h1>
-      <input type="email" placeholder="E-mail" />
-      <input type="password" placeholder="Senha" />
-      <a href="#">Esqueceu sua senha?</a>
-      <button (click)="realizarLogin()">Entrar</button>
+      <input type="email" id="email" placeholder="E-mail" [(ngModel)]="login.email"
+        [ngClass]="{'is-invalid': controlsLogin.email.errors && controlsLogin.email.touched }"
+        formControlName="email" />
+      <div *ngIf="controlsLogin.email.errors?.required" class="invalid-feedback mensagemErro">
+        E-mail obrigatório.
+      </div>
+      <div *ngIf="controlsLogin.email.errors?.email" class="invalid-feedback mensagemErro">
+        E-mail inválido.
+      </div>
+
+      <input type="password" id="senha" placeholder="Senha" [(ngModel)]="login.senha"
+        [ngClass]="{'is-invalid': controlsLogin.senha.errors && controlsLogin.senha.touched }"
+        formControlName="senha" />
+      <div *ngIf="controlsLogin.senha.errors?.required" class="invalid-feedback mensagemErro">
+        Senha obrigatória.
+      </div>
+      <button [disabled]="formLogin.invalid" (click)="realizarLogin()">Entrar</button>
     </form>
   </div>
   <div class="overlay-container">
     <div class="overlay">
       <div class="overlay-panel overlay-left">
-        <h1>Possuí conta?</h1>
+        <h1>Possui conta?</h1>
         <p>Para acessar o portal, faça o login com suas informações de cadastro</p>
-        <button class="ghost" id="signIn">Entrar</button>
+        <button class="ghost" id="signIn" (click)="limparControles()">Entrar</button>
       </div>
       <div class="overlay-panel overlay-right">
         <h1>Primeira vez?</h1>
         <p>Forneça suas informações de contato para que possamos agendar uma reunião e realizar o seu cadastro</p>
-        <button class="ghost" id="signUp">Criar Conta</button>
+        <button class="ghost" id="signUp" (click)="limparControles()">Criar Conta</button>
       </div>
     </div>
   </div>
 </div>
-
-

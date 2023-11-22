@@ -17,6 +17,5 @@ public class Servico : IEntidadeBase, IEquatable<Servico>
                Nome == servicoModel.Nome.Trim() &&
                Descricao == servicoModel.Descricao &&
                Preco == servicoModel.Preco &&
-               LogoServico == servicoModel.LogoServico &&
                Ativo == servicoModel.Ativo;
 }

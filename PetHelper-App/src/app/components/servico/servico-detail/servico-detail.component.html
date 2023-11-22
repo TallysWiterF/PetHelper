@@ -41,6 +41,9 @@
         <input type="text" id="descricao" placeholder="Descrição do serviço:" [(ngModel)]="servico.descricao"
           [ngClass]="{'is-invalid': controls.descricao.errors && controls.descricao.touched }"
           formControlName="descricao">
+        <div *ngIf="controls.descricao.errors?.required" class="invalid-feedback mensagemErro">
+            Descrição é obrigatório.
+        </div>
         <div *ngIf="controls.descricao.errors?.maxlength" class="invalid-feedback mensagemErro">
           Descrição deve ter no máximo 100 caracteres.
         </div>

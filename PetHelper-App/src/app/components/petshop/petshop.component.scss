@@ -1,0 +1,58 @@
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  margin-bottom: 20px;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.titulo {
+  margin-top: 70px;
+}
+
+.custom-card {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  transition: transform 0.2s ease-in-out;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+}
+
+.custom-card-img {
+  max-width: 100px;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+/* Estilo para a imagem de fundo */
+.bg-image {
+  background-image: url('/assets/imagem_de_fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  position: relative;
+}
+
+/* Estilo para o logotipo em um círculo */
+.logo-container {
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 10px;
+  margin-top: 140px;
+}
+
+.logo {
+  max-width: 155px;
+}
+
+/* Adaptação Mobile */
+@media (max-width: 576px) {
+  .custom-card {
+    width: 100%;
+  }
+}

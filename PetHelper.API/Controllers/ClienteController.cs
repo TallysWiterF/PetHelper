@@ -45,6 +45,27 @@ public class ClienteController : ControllerBase
         }
     }
 
+    [HttpGet("petShopId/{petShopId}/{telefone}")]
+    public async Task<IActionResult> GetClienteByPetShopIdTelefoneAsync(int petShopId, string telefone)
+    {
+        try
+        {
+            Cliente cliente = await _clienteService.GetClienteByPetShopIdTelefoneAsync(petShopId, telefone);
+            if (cliente is null)
+                return Ok(new Cliente()
+                {
+                    PetShopId = petShopId,
+                    Telefone = telefone
+                });
+
+            return Ok(cliente);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar clientes. Erro: {ex.Message}" });
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(Cliente model)
     {

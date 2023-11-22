@@ -1,10 +1,18 @@
- <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-<app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
+<div *ngIf="isAgendamentoCliente; else portalPetShop">
+  <app-petshop></app-petshop>
+</div>
 
-<ngx-spinner
-  class="spinner"
-  bdColor="rgba(51,51,51,0.8)"
-  type="ball-scale-multiple">
-  <p class="carregando" >Carregando...</p>
+<ng-template #portalPetShop>
+  <div *ngIf="!onLoginSuccess()">
+    <app-login (loginSuccess)="onLoginSuccess()"></app-login>
+  </div>
+
+  <div *ngIf="onLoginSuccess()">
+    <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+    <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
+  </div>
+</ng-template>
+
+<ngx-spinner class="spinner" bdColor="rgba(51,51,51,0.8)" type="ball-scale-multiple">
+  <p class="carregando">Carregando...</p>
 </ngx-spinner>
-

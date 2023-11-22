@@ -7,6 +7,7 @@ import { Agendamento } from 'src/app/models/agendamento';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { AgendamentoDetailComponent } from './agendamento-detail/agendamento-detail.component';
 import { Informativo } from 'src/app/models/informativo';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 @Component({
   selector: 'app-agendamento',
@@ -40,8 +41,7 @@ export class AgendamentoComponent implements OnInit {
     private modalService: NgbModal,
     private dateTimeFormatPipe: DateTimeFormatPipe) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   public get filtroLista() {
     return this._filtroLista
@@ -123,7 +123,7 @@ export class AgendamentoComponent implements OnInit {
   public async getAllAgendamentos(dataSelecionada: Date) {
     this.dataSelecionada = dataSelecionada;
     this.spinner.show();
-    (await this.agendamentoService.getAllAgendamentos(1, dataSelecionada)).subscribe({
+    (await this.agendamentoService.getAllAgendamentos(dataSelecionada)).subscribe({
       next: (agendamentos: Agendamento[]) => {
         this.agendamentosFiltrados = this.agendamentos = agendamentos;
       },
@@ -139,7 +139,7 @@ export class AgendamentoComponent implements OnInit {
 
   private async getInformativos(){
     this.spinner.show();
-    (await this.agendamentoService.getInformativos(1, this.dataSelecionada)).subscribe({
+    (await this.agendamentoService.getInformativos(this.dataSelecionada)).subscribe({
       next: (informativo: Informativo) => {
         this.informativo = informativo
       },

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { navbarData } from '../const/nav-data';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
+import { Router } from '@angular/router';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -42,13 +44,17 @@ interface SideNavToggle {
 
 export class SideNavComponent implements OnInit {
 
+  constructor(private autenticacaoService: AutenticacaoService,
+    private router: Router,
+    ){ }
+
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  public onResize(event: any) {
     this.screenWidth = window.innerWidth;
     if(this.screenWidth <= 768 ) {
       this.collapsed = false;
@@ -56,18 +62,24 @@ export class SideNavComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
       this.screenWidth = window.innerWidth;
   }
 
-  toggleCollapse(): void {
+  public toggleCollapse(): void {
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
 
-  closeSidenav(): void {
+  public closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+  }
+
+  async sair(): Promise<void> {
+    await this.router.navigate(['/agendamento']);
+
+    this.autenticacaoService.setAutenticacao(false)
   }
 
 }

@@ -26,6 +26,30 @@ public class ClienteService : IClienteService
         }
     }
 
+    public async Task<Cliente?> GetClienteByNomeTelefoneAsync(string nome, string telefone)
+    {
+        try
+        {
+            return await _clientePersist.GetClienteByNomeTelefoneAsync(nome, telefone);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+    
+    public async Task<Cliente?> GetClienteByPetShopIdTelefoneAsync(int petShopId, string telefone)
+    {
+        try
+        {
+            return await _clientePersist.GetClienteByPetShopIdTelefoneAsync(petShopId, telefone);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public async Task<Cliente[]?> GetAllClientesByPetShopIdAsync(int petShopId)
     {
         try
@@ -42,6 +66,7 @@ public class ClienteService : IClienteService
     {
         try
         {
+            
             clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Add(clienteModel);
 

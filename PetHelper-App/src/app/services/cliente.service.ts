@@ -3,16 +3,24 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cliente } from '../models/cliente';
 import { environment } from 'src/environments/environment';
+import { AutenticacaoService } from './autenticacao.service';
 
 @Injectable()
 export class ClienteService {
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient,
+              private autenticacaoService: AutenticacaoService) { }
 
   private baseURL: string = environment.baseURL + 'Cliente/';
+  private petShopId = this.autenticacaoService.getPetShopId;
 
-  public async getAllClientes(petShopId: number): Promise<Observable<Cliente[]>> {
-    return this.http.get<Cliente[]>(`${this.baseURL}petShopId/${petShopId}`);
+  public async getAllClientes(): Promise<Observable<Cliente[]>> {
+    return this.http.get<Cliente[]>(`${this.baseURL}petShopId/${this.petShopId}`);
+  }
+
+  public async getClienteByPetShopIdTelefone(petshopId: number, telefone: string): Promise<Observable<Cliente>> {
+    return this.http.get<Cliente>(`${this.baseURL}petShopId/${petshopId}/${telefone}`);
   }
 
   public async adicionarCliente(cliente: Cliente): Promise<Observable<Cliente>> {

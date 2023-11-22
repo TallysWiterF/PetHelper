@@ -99,6 +99,7 @@ input {
   width: 768px;
   max-width: 100%;
   min-height: 480px;
+  margin-top: 50px;
 }
 
 .form-container {
@@ -252,4 +253,11 @@ footer i {
 footer a {
   color: #3c97bf;
   text-decoration: none;
+}
+
+.mensagemErro{
+  margin-left: 15px;
+  text-align: left;
+  margin-bottom: 0.25rem;
+  margin-top: 0px !important
 }

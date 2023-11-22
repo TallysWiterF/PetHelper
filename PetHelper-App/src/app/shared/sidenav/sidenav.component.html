@@ -16,5 +16,13 @@
         </span>
       </a>
     </li>
+    <li class="sidenav-nav-item" style="position: relative; margin-top: auto;">
+      <a class="sidenav-nav-link" (click)="sair()">
+      <i class="sidenav-link-icon fa-solid fa-right-from-bracket" ></i>
+      <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+        Sair
+      </span>
+    </a>
+    </li>
   </ul>
 </div>

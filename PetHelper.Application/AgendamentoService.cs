@@ -168,7 +168,10 @@ public class AgendamentoService : IAgendamentoService
             return clienteModel;
         }
         else if (!cliente.Equals(clienteModel))
+        {
+            clienteModel.DataAtualizacao = DateTime.Now.Date;
             await _clienteService.UpdateCliente(clienteModel);
+        }
 
         return null;
     }

@@ -45,6 +45,23 @@ public class ServicoController : ControllerBase
         }
     }
 
+    [HttpGet("petShopId/{petShopId}/ativo/{ativo}")]
+    public async Task<IActionResult> GetAllServicosAtivosByPetShopId(int petShopId, bool ativo)
+    {
+        try
+        {
+            Servico[] servicos = await _servicoService.GetAllServicosAtivosByPetShopIdAsync(petShopId, ativo);
+            if (servicos is null)
+                return NotFound(new { resposta = "Serviços não encontrados." });
+
+            return Ok(servicos);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar serviços. Erro: {ex.Message}" });
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(Servico model)
     {

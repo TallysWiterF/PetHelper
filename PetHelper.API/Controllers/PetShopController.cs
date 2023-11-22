@@ -28,24 +28,7 @@ public class PetShopController : ControllerBase
         }
     }
 
-    [HttpGet("{email}/{senha}")]
-    public async Task<IActionResult> RealizarLogin(string email, string senha)
-    {
-        try
-        {
-            PetShop? petShop = await _petShopService.GetPetShopByEmailSenha(email, senha);
-            if (petShop is null)
-                return NotFound(new { resposta = "Pet Shop não encontrada." });
-
-            return Ok(petShop);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar a Pet Shop. Erro: {ex.Message}" });
-        }
-    }
-
-    [HttpPost]
+    [HttpPost("login")]
     public async Task<IActionResult> RealizarLogin([FromBody] LoginModel model)
     {
         try
@@ -62,6 +45,20 @@ public class PetShopController : ControllerBase
         }
     }
 
+
+    [HttpPost("inscricao")]
+    public async Task<IActionResult> RealizarInscricao(InscricaoModel model)
+    {
+        try
+        {
+            return await _petShopService.EnviarEmailInscricao(model) ? 
+            Ok(new { resposta = "E-mail de inscrição enviado." }) : BadRequest(new { resposta = "Ocorreu uma falha ao tentar realizar a inscrição." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar realizar a inscrição. Erro: {ex.Message}" });
+        }
+    }
 
     [HttpPost]
     public async Task<IActionResult> Post(PetShop model)

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteComponent } from 'src/app/components/cliente/cliente.component';
 import { Cliente } from 'src/app/models/cliente';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class ClienteDetailComponent implements OnInit {
   @Input() clienteComponent?: ClienteComponent;
   @Input() public cliente: Cliente = {
     id: 0,
-    petShopId: 1,
+    petShopId: this.autenticacaoService.getPetShopId,
     nome: '',
     telefone: '',
     endereco: '',
@@ -28,7 +29,8 @@ export class ClienteDetailComponent implements OnInit {
 
   constructor(private clienteService: ClienteService,
     private activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private autenticacaoService: AutenticacaoService) { }
 
   ngOnInit() {
     this.inicializarFormulario();
@@ -42,7 +44,7 @@ export class ClienteDetailComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: [this.cliente.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       telefone: [this.cliente.telefone, [Validators.required, Validators.minLength(11)]],
-      endereco: [this.cliente.endereco, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+      endereco: [this.cliente.endereco, [Validators.maxLength(100)]],
       complemento: [this.cliente.complemento, Validators.maxLength(130)],
     });
   }

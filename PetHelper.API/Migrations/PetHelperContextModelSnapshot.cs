@@ -113,11 +113,11 @@ namespace PetHelper.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("FotoPrincipal")
-                        .HasColumnType("BLOB");
+                    b.Property<string>("FotoPrincipal")
+                        .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("Logo")
-                        .HasColumnType("BLOB");
+                    b.Property<string>("Logo")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .IsRequired()

@@ -25,7 +25,7 @@ public class AgendamentoPersist : IAgendamentoPersist
     public async Task<Agendamento[]> GetAllAgendamentosByPetShopIdDataAgendamentoAsync(int petShopId, DateTime dataAgendamento)
     {
         return await _context.Agendamentos.Where(p => p.PetShopId == petShopId && p.DataAgendamento == dataAgendamento)
-                     .OrderBy(p => p.DataAgendamento)
+                     .OrderBy(p => p.HorarioMarcado)
                      .ToArrayAsync();
     }
 
