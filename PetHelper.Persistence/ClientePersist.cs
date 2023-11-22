@@ -23,5 +23,14 @@ public class ClientePersist : IClientePersist
     public async Task<Cliente?> GetClienteByNomeTelefoneAsync(string nome, string telefone) => await _context.Clientes.Where(p => p.Nome.ToLower().Equals(nome.ToLower()) && p.Telefone.Equals(telefone))
                                                                                                                       .FirstOrDefaultAsync();
     public async Task<Cliente?> GetClienteByPetShopIdTelefoneAsync(int petShopId, string telefone) => await _context.Clientes.Where(p => p.PetShopId == petShopId && p.Telefone.Equals(telefone))
+                                                                                                                             .Select(p => new Cliente
+                                                                                                                             {
+                                                                                                                                 Id = p.Id,
+                                                                                                                                 PetShopId = p.PetShopId,
+                                                                                                                                 Nome = p.Nome,
+                                                                                                                                 Telefone = p.Telefone,
+                                                                                                                                 DataCriacao = p.DataCriacao,
+                                                                                                                                 DataAtualizacao = p.DataAtualizacao,
+                                                                                                                             })
                                                                                                                              .FirstOrDefaultAsync();
 }

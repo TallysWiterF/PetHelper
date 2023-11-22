@@ -167,7 +167,7 @@ public class AgendamentoService : IAgendamentoService
             clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
             return clienteModel;
         }
-        else if (!cliente.Equals(clienteModel))
+        else if (!string.IsNullOrEmpty(clienteModel.Endereco) && !cliente.Equals(clienteModel))
         {
             clienteModel.DataAtualizacao = DateTime.Now.Date;
             await _clienteService.UpdateCliente(clienteModel);
