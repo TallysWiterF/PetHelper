@@ -1,7 +1,7 @@
 <body>
   <h1 align="center">PetHelper🐶🐱</h1>
   <p>O PetHelper é uma ferramenta web criada com Angular 12 e .NET 6 para profissionais que trabalham com animais de
-    estimação, como veterinários, groomers, passeadores de cachorros, e qualquer pessoa dedicada ao cuidado e bem-estar
+    estimação, como veterinários, pet shops, e qualquer pessoa dedicada ao cuidado e bem-estar
     dos nossos amados animais.</p>
   <h2>Funcionalidades Principais</h2>
   <ul>
@@ -15,6 +15,13 @@
   </ul>
   <h2>Demonstração</h2>
   <p>Abaixo, gravações das funcionalidades de cada menu do sistema:</p> 
+
+
+
+https://github.com/TallysWiterF/PetHelper/assets/63269777/04cb5de5-e1eb-4e03-ae2b-89b6343eb2b2
+
+
+
 
 https://github.com/TallysWiterF/PetHelper/assets/63269777/1997294d-3e4f-4975-ada6-aded6c795881
 
