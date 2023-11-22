@@ -24,6 +24,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { SideNavComponent } from './shared/sidenav/sidenav.component';
 import { CalendarioComponent } from './shared/calendario/calendario.component';
@@ -32,20 +33,25 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TelefoneFormatPipe } from './helpers/TelefoneFormat.pipe';
 import { PrecoFormatPipe } from './helpers/PrecoFormat.pipe';
 import { AgendamentoDetailComponent } from './components/agendamento/agendamento-detail/agendamento-detail.component';
+import { AuthGuard } from './security/AuthGuard';
+import { PetshopComponent } from './components/petshop/petshop.component';
+import { PetshopDetailComponent } from './components/petshop/petshop-detail/petshop-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BodyComponent,
     SideNavComponent,
-    ClienteComponent,
     AgendamentoComponent,
+    PetshopComponent,
+    ClienteComponent,
     ServicoComponent,
     LoginComponent,
     CalendarioComponent,
+    AgendamentoDetailComponent,
+    PetshopDetailComponent,
     ClienteDetailComponent,
     ServicoDetailComponent,
-    AgendamentoDetailComponent,
     DateTimeFormatPipe,
     TelefoneFormatPipe,
     PrecoFormatPipe
@@ -63,6 +69,7 @@ import { AgendamentoDetailComponent } from './components/agendamento/agendamento
     TypeaheadModule.forRoot(),
     TabsModule.forRoot(),
     NgxMaskModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
@@ -71,7 +78,7 @@ import { AgendamentoDetailComponent } from './components/agendamento/agendamento
     }),
     NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
   schemas: [],
 

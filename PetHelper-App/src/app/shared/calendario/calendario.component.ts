@@ -90,7 +90,7 @@ export class CalendarioComponent implements OnInit {
 
   private async getAllDiasComAgendamentos(mes: number) {
     this.spinner.show();
-    (await this.agendamentoService.getAllDiasComAgendamentos(1, mes)).subscribe({
+    (await this.agendamentoService.getAllDiasComAgendamentos(mes)).subscribe({
       next: (diasComAgendamentos: number[]) => {
         this.diasComAgendamentos = diasComAgendamentos;
       },

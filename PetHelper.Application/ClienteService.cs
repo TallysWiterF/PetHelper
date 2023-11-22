@@ -14,11 +14,35 @@ public class ClienteService : IClienteService
         _geralPersist = geralPersist;
         _clientePersist = clientePersist;
     }
-    public async Task<Cliente> GetClienteByIdAsync(int clienteId)
+    public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
     {
         try
         {
             return await _clientePersist.GetClienteByIdAsync(clienteId);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<Cliente?> GetClienteByNomeTelefoneAsync(string nome, string telefone)
+    {
+        try
+        {
+            return await _clientePersist.GetClienteByNomeTelefoneAsync(nome, telefone);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+    
+    public async Task<Cliente?> GetClienteByPetShopIdTelefoneAsync(int petShopId, string telefone)
+    {
+        try
+        {
+            return await _clientePersist.GetClienteByPetShopIdTelefoneAsync(petShopId, telefone);
         }
         catch (Exception ex)
         {
@@ -42,6 +66,7 @@ public class ClienteService : IClienteService
     {
         try
         {
+            
             clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Add(clienteModel);
 
@@ -77,7 +102,7 @@ public class ClienteService : IClienteService
     {
         try
         {
-            Cliente cliente = await _clientePersist.GetClienteByIdAsync(clienteId);
+            Cliente? cliente = await _clientePersist.GetClienteByIdAsync(clienteId);
             if (cliente is null)
                 throw new Exception("Cliente não encontrado");
 

@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicoComponent } from 'src/app/components/servico/servico.component';
 import { PrecoFormatPipe } from 'src/app/helpers/PrecoFormat.pipe';
 import { Servico } from 'src/app/models/servico';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { ServicoService } from 'src/app/services/servico.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class ServicoDetailComponent implements OnInit {
   @Input() ServicoComponent?: ServicoComponent;
   @Input() public servico: Servico = {
     id: 0,
-    petShopId: 1,
+    petShopId: this.autenticacaoService.getPetShopId,
     nome: '',
     descricao: '',
     preco: 0,
@@ -32,7 +33,8 @@ export class ServicoDetailComponent implements OnInit {
   constructor(private servicoService: ServicoService,
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private precoFormatPipe: PrecoFormatPipe) { }
+    private precoFormatPipe: PrecoFormatPipe,
+    private autenticacaoService: AutenticacaoService) { }
 
   ngOnInit() {
     this.atualizarValorFormatado();
@@ -47,7 +49,7 @@ export class ServicoDetailComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: [this.servico.nome, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       preco:[this.precoFormatado],
-      descricao: [this.servico.descricao, Validators.maxLength(100)],
+      descricao: [this.servico.descricao, [Validators.required, Validators.maxLength(100)]],
     });
   }
 

@@ -16,9 +16,9 @@ public class PetShopController : ControllerBase
     {
         try
         {
-            PetShop petShop = await _petShopService.GetPetShopByIdAsync(id);
+            PetShop? petShop = await _petShopService.GetPetShopByIdAsync(id);
             if (petShop is null)
-                return NotFound(new { resposta = "PetShop não encontrado." });
+                return NotFound(new { resposta = "Pet Shop não encontrado." });
 
             return Ok(petShop);
         }
@@ -28,11 +28,46 @@ public class PetShopController : ControllerBase
         }
     }
 
+    [HttpPost("login")]
+    public async Task<IActionResult> RealizarLogin([FromBody] LoginModel model)
+    {
+        try
+        {
+            PetShop? petShop = await _petShopService.GetPetShopByEmailSenha(model.Email, model.Senha);
+            if (petShop is null)
+                return NotFound(new { resposta = "Pet Shop não encontrada." });
+
+            return Ok(petShop);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar a Pet Shop. Erro: {ex.Message}" });
+        }
+    }
+
+
+    [HttpPost("inscricao")]
+    public async Task<IActionResult> RealizarInscricao(InscricaoModel model)
+    {
+        try
+        {
+            return await _petShopService.EnviarEmailInscricao(model) ? 
+            Ok(new { resposta = "E-mail de inscrição enviado." }) : BadRequest(new { resposta = "Ocorreu uma falha ao tentar realizar a inscrição." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar realizar a inscrição. Erro: {ex.Message}" });
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(PetShop model)
     {
         try
         {
+            if (await _petShopService.ValidarEmailJaCadastrado(model.Email))
+                return BadRequest(new { resposta = "Erro ao tentar adicionar a Pet Shop. E-mail já cadastrado" });
+
             PetShop? petShop = await _petShopService.AddPetShop(model);
             if (petShop is null)
                 return BadRequest(new { resposta = "Erro ao tentar adicionar a Pet Shop." });

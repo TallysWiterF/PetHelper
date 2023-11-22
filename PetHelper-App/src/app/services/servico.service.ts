@@ -3,18 +3,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Servico } from '../models/servico';
 import { environment } from 'src/environments/environment';
+import { AutenticacaoService } from './autenticacao.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicoService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private autenticacaoService: AutenticacaoService) { }
 
   private baseURL: string = environment.baseURL + "Servico/";
+  private petShopId = this.autenticacaoService.getPetShopId;
 
-  public async getAllServicos(petShopId: number, retornarLogoServico: boolean): Promise<Observable<Servico[]>> {
-    return this.http.get<Servico[]>(`${this.baseURL}petShopId/${petShopId}/${retornarLogoServico}`);
+  public async getAllServicos(retornarLogoServico: boolean): Promise<Observable<Servico[]>> {
+    return this.http.get<Servico[]>(`${this.baseURL}petShopId/${this.petShopId}/${retornarLogoServico}`);
+  }
+
+  public async getAllServicosAtivosByPetShopId(petShopId: number, ativo: boolean): Promise<Observable<Servico[]>> {
+    return this.http.get<Servico[]>(`${this.baseURL}petShopId/${petShopId}/ativo/${ativo}`);
   }
 
   public async adicionarServico(servico: Servico): Promise<Observable<Servico>>{

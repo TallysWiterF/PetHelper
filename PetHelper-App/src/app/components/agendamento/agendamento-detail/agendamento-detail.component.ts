@@ -10,6 +10,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { ServicoService } from 'src/app/services/servico.service';
 import { AgendamentoComponent } from '../agendamento.component';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 @Component({
   selector: 'app-agendamento-detail',
@@ -22,11 +23,11 @@ export class AgendamentoDetailComponent implements OnInit {
   @Input() title: string = 'Modal';
   @Input() public agendamento: Agendamento = {
     id: 0,
-    petShopId: 1,
+    petShopId: this.autenticacaoService.getPetShopId,
     clienteId: 0,
     cliente: {
       id: 0,
-      petShopId: 1,
+      petShopId: this.autenticacaoService.getPetShopId,
       nome: '',
       telefone: '',
       endereco: '',
@@ -35,7 +36,7 @@ export class AgendamentoDetailComponent implements OnInit {
     servicoId: 0,
     servico: {
       id: 0,
-      petShopId: 1,
+      petShopId: this.autenticacaoService.getPetShopId,
       nome: '',
       descricao: '',
       preco: 0,
@@ -51,7 +52,6 @@ export class AgendamentoDetailComponent implements OnInit {
   public horariosDisponiveis: string[] = [];
   public formCliente: FormGroup = this.formBuilder.group({});
   public formServico: FormGroup = this.formBuilder.group({});
-  public telefoneClienteSelecionado: string = '';
   public precoFormatado: string = this.precoFormatPipe.transform(this.agendamento.servico.preco);
   public etapa: 'cliente' | 'servico' | 'agendamento' = 'cliente';
 
@@ -60,7 +60,8 @@ export class AgendamentoDetailComponent implements OnInit {
     private precoFormatPipe: PrecoFormatPipe,
     private agendamentoService: AgendamentoService,
     private clienteService: ClienteService,
-    private servicoService: ServicoService) { }
+    private servicoService: ServicoService,
+    private autenticacaoService: AutenticacaoService) { }
 
   ngOnInit() {
     this.atualizarValorFormatado();
@@ -92,7 +93,7 @@ export class AgendamentoDetailComponent implements OnInit {
     this.formCliente = this.formBuilder.group({
       nome: [this.agendamento.cliente.nome, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       telefone: [this.agendamento.cliente.telefone, [Validators.required, Validators.minLength(11)]],
-      endereco: [this.agendamento.cliente.endereco, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+      endereco: [this.agendamento.cliente.endereco, [Validators.maxLength(100)]],
       complemento: [this.agendamento.cliente.complemento, Validators.maxLength(130)],
     });
 
@@ -178,7 +179,7 @@ export class AgendamentoDetailComponent implements OnInit {
 
   private async getClientes() {
     this.agendamentoComponent?.spinner.show();
-    (await this.clienteService.getAllClientes(1)).subscribe({
+    (await this.clienteService.getAllClientes()).subscribe({
       next: (clientes: Cliente[]) => {
         this.clientes = clientes;
       },
@@ -192,7 +193,7 @@ export class AgendamentoDetailComponent implements OnInit {
 
   private async getServicos() {
     this.agendamentoComponent?.spinner.show();
-    (await this.servicoService.getAllServicos(1, false)).subscribe({
+    (await this.servicoService.getAllServicos(false)).subscribe({
       next: (servicos: Servico[]) => {
         this.servicos = servicos;
       },
@@ -206,7 +207,7 @@ export class AgendamentoDetailComponent implements OnInit {
 
   private async getHorariosDisponiveis() {
     this.agendamentoComponent?.spinner.show();
-    (await this.agendamentoService.getHorariosDisponiveis(1, this.agendamento.dataAgendamento)).subscribe({
+    (await this.agendamentoService.getHorariosDisponiveis(this.agendamento.dataAgendamento)).subscribe({
       next: (horariosDisponiveis: string[]) => {
         this.horariosDisponiveis = horariosDisponiveis;
       },

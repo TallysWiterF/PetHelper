@@ -17,17 +17,12 @@ public class ServicoPersist : IServicoPersist
 
     public async Task<Servico[]> GetAllServicosByPetShopIdAsync(int petShopId, bool retornarLogoServico)
     {
-        IQueryable<Servico> query = _context.Servicos;
-
         if (retornarLogoServico)
-        {
-            return await query.Where(p => p.PetShopId == petShopId)
+            return await _context.Servicos.Where(p => p.PetShopId == petShopId)
                               .OrderBy(p => p.Nome)
                               .ToArrayAsync();
-        }
-        else
-        {
-            return await query.Where(p => p.PetShopId == petShopId)
+
+            return await _context.Servicos.Where(p => p.PetShopId == petShopId)
                               .OrderBy(p => p.Nome)
                               .Select(p => new Servico
                               {
@@ -41,14 +36,13 @@ public class ServicoPersist : IServicoPersist
                                   DataAtualizacao = p.DataAtualizacao,
                               })
                               .ToArrayAsync();
-        }
     }
 
-    public async Task<Servico> GetServicoByIdAsync(int servicoId)
-    {
-        IQueryable<Servico> query = _context.Servicos;
+    public async Task<Servico[]> GetAllServicosAtivosByPetShopIdAsync(int petShopId, bool ativo) => await _context.Servicos.Where(p => p.PetShopId == petShopId
+                                                                                                                                    && p.Ativo == ativo)
+                                                                                                                           .OrderBy(p => p.Nome)
+                                                                                                                           .ToArrayAsync();
 
-        return await query.Where(p => p.Id == servicoId)
-                          .FirstOrDefaultAsync();
-    }
+    public async Task<Servico> GetServicoByIdAsync(int servicoId) => await _context.Servicos.Where(p => p.Id == servicoId)
+                                                                                            .FirstOrDefaultAsync();
 }

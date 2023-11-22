@@ -35,12 +35,6 @@
       <div>
         <input type="text" id="endereco" placeholder="Endereço do cliente:"  [(ngModel)]="cliente.endereco" formControlName="endereco"
           [ngClass]="{'is-invalid': controls.endereco.errors && controls.endereco.touched }">
-        <div *ngIf="controls.endereco.errors?.required" class="invalid-feedback mensagemErro">
-          Endereço é obrigatório.
-        </div>
-        <div *ngIf="controls.endereco.errors?.minlength" class="invalid-feedback mensagemErro">
-          Endereço deve ter no mínimo 8 caracteres.
-        </div>
         <div *ngIf="controls.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
           Endereço deve ter no máximo 100 caracteres.
         </div>

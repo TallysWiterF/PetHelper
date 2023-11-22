@@ -16,7 +16,7 @@ public class ClienteController : ControllerBase
     {
         try
         {
-            Cliente cliente = await _clienteService.GetClienteByIdAsync(clienteId);
+            Cliente? cliente = await _clienteService.GetClienteByIdAsync(clienteId);
             if (cliente is null)
                 return NotFound(new { resposta = "Cliente não encontrado." });
 
@@ -38,6 +38,27 @@ public class ClienteController : ControllerBase
                 return NotFound(new { resposta = "Clientes não encontrados." });
 
             return Ok(clientes);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar clientes. Erro: {ex.Message}" });
+        }
+    }
+
+    [HttpGet("petShopId/{petShopId}/{telefone}")]
+    public async Task<IActionResult> GetClienteByPetShopIdTelefoneAsync(int petShopId, string telefone)
+    {
+        try
+        {
+            Cliente cliente = await _clienteService.GetClienteByPetShopIdTelefoneAsync(petShopId, telefone);
+            if (cliente is null)
+                return Ok(new Cliente()
+                {
+                    PetShopId = petShopId,
+                    Telefone = telefone
+                });
+
+            return Ok(cliente);
         }
         catch (Exception ex)
         {

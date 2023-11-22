@@ -124,7 +124,7 @@ export class ServicoComponent implements OnInit {
 
   private async getServicos() {
     this.spinner.show();
-    (await this.servicoService.getAllServicos(1, true)).subscribe({
+    (await this.servicoService.getAllServicos(true)).subscribe({
       next: (servicos: Servico[]) => {
         this.servicosFiltrados = this.servicos = servicos;
       },

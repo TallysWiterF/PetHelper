@@ -39,6 +39,18 @@ public class ServicoService : IServicoService
         }
     }
 
+    public async Task<Servico[]> GetAllServicosAtivosByPetShopIdAsync(int petShopId, bool ativo)
+    {
+        try
+        {
+            return await _servicoPersist.GetAllServicosAtivosByPetShopIdAsync(petShopId, ativo);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public async Task<bool> AddServico(Servico servicoModel)
     {
         try

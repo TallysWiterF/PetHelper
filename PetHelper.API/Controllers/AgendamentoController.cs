@@ -24,7 +24,7 @@ public class AgendamentoController : ControllerBase
     {
         try
         {
-            Agendamento agendamento = await _agendamentoService.GetAgendamentoByIdAsync(agendamentoId);
+            Agendamento? agendamento = await _agendamentoService.GetAgendamentoByIdAsync(agendamentoId);
             if (agendamento is null)
                 return NotFound(new { resposta = "Agendamento não encontrado." });
 
@@ -75,7 +75,7 @@ public class AgendamentoController : ControllerBase
     {
         try
         {
-            Informativo informativos = await _agendamentoService.GetInformativosPetShop(petShopId, dataAgendamento);
+            Informativo informativos = _agendamentoService.GetInformativosPetShop(petShopId, dataAgendamento);
             if (informativos is null)
                 return NotFound(new { resposta = "Informativos não encontrados." });
 
