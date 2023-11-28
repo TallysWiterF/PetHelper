@@ -99,6 +99,7 @@ export class AgendamentoComponent implements OnInit {
   }
 
   public abrirWhatsAppComMensagem(telefone: string ,event: Event) {
+    event.stopPropagation();
     window.open(`https://wa.me/${telefone}`, '_blank');
   }
 
