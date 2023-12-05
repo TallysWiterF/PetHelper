@@ -1,6 +1,6 @@
 ﻿namespace PetHelper.Domain;
 
-public class Servico : IEntidadeBase, IEquatable<Servico>
+public class Servico : IEntidadeBase
 {
     public int Id { get; set; }
     public int PetShopId { get; set; }
@@ -13,9 +13,9 @@ public class Servico : IEntidadeBase, IEquatable<Servico>
     public DateTime DataAtualizacao { get; set; }
 
     public bool Equals(Servico servicoModel) => Id == servicoModel.Id &&
-               PetShopId == servicoModel.PetShopId &&
-               Nome == servicoModel.Nome.Trim() &&
-               Descricao == servicoModel.Descricao &&
-               Preco == servicoModel.Preco &&
-               Ativo == servicoModel.Ativo;
+                                                PetShopId == servicoModel.PetShopId &&
+                                                Nome == servicoModel.Nome.Trim() &&
+                                                Descricao == servicoModel.Descricao &&
+                                                Preco == servicoModel.Preco &&
+                                                Ativo == servicoModel.Ativo;
 }

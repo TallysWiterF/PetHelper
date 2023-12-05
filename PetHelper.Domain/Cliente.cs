@@ -1,6 +1,6 @@
 ﻿namespace PetHelper.Domain;
 
-public class Cliente : IEntidadeBase, IEquatable<Cliente>
+public class Cliente : IEntidadeBase
 {
     public int Id { get; set; }
     public int PetShopId { get; set; }
