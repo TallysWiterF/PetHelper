@@ -11,14 +11,16 @@ public class AgendamentoService : IAgendamentoService
 
     private readonly ClienteService _clienteService;
     private readonly ServicoService _servicoService;
+    private readonly PetService _petService;
 
-    public AgendamentoService(IGeralPersist geralPersist, IAgendamentoPersist agendamentoPersist, IClientePersist clientePersist, IServicoPersist servicoPersist)
+    public AgendamentoService(IGeralPersist geralPersist, IAgendamentoPersist agendamentoPersist, IClientePersist clientePersist, IServicoPersist servicoPersist, IPetPersist petPersist)
     {
         _geralPersist = geralPersist;
         _agendamentoPersist = agendamentoPersist;
 
-        _clienteService = new ClienteService(geralPersist, clientePersist);
+        _clienteService = new ClienteService(geralPersist, clientePersist, petPersist);
         _servicoService = new ServicoService(geralPersist, servicoPersist);
+        _petService = new PetService(geralPersist, petPersist);
     }
 
     public async Task<Agendamento?> GetAgendamentoByIdAsync(int agendamentoId)
@@ -142,6 +144,7 @@ public class AgendamentoService : IAgendamentoService
             agendamentoItem.Cliente = await _clienteService.GetClienteByIdAsync(agendamentoItem.ClienteId);
             agendamentoItem.Servico = await _servicoService.GetServicoByIdAsync(agendamentoItem.ServicoId);
             agendamentoItem.Servico.LogoServico = null;
+            agendamentoItem.Pet = agendamentoItem.Cliente.Pets.FirstOrDefault(x => x.Id == agendamentoItem.PetId);
         }
 
         return agendamentosModel;
@@ -150,30 +153,39 @@ public class AgendamentoService : IAgendamentoService
     private async Task<Agendamento> ValidarAgendamento(Agendamento agendamento)
     {
         if (agendamento.Cliente != null)
-            agendamento.Cliente = await ValidarCliente(agendamento.Cliente);
+            agendamento = await ValidarCliente(agendamento);
 
         if (agendamento.Servico != null)
-            agendamento.Servico = await ValidarServico(agendamento.Servico);
+            agendamento.Servico = await ValidarServico(agendamento.Servico); 
 
         return agendamento;
     }
 
-    private async Task<Cliente?> ValidarCliente(Cliente clienteModel)
+    private async Task<Agendamento?> ValidarCliente(Agendamento agendamentoModel)
     {
-        Cliente? cliente = await _clienteService.GetClienteByIdAsync(clienteModel.Id);
+        Cliente? cliente = await _clienteService.GetClienteByIdAsync(agendamentoModel.ClienteId);
 
         if (cliente == null)
         {
-            clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
-            return clienteModel;
+            agendamentoModel.Cliente.DataCriacao = agendamentoModel.Cliente.DataAtualizacao = DateTime.Now.Date;
+            if (await _clienteService.AddCliente(agendamentoModel.Cliente))
+                agendamentoModel.ClienteId = agendamentoModel.Cliente.Id;
         }
-        else if (!string.IsNullOrEmpty(clienteModel.Endereco) && !cliente.Equals(clienteModel))
+        else if (!string.IsNullOrEmpty(agendamentoModel.Cliente.Endereco) && !cliente.Equals(agendamentoModel.Cliente))
         {
-            clienteModel.DataAtualizacao = DateTime.Now.Date;
-            await _clienteService.UpdateCliente(clienteModel);
+            agendamentoModel.Cliente.DataAtualizacao = DateTime.Now.Date;
+            await _clienteService.UpdateCliente(agendamentoModel.Cliente);
         }
 
-        return null;
+        if (agendamentoModel.Pet != null && agendamentoModel.Cliente.Pets.Any(x => x.Raca == agendamentoModel.Pet.Raca && x.Nome == agendamentoModel.Pet.Nome))
+        {
+            agendamentoModel.PetId = agendamentoModel.Cliente.Pets.FirstOrDefault(x => x.Raca == agendamentoModel.Pet.Raca && x.Nome == agendamentoModel.Pet.Nome).Id;
+            agendamentoModel.Pet = null;
+        }
+
+        agendamentoModel.Cliente = null;
+
+        return agendamentoModel;
     }
 
     private async Task<Servico?> ValidarServico(Servico servicoModel)

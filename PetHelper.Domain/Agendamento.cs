@@ -1,4 +1,6 @@
-﻿namespace PetHelper.Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PetHelper.Domain;
 
 public class Agendamento : IEntidadeBase
 {
@@ -8,6 +10,11 @@ public class Agendamento : IEntidadeBase
     public Cliente? Cliente { get; set; }
     public int ServicoId { get; set; }
     public Servico? Servico { get; set; }
+    public int PetId { get; set; }
+
+    [NotMapped]
+    public Pet? Pet { get; set; }
+
     public string HorarioMarcado { get; set; }
     public DateTime DataAgendamento { get; set; }
     public DateTime DataCriacao { get; set; }

@@ -5,7 +5,7 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-input {
+.input {
   border-radius: 20px;
   border: 1px solid #ccc;
   padding: 10px 13px;
@@ -65,4 +65,14 @@ button {
 .contactButton:active {
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.05em 0.05em #5566c2;
+}
+
+.btn-right {
+  margin-left: 380px;
+}
+
+.btn-add-right {
+  margin-left: 340px;
+  width: 81px;
+  border-radius: 20px;
 }

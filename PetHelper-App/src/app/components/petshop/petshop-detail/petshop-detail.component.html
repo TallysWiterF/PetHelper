@@ -5,75 +5,159 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div>
     <div *ngIf="etapa === 'calendario'">
-      <div style="text-align: center;">
-        <bs-datepicker-inline [bsValue]="bsValue" [bsConfig]="{ containerClass: 'theme-blue' }"
-          (bsValueChange)="onDateSelected($event)"></bs-datepicker-inline>
-      </div>
-      <br>
-      <div *ngIf="horariosDisponiveis.length > 0">
-        <h5>Escolha um horário: </h5>
-      </div>
-      <div *ngIf="horariosDisponiveis.length <= 0">
-        <h5>Nenhum horário disponível.</h5>
-      </div>
-      <div class="d-flex flex-wrap">
-        <button type="button" *ngFor="let horario of horariosDisponiveis"
-          class="btn btn-primary d-inline-block mx-2 my-2"
-          [class.btn-secondary]="agendamento.horarioMarcado !== horario" (click)="agendamento.horarioMarcado = horario">
-          {{ horario }}
-        </button>
+      <div class="modal-body">
+        <div style="text-align: center;">
+          <bs-datepicker-inline [bsValue]="bsValue" [bsConfig]="{ containerClass: 'theme-blue' }"
+            (bsValueChange)="onDateSelected($event)"></bs-datepicker-inline>
+        </div>
+        <br>
+        <div *ngIf="horariosDisponiveis.length > 0">
+          <h5>Escolha um horário: </h5>
+        </div>
+        <div *ngIf="horariosDisponiveis.length <= 0">
+          <h5>Nenhum horário disponível.</h5>
+        </div>
+        <div class="d-flex flex-wrap">
+          <button type="button" *ngFor="let horario of horariosDisponiveis"
+            class="btn btn-primary d-inline-block mx-2 my-2"
+            [class.btn-secondary]="agendamento.horarioMarcado !== horario"
+            (click)="agendamento.horarioMarcado = horario">
+            {{ horario }}
+          </button>
+        </div>
       </div>
     </div>
 
     <form [formGroup]="formCliente">
+      <div class="modal-body">
+        <div *ngIf="etapa === 'telefone'">
 
-      <div *ngIf="etapa === 'telefone'">
-        <input id="telefone" placeholder="Número de WhatsApp:" [(ngModel)]="agendamento.cliente.telefone"
-        formControlName="telefone" mask="(00) 00000-0000"
-        [ngClass]="{'is-invalid': controlsCliente.telefone.errors && controlsCliente.telefone.touched }">
-        <div *ngIf="controlsCliente.telefone.errors?.required" class="invalid-feedback mensagemErro">
-          Telefone é obrigatório.
-        </div>
-        <div *ngIf="controlsCliente.telefone.errors?.minlength" class="invalid-feedback mensagemErro">
-          Telefone deve ter no mínimo 11 caracteres.
+          <input id="telefone" class="input" placeholder="Número de WhatsApp:"
+            [(ngModel)]="agendamento.cliente.telefone" formControlName="telefone" mask="(00) 00000-0000"
+            [ngClass]="{'is-invalid': controlsCliente.telefone.errors && controlsCliente.telefone.touched }">
+          <div *ngIf="controlsCliente.telefone.errors?.required" class="invalid-feedback mensagemErro">
+            Telefone é obrigatório.
+          </div>
+          <div *ngIf="controlsCliente.telefone.errors?.minlength" class="invalid-feedback mensagemErro">
+            Telefone deve ter no mínimo 11 caracteres.
+          </div>
         </div>
       </div>
-
       <div *ngIf="etapa === 'cliente'">
-        <div>
-          <input type="text" id="nome" placeholder="Nome:" [(ngModel)]="agendamento.cliente.nome"
-            [ngClass]="{'is-invalid': controlsCliente.nome.errors && controlsCliente.nome.touched }"
-            formControlName="nome">
-          <div *ngIf="controlsCliente.nome.errors?.required" class="invalid-feedback mensagemErro">
-            Nome é obrigatório.
+        <div class="modal-body">
+          <div>
+            <input type="text" class="input" id="nome" placeholder="Nome:" [(ngModel)]="agendamento.cliente.nome"
+              [ngClass]="{'is-invalid': controlsCliente.nome.errors && controlsCliente.nome.touched }"
+              formControlName="nome">
+            <div *ngIf="controlsCliente.nome.errors?.required" class="invalid-feedback mensagemErro">
+              Nome é obrigatório.
+            </div>
+            <div *ngIf="controlsCliente.nome.errors?.minlength" class="invalid-feedback mensagemErro">
+              Nome deve ter no mínimo 3 caracteres.
+            </div>
+            <div *ngIf="controlsCliente.nome.errors?.maxlength" class="invalid-feedback mensagemErro">
+              Nome deve ter no máximo 50 caracteres.
+            </div>
           </div>
-          <div *ngIf="controlsCliente.nome.errors?.minlength" class="invalid-feedback mensagemErro">
-            Nome deve ter no mínimo 3 caracteres.
+
+          <div>
+            <input type="text" class="input" id="endereco" placeholder="Endereço do cliente:"
+              [(ngModel)]="agendamento.cliente.endereco" formControlName="endereco"
+              [ngClass]="{'is-invalid': controlsCliente.endereco.errors && controlsCliente.endereco.touched }">
+            <div *ngIf="controlsCliente.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
+              Endereço deve ter no máximo 100 caracteres.
+            </div>
           </div>
-          <div *ngIf="controlsCliente.nome.errors?.maxlength" class="invalid-feedback mensagemErro">
-            Nome deve ter no máximo 50 caracteres.
+
+          <div>
+            <input type="text" class="input" id="complemento" placeholder="Complemento do endereço:"
+              [(ngModel)]="agendamento.cliente.complemento" formControlName="complemento"
+              [ngClass]="{'is-invalid': controlsCliente.complemento.errors && controlsCliente.complemento.touched }">
+            <div *ngIf="controlsCliente.complemento.errors?.maxlength" class="invalid-feedback mensagemErro">
+              Complemento deve ter no máximo 130 caracteres.
+            </div>
+          </div>
+
+          <div>
+            <form [formGroup]="formAgendamento">
+              <input type="text" class="input" id="nomePetAgendamento" placeholder="Pet selecionado:"
+                [(ngModel)]="agendamento.pet.nome" [typeahead]="Pets" typeaheadOptionField="nome"
+                [typeaheadOptionsLimit]="7" [typeaheadMinLength]="0" (typeaheadOnSelect)="onSelectPet($event)"
+                [ngClass]="{'is-invalid': controlsAgendamento.nomePetAgendamento.errors && controlsAgendamento.nomePetAgendamento.touched }"
+                formControlName="nomePetAgendamento">
+              <div *ngIf="controlsAgendamento.nomePetAgendamento.errors?.required"
+                class="invalid-feedback mensagemErro">
+                O agendamento deve conter um Pet.
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <a class="d-flex btn btn-outline-primary btn-add-right"
+              (click)="adicionarPet()">
+              <i class="fa fa-plus-circle my-1"></i>
+              <b class="ml-1 d-none d-sm-block">Novo</b>
+            </a>
           </div>
         </div>
 
-        <div>
-          <input type="text" id="endereco" placeholder="Endereço do cliente:" [(ngModel)]="agendamento.cliente.endereco"
-            formControlName="endereco"
-            [ngClass]="{'is-invalid': controlsCliente.endereco.errors && controlsCliente.endereco.touched }">
-          <div *ngIf="controlsCliente.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
-            Endereço deve ter no máximo 100 caracteres.
+        <div formArrayName="Pets">
+          <div *ngFor="let petControl of controlsPet; let i = index">
+            <div class="ml-lg-4 form-check form-check-inline">
+              <input class="form-check-input" type="radio" [id]="'radioTipoCachorro' + i" [name]="'petType' + i"
+                value="Cachorro" [checked]="agendamento.cliente.pets[i].tipo == 1" (change)="onChangeTipoPet(i, 1)">
+              <label class="form-check-label" [for]="'radioTipoCachorro' + i">Cachorro</label>
+            </div>
+            <div class="ml-1 form-check form-check-inline">
+              <input class="form-check-input" type="radio" [id]="'radioTipoGato' + i" [name]="'petType' + i"
+                value="Gato" [checked]="agendamento.cliente.pets[i].tipo == 2" (change)="onChangeTipoPet(i, 2)">
+              <label class="form-check-label" [for]="'radioTipoGato' + i">Gato</label>
+            </div>
+            <div style="margin-top: -29.5px;">
+              <a class="btn btn-outline-danger btn-right" style="border-radius: 20px;" (click)="removerPet(i)">
+                <i class="fa fa-xmark-circle my-1"></i>
+              </a>
+            </div>
+
+            <div class="modal-body">
+              <div>
+                <input type="text" class="input" [id]="'nomePet' + i" placeholder="Nome do Pet"
+                  [(ngModel)]="agendamento.cliente.pets[i].nome" [formControl]="petControl.get('nomePet')"
+                  [ngClass]="{'is-invalid': petControl.get('nomePet').errors && petControl.get('nomePet').touched }">
+                <div *ngIf="petControl.get('nomePet').errors?.required" class="invalid-feedback mensagemErro">
+                  Nome do pet é obrigatório.
+                </div>
+                <div *ngIf="petControl.get('nomePet').errors?.minlength" class="invalid-feedback mensagemErro">
+                  Nome do pet deve ter no mínimo 3 caracteres.
+                </div>
+                <div *ngIf="petControl.get('nomePet').errors?.maxlength" class="invalid-feedback mensagemErro">
+                  Nome do pet deve ter no máximo 50 caracteres.
+                </div>
+              </div>
+              <div>
+                <input type="text" class="input" [id]="'racaPet' + i" placeholder="Raça do Pet:"
+                  [(ngModel)]="agendamento.cliente.pets[i].raca"
+                  [typeahead]="agendamento.cliente.pets[i].tipo == 2 ? ListaRacasGatos : ListaRacasCachorros"
+                  [typeaheadOptionField]="'racaPet'" [typeaheadScrollable]="true"
+                  [typeaheadOptionsInScrollableView]="10" (typeaheadOnSelect)="onSelectRaca(i,$event)"
+                  [formControl]="petControl.get('racaPet')"
+                  [ngClass]="{'is-invalid': petControl.get('racaPet').errors && petControl.get('racaPet').touched }">
+                <div *ngIf="petControl.get('racaPet').errors?.required" class="invalid-feedback mensagemErro">
+                  Raça do pet é obrigatório.
+                </div>
+                <div *ngIf="petControl.get('racaPet').errors?.minlength" class="invalid-feedback mensagemErro">
+                  Raça do pet deve ter no mínimo 3 caracteres.
+                </div>
+                <div *ngIf="petControl.get('racaPet').errors?.maxlength" class="invalid-feedback mensagemErro">
+                  Raça do pet deve ter no máximo 70 caracteres.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div>
-          <input type="text" id="complemento" placeholder="Complemento do endereço:"
-            [(ngModel)]="agendamento.cliente.complemento" formControlName="complemento"
-            [ngClass]="{'is-invalid': controlsCliente.complemento.errors && controlsCliente.complemento.touched }">
-          <div *ngIf="controlsCliente.complemento.errors?.maxlength" class="invalid-feedback mensagemErro">
-            Complemento deve ter no máximo 130 caracteres.
-          </div>
-        </div>
       </div>
     </form>
     <div *ngIf="etapa === 'agendamento'">
@@ -82,6 +166,8 @@
       <li>Telefone: {{agendamento.cliente.telefone | TelefoneFormat}}</li>
       <li>Endereço: {{agendamento.cliente.endereco}}</li>
       <li>Complemento: {{agendamento.cliente.complemento}}</li>
+      <li>Nome Pet: {{agendamento.pet.nome}}</li>
+      <li>Raça: {{agendamento.pet.raca}}</li>
 
       <br>
       <h5>Serviço:</h5>

@@ -1,6 +1,7 @@
 ﻿using PetHelper.Application.Contratos;
 using PetHelper.Domain;
 using PetHelper.Persistence.Contratos;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PetHelper.Application;
 
@@ -9,10 +10,12 @@ public class ClienteService : IClienteService
     private readonly IGeralPersist _geralPersist;
     private readonly IClientePersist _clientePersist;
 
-    public ClienteService(IGeralPersist geralPersist, IClientePersist clientePersist)
+    private readonly PetService _petService;
+    public ClienteService(IGeralPersist geralPersist, IClientePersist clientePersist, IPetPersist petPersist)
     {
         _geralPersist = geralPersist;
         _clientePersist = clientePersist;
+        _petService = new PetService(geralPersist, petPersist);
     }
     public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
     {
@@ -37,7 +40,7 @@ public class ClienteService : IClienteService
             throw new Exception(ex.Message);
         }
     }
-    
+
     public async Task<Cliente?> GetClienteByPetShopIdTelefoneAsync(int petShopId, string telefone)
     {
         try
@@ -66,7 +69,6 @@ public class ClienteService : IClienteService
     {
         try
         {
-            
             clienteModel.DataCriacao = clienteModel.DataAtualizacao = DateTime.Now.Date;
             _geralPersist.Add(clienteModel);
 
@@ -82,15 +84,51 @@ public class ClienteService : IClienteService
     {
         try
         {
-            if (await _clientePersist.GetClienteByIdAsync(clienteModel.Id) != null)
+            Cliente? cliente = await _clientePersist.GetClienteByIdAsync(clienteModel.Id);
+            if (cliente != null)
             {
-                clienteModel.DataAtualizacao = DateTime.Now.Date;
+                clienteModel.Pets = await ValidarPets(cliente, clienteModel);
+
                 _geralPersist.Update(clienteModel);
 
                 return await _geralPersist.SaveChangesAsync();
             }
 
             return false;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    private async Task<List<Pet>> ValidarPets(Cliente clienteSalvo, Cliente clienteModel)
+    {
+        try
+        {
+            foreach (Pet pet in clienteModel.Pets)
+            {
+                if (clienteSalvo.Pets.Any(x => x.Id == pet.Id))
+                {
+                    Pet petSalvo = clienteSalvo.Pets.FirstOrDefault(x => x.Id == pet.Id);
+
+                    if (!petSalvo.Equals(pet))
+                        pet.DataAtualizacao = DateTime.Now.Date;
+
+                    clienteSalvo.Pets.RemoveAll(x => x.Id == pet.Id);
+                }
+
+                if (pet.DataCriacao == DateTime.MinValue)
+                    pet.DataCriacao = DateTime.Now.Date;
+            }
+
+            if (clienteSalvo.Pets.Count > 0)
+            {
+                foreach (Pet pet in clienteSalvo.Pets)
+                    await _petService.DeletePetById(pet.Id);
+            }
+
+            return clienteModel.Pets;
         }
         catch (Exception ex)
         {

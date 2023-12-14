@@ -39,6 +39,9 @@ namespace PetHelper.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PetId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("PetShopId")
                         .HasColumnType("INTEGER");
 
@@ -48,6 +51,8 @@ namespace PetHelper.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("PetId");
 
                     b.HasIndex("ServicoId");
 
@@ -88,6 +93,42 @@ namespace PetHelper.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("PetHelper.Domain.Pet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataAtualizacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PetShopId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Raca")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Pets");
                 });
 
             modelBuilder.Entity("PetHelper.Domain.PetShop", b =>
@@ -180,6 +221,12 @@ namespace PetHelper.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PetHelper.Domain.Pet", "Pet")
+                        .WithMany()
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PetHelper.Domain.Servico", "Servico")
                         .WithMany()
                         .HasForeignKey("ServicoId")
@@ -188,7 +235,23 @@ namespace PetHelper.API.Migrations
 
                     b.Navigation("Cliente");
 
+                    b.Navigation("Pet");
+
                     b.Navigation("Servico");
+                });
+
+            modelBuilder.Entity("PetHelper.Domain.Pet", b =>
+                {
+                    b.HasOne("PetHelper.Domain.Cliente", null)
+                        .WithMany("Pets")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PetHelper.Domain.Cliente", b =>
+                {
+                    b.Navigation("Pets");
                 });
 #pragma warning restore 612, 618
         }

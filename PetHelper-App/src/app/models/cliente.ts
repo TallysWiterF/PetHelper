@@ -1,3 +1,5 @@
+import { Pet } from "./pet";
+
 export interface Cliente {
   id: number;
   petShopId: number;
@@ -7,4 +9,5 @@ export interface Cliente {
   complemento: string;
   dataCriacao?: Date;
   dataAtualizacao?: Date;
+  pets: Pet[];
 }
