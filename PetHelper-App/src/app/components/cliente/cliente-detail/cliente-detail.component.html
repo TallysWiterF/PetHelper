@@ -5,10 +5,10 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <form [formGroup]="form">
+  <form [formGroup]="form">
+    <div class="modal-body">
       <div>
-        <input type="text" id="nome" placeholder="Nome do cliente:" [(ngModel)]="cliente.nome"
+        <input type="text" class="input" id="nome" placeholder="Nome do cliente:" [(ngModel)]="cliente.nome"
           [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome">
         <div *ngIf="controls.nome.errors?.required" class="invalid-feedback mensagemErro">
           Nome é obrigatório.
@@ -22,7 +22,8 @@
       </div>
 
       <div>
-        <input id="telefone" placeholder="Número de WhatsApp:" [(ngModel)]="cliente.telefone" formControlName="telefone" mask="(00) 00000-0000"
+        <input id="telefone" class="input" placeholder="Número de WhatsApp:" [(ngModel)]="cliente.telefone"
+          formControlName="telefone" mask="(00) 00000-0000"
           [ngClass]="{'is-invalid': controls.telefone.errors && controls.telefone.touched }">
         <div *ngIf="controls.telefone.errors?.required" class="invalid-feedback mensagemErro">
           Telefone é obrigatório.
@@ -33,25 +34,88 @@
       </div>
 
       <div>
-        <input type="text" id="endereco" placeholder="Endereço do cliente:"  [(ngModel)]="cliente.endereco" formControlName="endereco"
-          [ngClass]="{'is-invalid': controls.endereco.errors && controls.endereco.touched }">
+        <input type="text" class="input" id="endereco" placeholder="Endereço do cliente:" [(ngModel)]="cliente.endereco"
+          formControlName="endereco" [ngClass]="{'is-invalid': controls.endereco.errors && controls.endereco.touched }">
         <div *ngIf="controls.endereco.errors?.maxlength" class="invalid-feedback mensagemErro">
           Endereço deve ter no máximo 100 caracteres.
         </div>
       </div>
 
       <div>
-        <input type="text" id="complemento" placeholder="Complemento do endereço:" [(ngModel)]="cliente.complemento" formControlName="complemento"
+        <input type="text" class="input" id="complemento" placeholder="Complemento do endereço:"
+          [(ngModel)]="cliente.complemento" formControlName="complemento"
           [ngClass]="{'is-invalid': controls.complemento.errors && controls.complemento.touched }">
         <div *ngIf="controls.complemento.errors?.maxlength" class="invalid-feedback mensagemErro">
           Complemento deve ter no máximo 130 caracteres.
         </div>
       </div>
-    </form>
-  </div>
+      <div>
+        <a class="btn btn-outline-primary btn-right" tooltip="Adicionar Pet" style="border-radius: 20px;"
+          (click)="adicionarPet()">
+          <i class="fa-solid fa-paw my-1"></i>
+        </a>
+      </div>
+    </div>
+
+    <div formArrayName="Pets">
+      <div *ngFor="let petControl of controlsPet; let i = index">
+        <div class="ml-lg-4 form-check form-check-inline">
+          <input class="form-check-input" type="radio" [id]="'radioTipoCachorro' + i" [name]="'petType' + i"
+            value="Cachorro" [checked]="cliente.pets[i].tipo == 1" (change)="onChangeTipoPet(i, 1)">
+          <label class="form-check-label" [for]="'radioTipoCachorro' + i">Cachorro</label>
+        </div>
+        <div class="ml-1 form-check form-check-inline">
+          <input class="form-check-input" type="radio" [id]="'radioTipoGato' + i" [name]="'petType' + i" value="Gato"
+            [checked]="cliente.pets[i].tipo == 2" (change)="onChangeTipoPet(i, 2)">
+          <label class="form-check-label" [for]="'radioTipoGato' + i">Gato</label>
+        </div>
+        <div style="margin-top: -29.5px;">
+          <a class="btn btn-outline-danger btn-right" style="border-radius: 20px;" (click)="removerPet(i)">
+            <i class="fa fa-xmark-circle my-1"></i>
+          </a>
+        </div>
+
+        <div class="modal-body">
+          <div>
+            <input type="text" class="input" [id]="'nomePet' + i" placeholder="Nome do Pet"
+              [(ngModel)]="cliente.pets[i].nome" [formControl]="petControl.get('nomePet')"
+              [ngClass]="{'is-invalid': petControl.get('nomePet').errors && petControl.get('nomePet').touched }">
+            <div *ngIf="petControl.get('nomePet').errors?.required" class="invalid-feedback mensagemErro">
+              Nome do pet é obrigatório.
+            </div>
+            <div *ngIf="petControl.get('nomePet').errors?.minlength" class="invalid-feedback mensagemErro">
+              Nome do pet deve ter no mínimo 3 caracteres.
+            </div>
+            <div *ngIf="petControl.get('nomePet').errors?.maxlength" class="invalid-feedback mensagemErro">
+              Nome do pet deve ter no máximo 50 caracteres.
+            </div>
+          </div>
+          <div>
+            <input type="text" class="input" [id]="'racaPet' + i" placeholder="Raça do Pet:"
+              [(ngModel)]="cliente.pets[i].raca"
+              [typeahead]="cliente.pets[i].tipo == 2 ? ListaRacasGatos : ListaRacasCachorros"
+              [typeaheadOptionField]="'racaPet'" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="10"
+              (typeaheadOnSelect)="onSelectRaca(i,$event)" [formControl]="petControl.get('racaPet')"
+              [ngClass]="{'is-invalid': petControl.get('racaPet').errors && petControl.get('racaPet').touched }">
+            <div *ngIf="petControl.get('racaPet').errors?.required" class="invalid-feedback mensagemErro">
+              Raça do pet é obrigatório.
+            </div>
+            <div *ngIf="petControl.get('racaPet').errors?.minlength" class="invalid-feedback mensagemErro">
+              Raça do pet deve ter no mínimo 3 caracteres.
+            </div>
+            <div *ngIf="petControl.get('racaPet').errors?.maxlength" class="invalid-feedback mensagemErro">
+              Raça do pet deve ter no máximo 70 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="fecharModal()">Cancelar</button>
-    <button type="button" [disabled]="form.invalid" data-dismiss="modal" (click)="salvarCliente()" class="btn btn-success">Salvar
+    <button type="button" [disabled]="form.invalid" data-dismiss="modal" (click)="salvarCliente()"
+      class="btn btn-success">Salvar
       Cliente</button>
   </div>
 </div>

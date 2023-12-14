@@ -33,12 +33,14 @@ public class Startup
         services.AddScoped<IClienteService, ClienteService>();
         services.AddScoped<IServicoService, ServicoService>();
         services.AddScoped<IAgendamentoService, AgendamentoService>();
+        services.AddScoped<IPetService, PetService>();
 
         services.AddScoped<IGeralPersist, GeralPersist>();
         services.AddScoped<IPetShopPersist, PetShopPersist>();
         services.AddScoped<IClientePersist, ClientePersist>();
         services.AddScoped<IServicoPersist, ServicoPersist>();
         services.AddScoped<IAgendamentoPersist, AgendamentoPersist>();
+        services.AddScoped<IPetPersist, PetPersist>();
 
         services.AddCors(options =>
         {

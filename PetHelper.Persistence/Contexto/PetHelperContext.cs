@@ -10,5 +10,5 @@ public class PetHelperContext : DbContext
     public DbSet<PetShop> PetShops { get; set; }
     public DbSet<Servico> Servicos { get; set; }
     public DbSet<Agendamento> Agendamentos { get; set; }
-
+    public DbSet<Pet> Pets { get; set; }
 }

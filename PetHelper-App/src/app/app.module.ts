@@ -54,7 +54,7 @@ import { PetshopDetailComponent } from './components/petshop/petshop-detail/pets
     ServicoDetailComponent,
     DateTimeFormatPipe,
     TelefoneFormatPipe,
-    PrecoFormatPipe
+    PrecoFormatPipe,
   ],
   imports: [
     CommonModule,

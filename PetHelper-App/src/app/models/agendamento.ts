@@ -1,4 +1,5 @@
 import { Cliente } from "./cliente";
+import { Pet } from "./pet";
 import { Servico } from "./servico";
 
 export interface Agendamento {
@@ -8,6 +9,8 @@ export interface Agendamento {
   cliente: Cliente;
   servicoId: number;
   servico: Servico;
+  petId: number;
+  pet: Pet;
   horarioMarcado: string;
   dataAgendamento: Date;
 }
