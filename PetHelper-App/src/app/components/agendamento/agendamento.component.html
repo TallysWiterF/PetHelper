@@ -88,6 +88,7 @@
           <th>Cliente</th>
           <th>Telefone</th>
           <th>Endereço</th>
+          <th>Pet Raça</th>
           <th>Serviço</th>
           <th>Preço</th>
           <th>Horário</th>
@@ -99,6 +100,7 @@
           <td>{{agendamento.cliente.nome}}</td>
           <td>{{agendamento.cliente.telefone | TelefoneFormat}}</td>
           <td>{{agendamento.cliente.endereco}}</td>
+          <td>{{agendamento.pet.raca || ''}}</td>
           <td>{{agendamento.servico.nome}}</td>
           <td>{{agendamento.servico.preco | PrecoFormat}}</td>
           <td>{{agendamento.horarioMarcado}}</td>
