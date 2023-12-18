@@ -40,15 +40,6 @@ https://github.com/TallysWiterF/PetHelper/assets/63269777/3f6fa3db-aec1-48b4-9a8
             </sub>
           </a>
         </td>
-        <td align="center">
-          <a href="https://github.com/felpBigStack">
-            <img src="https://avatars.githubusercontent.com/u/144967655?v=4" width="100px;" alt="Profile" />
-            <br />
-            <sub>
-              <b>Felipe Frade</b>
-            </sub>
-          </a>
-        </td>
       </tr>
     </table>
   </ul>
