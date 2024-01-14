@@ -27,7 +27,7 @@ https://github.com/TallysWiterF/PetHelper/assets/63269777/3f6fa3db-aec1-48b4-9a8
 [Menu.Agendamento.Cliente.webm](https://github.com/TallysWiterF/PetHelper/assets/63269777/edaf15f2-d351-4f56-a228-2df1e6c275de)
 
 
-  <h2>Autores</h2>
+  <h2>Autor</h2>
   <ul>
     <table align="center">
       <tr>
