@@ -17,7 +17,7 @@ public class PetShopPersist : IPetShopPersist
     }
 
     public async Task<PetShop?> GetPetShopByIdAsync(int petShopId) => await _context.PetShops.Where(p => p.Id == petShopId)
-                                                                                              .FirstOrDefaultAsync();
+                                                                                             .FirstOrDefaultAsync();
 
     public async Task<PetShop?> GetPetShopByEmailSenha(string email, string senha)
     {
@@ -32,6 +32,4 @@ public class PetShopPersist : IPetShopPersist
     }
 
     public async Task<bool> ValidarEmailJaCadastrado(string email) => await _context.PetShops.Where(p => p.Email == email).FirstOrDefaultAsync() != null;
-    
-
 }

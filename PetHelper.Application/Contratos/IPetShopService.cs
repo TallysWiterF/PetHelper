@@ -8,5 +8,5 @@ public interface IPetShopService : IPetShopPersist
     Task<PetShop?> AddPetShop(PetShop petShopModel);
     Task<PetShop?> UpdatePetShop(int petShopId, PetShop petShopModel);
     Task<bool> DeletePetShop(int petShopId);
-    Task<bool> EnviarEmailInscricao(InscricaoModel model);
+    bool EnviarEmailInscricao(InscricaoModel model);
 }

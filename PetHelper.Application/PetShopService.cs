@@ -47,12 +47,12 @@ public class PetShopService : IPetShopService
         }
     }
 
-    public async Task<bool> EnviarEmailInscricao(InscricaoModel model)
+    public bool EnviarEmailInscricao(InscricaoModel model)
     {
         MailAddress remetente = new(_configuration["SecretConfiguration:Email"], "PetHelper");
         MailAddress destinatario = new(_configuration["SecretConfiguration:SendTo"]);
 
-        using SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+        using SmtpClient smtpClient = new("smtp.gmail.com", 587);
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new NetworkCredential(_configuration["SecretConfiguration:Email"],
                                                        _configuration["SecretConfiguration:Password"]);
