@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrecoFormatPipe } from 'src/app/helpers/PrecoFormat.pipe';
 import { Agendamento } from 'src/app/models/agendamento';
@@ -9,17 +9,24 @@ import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ServicoService } from 'src/app/services/servico.service';
 import { AgendamentoComponent } from '../agendamento.component';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { Pet, RacasEnum } from 'src/app/models/pet';
 import { listaRacasCachorros } from 'src/app/shared/const/ListaRacasCachorros';
 import { listaRacasGatos } from 'src/app/shared/const/ListaRacasGatos';
+import { CommonModule } from '@angular/common';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TelefoneFormatPipe } from 'src/app/helpers/TelefoneFormat.pipe';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-agendamento-detail',
   templateUrl: './agendamento-detail.component.html',
   styleUrls: ['./agendamento-detail.component.scss'],
-  providers: [AgendamentoService, ClienteService, ServicoService, PrecoFormatPipe],
+  standalone: true,
+  imports:[ReactiveFormsModule, CommonModule, TypeaheadModule, BsDatepickerModule, NgxMaskDirective, TelefoneFormatPipe, TooltipModule],
+  providers: [AgendamentoService, ClienteService, ServicoService],
 })
 export class AgendamentoDetailComponent implements OnInit {
 

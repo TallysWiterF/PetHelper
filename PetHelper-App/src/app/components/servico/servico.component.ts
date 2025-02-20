@@ -5,11 +5,21 @@ import { ToastrService } from 'ngx-toastr';
 import { Servico } from 'src/app/models/servico';
 import { ServicoService } from 'src/app/services/servico.service';
 import { ServicoDetailComponent } from 'src/app/components/servico/servico-detail/servico-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PrecoFormatPipe } from 'src/app/helpers/PrecoFormat.pipe';
+import { DateTimeFormatPipe } from 'src/app/helpers/DateTimeFormat.pipe';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @Component({
   selector: 'app-servico',
   templateUrl: './servico.component.html',
   styleUrls: ['./servico.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CollapseModule, FormsModule, CommonModule, TypeaheadModule, BsDatepickerModule, PrecoFormatPipe, DateTimeFormatPipe, TooltipModule],
 })
 export class ServicoComponent implements OnInit {
 

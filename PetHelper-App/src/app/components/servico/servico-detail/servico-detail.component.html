@@ -1,9 +1,7 @@
-<div class="modal-content">
+<div class="modal-content" ngbAutoFocus>
   <div class="modal-header">
     <h5 class="modal-title">{{title}}</h5>
-    <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" (click)="fecharModal()" aria-label="Close"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="form">
@@ -20,7 +18,7 @@
 
       <div>
         <input type="text" id="nome" placeholder="Título do serviço:" [(ngModel)]="servico.nome"
-          [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome">
+          [ngClass]="{'is-invalid': controls.nome.errors && controls.nome.touched }" formControlName="nome" ngbAutofocus>
         <div *ngIf="controls.nome.errors?.required" class="invalid-feedback mensagemErro">
           Nome é obrigatório.
         </div>

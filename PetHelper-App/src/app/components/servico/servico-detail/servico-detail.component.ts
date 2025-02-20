@@ -1,6 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { NgxMaskDirective } from 'ngx-mask';
 import { ServicoComponent } from 'src/app/components/servico/servico.component';
 import { PrecoFormatPipe } from 'src/app/helpers/PrecoFormat.pipe';
 import { Servico } from 'src/app/models/servico';
@@ -11,7 +16,9 @@ import { ServicoService } from 'src/app/services/servico.service';
   selector: 'app-servico-detail',
   templateUrl: './servico-detail.component.html',
   styleUrls: ['./servico-detail.component.scss'],
-  providers: [ServicoService, PrecoFormatPipe]
+  standalone: true,
+  imports:[ReactiveFormsModule, CommonModule, TooltipModule, TypeaheadModule, BsDatepickerModule, NgxMaskDirective],
+  providers: [ServicoService]
 })
 export class ServicoDetailComponent implements OnInit {
 

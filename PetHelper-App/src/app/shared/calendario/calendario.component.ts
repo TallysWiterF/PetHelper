@@ -4,12 +4,15 @@ import { MonthNames } from '../const/monthNames';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.scss'],
-  providers: [DateTimeFormatPipe]
+  providers: [DateTimeFormatPipe],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CalendarioComponent implements OnInit {
 

@@ -1,9 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { Constants } from '../util/Constants';
 
 @Pipe({
-  name: 'DateTimeFormat'
+  name: 'DateTimeFormat',
+  standalone: true
+})
+
+@Injectable({
+  providedIn: 'root'
 })
 
 export class DateTimeFormatPipe extends DatePipe implements PipeTransform {

@@ -1,9 +1,7 @@
-<div class="modal-content">
+<div class="modal-content" ngbAutoFocus>
   <div class="modal-header">
     <h5 class="modal-title">{{title}}</h5>
-    <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" (click)="fecharModal()" aria-label="Close"></button>
   </div>
   <form [formGroup]="form">
     <div class="modal-body">
@@ -59,12 +57,12 @@
 
     <div formArrayName="Pets">
       <div *ngFor="let petControl of controlsPet; let i = index">
-        <div class="ml-lg-4 form-check form-check-inline">
+        <div class="ms-lg-4 form-check form-check-inline">
           <input class="form-check-input" type="radio" [id]="'radioTipoCachorro' + i" [name]="'petType' + i"
             value="Cachorro" [checked]="cliente.pets[i].tipo == 1" (change)="onChangeTipoPet(i, 1)">
           <label class="form-check-label" [for]="'radioTipoCachorro' + i">Cachorro</label>
         </div>
-        <div class="ml-1 form-check form-check-inline">
+        <div class="ms-1 form-check form-check-inline">
           <input class="form-check-input" type="radio" [id]="'radioTipoGato' + i" [name]="'petType' + i" value="Gato"
             [checked]="cliente.pets[i].tipo == 2" (change)="onChangeTipoPet(i, 2)">
           <label class="form-check-label" [for]="'radioTipoGato' + i">Gato</label>

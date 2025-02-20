@@ -51,7 +51,7 @@ public class PetShopController : ControllerBase
     {
         try
         {
-            return await _petShopService.EnviarEmailInscricao(model) ? 
+            return _petShopService.EnviarEmailInscricao(model) ? 
             Ok(new { resposta = "E-mail de inscrição enviado." }) : BadRequest(new { resposta = "Ocorreu uma falha ao tentar realizar a inscrição." });
         }
         catch (Exception ex)

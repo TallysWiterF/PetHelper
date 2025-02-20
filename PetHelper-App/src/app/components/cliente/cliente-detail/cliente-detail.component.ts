@@ -1,7 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { NgxMaskDirective } from 'ngx-mask';
 import { ClienteComponent } from 'src/app/components/cliente/cliente.component';
 import { Cliente } from 'src/app/models/cliente';
 import { Pet, RacasEnum } from 'src/app/models/pet';
@@ -14,6 +17,8 @@ import { listaRacasGatos } from 'src/app/shared/const/ListaRacasGatos';
   selector: 'app-cliente-detail',
   templateUrl: './cliente-detail.component.html',
   styleUrls: ['./cliente-detail.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, TypeaheadModule, NgxMaskDirective, TooltipModule],
   providers: [ClienteService]
 })
 
@@ -78,7 +83,7 @@ export class ClienteDetailComponent implements OnInit {
   }
 
   public onChangeTipoPet(index: number, tipo: number): void {
-    if(this.cliente.pets[index] != undefined)
+    if (this.cliente.pets[index] != undefined)
       this.cliente.pets[index].raca = "";
 
     if (tipo === RacasEnum.Gato) {
@@ -114,7 +119,7 @@ export class ClienteDetailComponent implements OnInit {
     (this.form.get('Pets') as FormArray).push(novoPetControl);
   }
 
-  public removerPet(index: number){
+  public removerPet(index: number) {
     this.cliente.pets.splice(index, 1);
     (this.form.get('Pets') as FormArray)
 

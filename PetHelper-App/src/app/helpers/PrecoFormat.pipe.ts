@@ -1,9 +1,16 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'PrecoFormat'
+  name: 'PrecoFormat',
+  standalone: true
 })
+
+@Injectable({
+  providedIn: 'root'
+})
+
 export class PrecoFormatPipe implements PipeTransform {
+
   transform(value: number | string): string {
     if (typeof value === 'string') {
       value = parseFloat(value);

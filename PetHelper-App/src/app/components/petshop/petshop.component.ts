@@ -8,11 +8,14 @@ import { Servico } from 'src/app/models/servico';
 import { PetshopService } from 'src/app/services/petshop.service';
 import { ServicoService } from 'src/app/services/servico.service';
 import { PetshopDetailComponent } from './petshop-detail/petshop-detail.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-petshop',
   templateUrl: './petshop.component.html',
-  styleUrls: ['./petshop.component.scss']
+  styleUrls: ['./petshop.component.scss'],
+  standalone:true,
+  imports:[CommonModule],
 })
 export class PetshopComponent implements OnInit {
 

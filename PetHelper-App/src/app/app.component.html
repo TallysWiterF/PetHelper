@@ -1,17 +1,15 @@
-<div *ngIf="isAgendamentoCliente; else portalPetShop">
+@if (isAgendamentoCliente) {
   <app-petshop></app-petshop>
-</div>
-
-<ng-template #portalPetShop>
-  <div *ngIf="!onLoginSuccess()">
-    <app-login (loginSuccess)="onLoginSuccess()"></app-login>
-  </div>
-
-  <div *ngIf="onLoginSuccess()">
-    <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-    <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
-  </div>
-</ng-template>
+}
+@else {
+    @if (onLoginSuccess()) {
+      <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+      <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
+    }
+    @else {
+      <app-login (loginSuccess)="onLoginSuccess()"></app-login>Z
+    }
+}
 
 <ngx-spinner class="spinner" bdColor="rgba(51,51,51,0.8)" type="ball-scale-multiple">
   <p class="carregando">Carregando...</p>

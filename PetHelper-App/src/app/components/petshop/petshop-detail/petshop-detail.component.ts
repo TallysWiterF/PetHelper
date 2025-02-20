@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrecoFormatPipe } from 'src/app/helpers/PrecoFormat.pipe';
 import { Agendamento } from 'src/app/models/agendamento';
@@ -8,7 +8,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { ServicoService } from 'src/app/services/servico.service';
 import { PetshopComponent } from '../petshop.component';
 import { Servico } from 'src/app/models/servico';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { DateTimeFormatPipe } from 'src/app/helpers/DateTimeFormat.pipe';
@@ -16,14 +16,19 @@ import { Cliente } from 'src/app/models/cliente';
 import { Pet, RacasEnum } from 'src/app/models/pet';
 import { listaRacasCachorros } from 'src/app/shared/const/ListaRacasCachorros';
 import { listaRacasGatos } from 'src/app/shared/const/ListaRacasGatos';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { CommonModule } from '@angular/common';
+import { TelefoneFormatPipe } from 'src/app/helpers/TelefoneFormat.pipe';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
   selector: 'app-petshop-detail',
   templateUrl: './petshop-detail.component.html',
   styleUrls: ['./petshop-detail.component.scss'],
-  providers: [AgendamentoService, ClienteService, ServicoService, DateTimeFormatPipe],
+  standalone: true,
+  imports:[ReactiveFormsModule, CommonModule, TypeaheadModule, TooltipModule, BsDatepickerModule, DateTimeFormatPipe, TelefoneFormatPipe],
+  providers: [AgendamentoService, ClienteService, ServicoService, ],
 })
 export class PetshopDetailComponent implements OnInit {
 
@@ -38,6 +43,7 @@ export class PetshopDetailComponent implements OnInit {
     preco: 0,
     ativo: false
   };
+  DateTimeFormat: DateTimeFormatPipe | undefined
   bsValue = new Date();
   public etapa: 'cliente' | 'calendario' | 'telefone' | 'agendamento' = 'calendario';
   public agendamento: Agendamento = {

@@ -5,11 +5,20 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { ClienteDetailComponent } from 'src/app/components/cliente/cliente-detail/cliente-detail.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TelefoneFormatPipe } from 'src/app/helpers/TelefoneFormat.pipe';
+import { DateTimeFormatPipe } from 'src/app/helpers/DateTimeFormat.pipe';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, DateTimeFormatPipe, TypeaheadModule, BsDatepickerModule, TooltipModule, TelefoneFormatPipe],
   providers: [ClienteService]
 })
 
@@ -64,7 +73,7 @@ export class ClienteComponent implements OnInit {
       this.activeModal.dismiss();
   }
 
-  public abrirWhatsAppComMensagem(telefone: string ,event: Event) {
+  public abrirWhatsAppComMensagem(telefone: string, event: Event) {
     window.open(`https://wa.me/${telefone}`, '_blank');
   }
 

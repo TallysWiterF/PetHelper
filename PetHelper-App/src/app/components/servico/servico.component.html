@@ -4,13 +4,13 @@
       <div class="input-group-prepend">
         <div class="input-group-text">Filtro:</div>
       </div>
-      <input type="text" class="form-control mr-2" placeholder="Filtrar por nome" [(ngModel)]="filtroLista">
+      <input type="text" class="form-control me-2" placeholder="Filtrar por nome" [(ngModel)]="filtroLista">
     </div>
   </div>
   <div>
     <a class="d-flex btn btn-outline-primary" (click)="novoServico()">
       <i class="fa fa-plus-circle my-1"></i>
-      <b class="ml-1 d-none d-sm-block">Novo</b>
+      <b class="ms-1 d-none d-sm-block">Novo</b>
     </a>
   </div>
 </div>
@@ -22,7 +22,7 @@
         <tr>
           <th class="d-none d-md-table-cell">
             <button type="button" class="btn btn-outline-light btn-sm"
-            tooltip="{{exibirImagem ? 'Visualizar Logo' : 'Ocultar Logo' }}"  (click)="alterarVisibilidade()">
+            tooltip="{{exibirImagem ? 'Visualizar Logo' : 'Ocultar Logo' }}" (click)="alterarVisibilidade()">
               <i class="{{exibirImagem ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
               {{exibirImagem ? 'Exibir' : 'Ocultar' }}</button>
           </th>
@@ -53,7 +53,7 @@
             </div>
           </td>
           <td>
-            <button type="button" class="btn btn-danger btn-g mr-2"
+            <button type="button" class="btn btn-danger btn-g me-2"
               (click)="abrirTemplate(deletarTemplate, servico.id, $event)" tooltip="Deletar">
               <i class="fa fa-trash"></i>
             </button>
@@ -67,7 +67,7 @@
 <ng-template #deletarTemplate>
   <div class="modal-body text-center">
     <p>Tem certeza que deseja deletar esse Serviço?</p>
-    <button type="button" class="btn btn-primary mr-2" (click)="fecharDeletarTemplate()">Não</button>
+    <button type="button" class="btn btn-primary me-2" (click)="fecharDeletarTemplate()">Não</button>
     <button type="button" class="btn btn-secondary" (click)="excluirServico()">Sim</button>
   </div>
 </ng-template>

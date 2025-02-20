@@ -1,18 +1,23 @@
 import { Component, OnInit, Inject, Renderer2, EventEmitter, Output } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { PetShop } from 'src/app/models/petshop';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Login } from 'src/app/models/login';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { Inscricao } from 'src/app/models/inscricao';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { NgxMaskDirective } from 'ngx-mask';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports:[ReactiveFormsModule, CommonModule, TypeaheadModule, TooltipModule, NgxMaskDirective],
 })
 export class LoginComponent implements OnInit {
 

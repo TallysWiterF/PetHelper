@@ -7,13 +7,22 @@ import { Agendamento } from 'src/app/models/agendamento';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { AgendamentoDetailComponent } from './agendamento-detail/agendamento-detail.component';
 import { Informativo } from 'src/app/models/informativo';
-import { AutenticacaoService } from 'src/app/services/autenticacao.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TelefoneFormatPipe } from 'src/app/helpers/TelefoneFormat.pipe';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { PrecoFormatPipe } from 'src/app/helpers/PrecoFormat.pipe';
+import { CalendarioComponent } from 'src/app/shared/calendario/calendario.component';
 
 @Component({
   selector: 'app-agendamento',
   templateUrl: './agendamento.component.html',
   styleUrls: ['./agendamento.component.scss'],
-  providers: [AgendamentoService, DateTimeFormatPipe]
+  standalone: true,
+  imports:[ReactiveFormsModule, CalendarioComponent, CommonModule, FormsModule, TypeaheadModule, BsDatepickerModule, PrecoFormatPipe, TooltipModule, TelefoneFormatPipe],
+  providers: [AgendamentoService]
 })
 export class AgendamentoComponent implements OnInit {
 
