@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using PetHelper.API.Hubs;
+using PetHelper.API.Properties;
 using PetHelper.Application.Contratos;
 using PetHelper.Domain;
 
@@ -26,13 +27,13 @@ public class AgendamentoController : ControllerBase
         {
             Agendamento? agendamento = await _agendamentoService.GetAgendamentoByIdAsync(agendamentoId);
             if (agendamento is null)
-                return NotFound(new { resposta = "Agendamento não encontrado." });
+                return NotFound(new { resposta = Resource.AgendamentoNaoEncontrado });
 
             return Ok(agendamento);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar agendamento. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoRecuperarAgendamento, ex.Message) });
         }
     }
 
@@ -43,13 +44,13 @@ public class AgendamentoController : ControllerBase
         {
             Agendamento[] agendamentos = await _agendamentoService.GetAllAgendamentosByPetShopIdDataAgendamentoAsync(petShopId, dataAgendamento);
             if (agendamentos is null)
-                return NotFound(new { resposta = "Agendamentos não encontrados." });
+                return NotFound(new { resposta = Resource.AgendamentosNaoEncontrados });
 
             return Ok(agendamentos);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar agendamentos. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoRecuperarAgendamentos, ex.Message) });
         }
     }
 
@@ -60,13 +61,13 @@ public class AgendamentoController : ControllerBase
         {
             string[] horariosMarcados = await _agendamentoService.GetAllHorariosDisponiveisByPetShopIdDataAgendamentoAsync(petShopId, dataAgendamento);
             if (horariosMarcados is null)
-                return NotFound(new { resposta = "Horários marcados não encontrados." });
+                return NotFound(new { resposta = Resource.HorariosNaoEncontrados });
 
             return Ok(horariosMarcados);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar agendamentos. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoRecuperarAgendamentos, ex.Message) });
         }
     }
 
@@ -77,13 +78,13 @@ public class AgendamentoController : ControllerBase
         {
             Informativo informativos = _agendamentoService.GetInformativosPetShop(petShopId, dataAgendamento);
             if (informativos is null)
-                return NotFound(new { resposta = "Informativos não encontrados." });
+                return NotFound(new { resposta = Resource.InformativosNaoEncontrados });
 
             return Ok(informativos);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar informativos. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoRecuperarInformativos, ex.Message) });
         }
     }
 
@@ -98,7 +99,7 @@ public class AgendamentoController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar datas dos agendamentos. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoRecuperarDatasDosAgendamentos, ex.Message) });
         }
     }
 
@@ -110,14 +111,14 @@ public class AgendamentoController : ControllerBase
             if (await _agendamentoService.AddAgendamento(model))
             {
                 await _hubContext.Clients.All.SendAsync("NovoAgendamentoCadastrado");
-                return Ok(new { resposta = "Agendamento adicionado com sucesso!" });
+                return Ok(new { resposta = Resource.SucessoAdicionarAgendamento });
             }
             else
-                return BadRequest(new { resposta = "Ocorreu um erro ao tentar adicionar o agendamento." });
+                return BadRequest(new { resposta = Resource.ErroAdicionarAgendamento });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar adicionar o agendamento. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoAdicionarAgendamento, ex.Message) });
         }
     }
 
@@ -127,12 +128,12 @@ public class AgendamentoController : ControllerBase
         try
         {
             return await _agendamentoService.UpdateAgendamento(model) ?
-                 Ok(new { resposta = "Agendamento alterado com sucesso!" }) :
-                 BadRequest(new { resposta = "Ocorreu um erro ao tentar editar o agendamento." });
+                 Ok(new { resposta = Resource.SucessoAtualizarAgendamento }) :
+                 BadRequest(new { resposta = Resource.ErroAtualizarAgendamento });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar editar agendamento. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoAtualizarAgendamento, ex.Message) });
         }
     }
 
@@ -142,12 +143,12 @@ public class AgendamentoController : ControllerBase
         try
         {
             return await _agendamentoService.DeleteAgendamentoById(agendamentoId) ?
-                 Ok(new { resposta = "Agendamento deletado com sucesso!" }) :
-                 BadRequest(new { resposta = "Ocorreu um erro ao tentar deletar o agendamento." });
+                 Ok(new { resposta = Resource.SucessoDeletarAgendamento }) :
+                 BadRequest(new { resposta = Resource.ErroDeletarAgendamento });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar deletar o agendamento. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.ExcecaoDeletarAgendamento, ex.Message) });
         }
     }
 }
