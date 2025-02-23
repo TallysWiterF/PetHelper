@@ -123,6 +123,9 @@
   <data name="AgendamentosNaoEncontrados" xml:space="preserve">
     <value>Agendamentos não encontrados.</value>
   </data>
+  <data name="ClienteNaoEncontrado" xml:space="preserve">
+    <value>Cliente não encontrado.</value>
+  </data>
   <data name="ErroAdicionarAgendamento" xml:space="preserve">
     <value>Ocorreu um erro ao tentar adicionar o agendamento.</value>
   </data>
@@ -161,6 +164,33 @@
   </data>
   <data name="InformativosNaoEncontrados" xml:space="preserve">
     <value>Informativos não encontrados.</value>
+  </data>
+  <data name="MensagemDadoNaoEncontrado" xml:space="preserve">
+    <value>{0} não encontrado.</value>
+  </data>
+  <data name="MensagemDadosNaoEncontrados" xml:space="preserve">
+    <value>{0} não encontrados.</value>
+  </data>
+  <data name="MensagemErroAdicionar" xml:space="preserve">
+    <value>Ocorreu um erro ao tentar adicionar o {0}.</value>
+  </data>
+  <data name="MensagemErroAtualizar" xml:space="preserve">
+    <value>Ocorreu um erro ao tentar atualizar o {0}</value>
+  </data>
+  <data name="MensagemErroDeletar" xml:space="preserve">
+    <value>Ocorreu um erro ao tentar deletar o {0}</value>
+  </data>
+  <data name="MensagemExcecaoAdicionar" xml:space="preserve">
+    <value>Erro ao tentar adicionar {0}. Erro: {1}</value>
+  </data>
+  <data name="MensagemExcecaoAtualizar" xml:space="preserve">
+    <value>Erro ao tentar atualizar {0}. Erro: {1}</value>
+  </data>
+  <data name="MensagemExcecaoDeletar" xml:space="preserve">
+    <value>Erro ao tentar deletar {0}. Erro: {1}</value>
+  </data>
+  <data name="MensagemExcecaoRecuperar" xml:space="preserve">
+    <value>Erro ao tentar recuperar {0}. Erro: {1}</value>
   </data>
   <data name="SucessoAdicionarAgendamento" xml:space="preserve">
     <value>Agendamento adicionado com sucesso!</value>

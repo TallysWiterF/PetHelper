@@ -61,164 +61,110 @@ namespace PetHelper.API.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Agendamento não encontrado..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} não encontrado..
         /// </summary>
-        internal static string AgendamentoNaoEncontrado {
+        internal static string MensagemDadoNaoEncontrado {
             get {
-                return ResourceManager.GetString("AgendamentoNaoEncontrado", resourceCulture);
+                return ResourceManager.GetString("MensagemDadoNaoEncontrado", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Agendamentos não encontrados..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} não encontrados..
         /// </summary>
-        internal static string AgendamentosNaoEncontrados {
+        internal static string MensagemDadosNaoEncontrados {
             get {
-                return ResourceManager.GetString("AgendamentosNaoEncontrados", resourceCulture);
+                return ResourceManager.GetString("MensagemDadosNaoEncontrados", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar adicionar o agendamento..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar adicionar o {0}..
         /// </summary>
-        internal static string ErroAdicionarAgendamento {
+        internal static string MensagemErroAdicionar {
             get {
-                return ResourceManager.GetString("ErroAdicionarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemErroAdicionar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar editar o agendamento..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar atualizar o {0}..
         /// </summary>
-        internal static string ErroAtualizarAgendamento {
+        internal static string MensagemErroAtualizar {
             get {
-                return ResourceManager.GetString("ErroAtualizarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemErroAtualizar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar deletar o agendamento..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar deletar o {0}..
         /// </summary>
-        internal static string ErroDeletarAgendamento {
+        internal static string MensagemErroDeletar {
             get {
-                return ResourceManager.GetString("ErroDeletarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemErroDeletar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar adicionar o agendamento. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma exceção ao tentar adicionar {0}. Erro: {1}.
         /// </summary>
-        internal static string ExcecaoAdicionarAgendamento {
+        internal static string MensagemExcecaoAdicionar {
             get {
-                return ResourceManager.GetString("ExcecaoAdicionarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemExcecaoAdicionar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar editar agendamento. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma exceção ao tentar atualizar {0}. Erro: {1}.
         /// </summary>
-        internal static string ExcecaoAtualizarAgendamento {
+        internal static string MensagemExcecaoAtualizar {
             get {
-                return ResourceManager.GetString("ExcecaoAtualizarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemExcecaoAtualizar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar deletar o agendamento. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma exceção ao tentar deletar {0}. Erro: {1}.
         /// </summary>
-        internal static string ExcecaoDeletarAgendamento {
+        internal static string MensagemExcecaoDeletar {
             get {
-                return ResourceManager.GetString("ExcecaoDeletarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemExcecaoDeletar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar recuperar agendamento. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma exceção ao tentar recuperar {0}. Erro: {1}.
         /// </summary>
-        internal static string ExcecaoRecuperarAgendamento {
+        internal static string MensagemExcecaoRecuperar {
             get {
-                return ResourceManager.GetString("ExcecaoRecuperarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemExcecaoRecuperar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar recuperar agendamentos. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} adicionado com sucesso!.
         /// </summary>
-        internal static string ExcecaoRecuperarAgendamentos {
+        internal static string MensagemSucessoAdicionar {
             get {
-                return ResourceManager.GetString("ExcecaoRecuperarAgendamentos", resourceCulture);
+                return ResourceManager.GetString("MensagemSucessoAdicionar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar recuperar datas dos agendamentos. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} atualizado com sucesso!.
         /// </summary>
-        internal static string ExcecaoRecuperarDatasDosAgendamentos {
+        internal static string MensagemSucessoAtualizar {
             get {
-                return ResourceManager.GetString("ExcecaoRecuperarDatasDosAgendamentos", resourceCulture);
+                return ResourceManager.GetString("MensagemSucessoAtualizar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar recuperar agendamentos. Erro: {0}.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} deletado com sucesso!.
         /// </summary>
-        internal static string ExcecaoRecuperarHorarios {
+        internal static string MensagemSucessoDeletar {
             get {
-                return ResourceManager.GetString("ExcecaoRecuperarHorarios", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao tentar recuperar informativos. Erro: {0}.
-        /// </summary>
-        internal static string ExcecaoRecuperarInformativos {
-            get {
-                return ResourceManager.GetString("ExcecaoRecuperarInformativos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Horários marcados não encontrados..
-        /// </summary>
-        internal static string HorariosNaoEncontrados {
-            get {
-                return ResourceManager.GetString("HorariosNaoEncontrados", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Informativos não encontrados..
-        /// </summary>
-        internal static string InformativosNaoEncontrados {
-            get {
-                return ResourceManager.GetString("InformativosNaoEncontrados", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Agendamento adicionado com sucesso!.
-        /// </summary>
-        internal static string SucessoAdicionarAgendamento {
-            get {
-                return ResourceManager.GetString("SucessoAdicionarAgendamento", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Agendamento alterado com sucesso!.
-        /// </summary>
-        internal static string SucessoAtualizarAgendamento {
-            get {
-                return ResourceManager.GetString("SucessoAtualizarAgendamento", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Agendamento deletado com sucesso!.
-        /// </summary>
-        internal static string SucessoDeletarAgendamento {
-            get {
-                return ResourceManager.GetString("SucessoDeletarAgendamento", resourceCulture);
+                return ResourceManager.GetString("MensagemSucessoDeletar", resourceCulture);
             }
         }
     }
