@@ -61,6 +61,15 @@ namespace PetHelper.API.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail de inscrição enviado..
+        /// </summary>
+        internal static string EmailDeInscricaoJaEnviado {
+            get {
+                return ResourceManager.GetString("EmailDeInscricaoJaEnviado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {0} não encontrado..
         /// </summary>
         internal static string MensagemDadoNaoEncontrado {
@@ -106,6 +115,15 @@ namespace PetHelper.API.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro ao tentar realizar o processo de {0}.
+        /// </summary>
+        internal static string MensagemErroProcesso {
+            get {
+                return ResourceManager.GetString("MensagemErroProcesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma exceção ao tentar adicionar {0}. Erro: {1}.
         /// </summary>
         internal static string MensagemExcecaoAdicionar {
@@ -129,6 +147,15 @@ namespace PetHelper.API.Properties {
         internal static string MensagemExcecaoDeletar {
             get {
                 return ResourceManager.GetString("MensagemExcecaoDeletar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma exceção ao tentar realizar o processo de {0}. Erro: {1}.
+        /// </summary>
+        internal static string MensagemExcecaoProcesso {
+            get {
+                return ResourceManager.GetString("MensagemExcecaoProcesso", resourceCulture);
             }
         }
         

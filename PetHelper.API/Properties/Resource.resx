@@ -117,54 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AgendamentoNaoEncontrado" xml:space="preserve">
-    <value>Agendamento não encontrado.</value>
-  </data>
-  <data name="AgendamentosNaoEncontrados" xml:space="preserve">
-    <value>Agendamentos não encontrados.</value>
-  </data>
-  <data name="ClienteNaoEncontrado" xml:space="preserve">
-    <value>Cliente não encontrado.</value>
-  </data>
-  <data name="ErroAdicionarAgendamento" xml:space="preserve">
-    <value>Ocorreu um erro ao tentar adicionar o agendamento.</value>
-  </data>
-  <data name="ErroAtualizarAgendamento" xml:space="preserve">
-    <value>Ocorreu um erro ao tentar editar o agendamento.</value>
-  </data>
-  <data name="ErroDeletarAgendamento" xml:space="preserve">
-    <value>Ocorreu um erro ao tentar deletar o agendamento.</value>
-  </data>
-  <data name="ExcecaoAdicionarAgendamento" xml:space="preserve">
-    <value>Erro ao tentar adicionar o agendamento. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoAtualizarAgendamento" xml:space="preserve">
-    <value>Erro ao tentar editar agendamento. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoDeletarAgendamento" xml:space="preserve">
-    <value>Erro ao tentar deletar o agendamento. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoRecuperarAgendamento" xml:space="preserve">
-    <value>Erro ao tentar recuperar agendamento. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoRecuperarAgendamentos" xml:space="preserve">
-    <value>Erro ao tentar recuperar agendamentos. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoRecuperarDatasDosAgendamentos" xml:space="preserve">
-    <value>Erro ao tentar recuperar datas dos agendamentos. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoRecuperarHorarios" xml:space="preserve">
-    <value>Erro ao tentar recuperar agendamentos. Erro: {0}</value>
-  </data>
-  <data name="ExcecaoRecuperarInformativos" xml:space="preserve">
-    <value>Erro ao tentar recuperar informativos. Erro: {0}</value>
-  </data>
-  <data name="HorariosNaoEncontrados" xml:space="preserve">
-    <value>Horários marcados não encontrados.</value>
-  </data>
-  <data name="InformativosNaoEncontrados" xml:space="preserve">
-    <value>Informativos não encontrados.</value>
-  </data>
   <data name="MensagemDadoNaoEncontrado" xml:space="preserve">
     <value>{0} não encontrado.</value>
   </data>
@@ -175,30 +127,30 @@
     <value>Ocorreu um erro ao tentar adicionar o {0}.</value>
   </data>
   <data name="MensagemErroAtualizar" xml:space="preserve">
-    <value>Ocorreu um erro ao tentar atualizar o {0}</value>
+    <value>Ocorreu um erro ao tentar atualizar o {0}.</value>
   </data>
   <data name="MensagemErroDeletar" xml:space="preserve">
-    <value>Ocorreu um erro ao tentar deletar o {0}</value>
+    <value>Ocorreu um erro ao tentar deletar o {0}.</value>
   </data>
   <data name="MensagemExcecaoAdicionar" xml:space="preserve">
-    <value>Erro ao tentar adicionar {0}. Erro: {1}</value>
+    <value>Ocorreu uma exceção ao tentar adicionar {0}. Erro: {1}</value>
   </data>
   <data name="MensagemExcecaoAtualizar" xml:space="preserve">
-    <value>Erro ao tentar atualizar {0}. Erro: {1}</value>
+    <value>Ocorreu uma exceção ao tentar atualizar {0}. Erro: {1}</value>
   </data>
   <data name="MensagemExcecaoDeletar" xml:space="preserve">
-    <value>Erro ao tentar deletar {0}. Erro: {1}</value>
+    <value>Ocorreu uma exceção ao tentar deletar {0}. Erro: {1}</value>
   </data>
   <data name="MensagemExcecaoRecuperar" xml:space="preserve">
-    <value>Erro ao tentar recuperar {0}. Erro: {1}</value>
+    <value>Ocorreu uma exceção ao tentar recuperar {0}. Erro: {1}</value>
   </data>
-  <data name="SucessoAdicionarAgendamento" xml:space="preserve">
-    <value>Agendamento adicionado com sucesso!</value>
+  <data name="MensagemSucessoAdicionar" xml:space="preserve">
+    <value>{0} adicionado com sucesso!</value>
   </data>
-  <data name="SucessoAtualizarAgendamento" xml:space="preserve">
-    <value>Agendamento alterado com sucesso!</value>
+  <data name="MensagemSucessoAtualizar" xml:space="preserve">
+    <value>{0} atualizado com sucesso!</value>
   </data>
-  <data name="SucessoDeletarAgendamento" xml:space="preserve">
-    <value>Agendamento deletado com sucesso!</value>
+  <data name="MensagemSucessoDeletar" xml:space="preserve">
+    <value>{0} deletado com sucesso!</value>
   </data>
 </root>

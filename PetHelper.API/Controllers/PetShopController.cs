@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PetHelper.API.Properties;
 using PetHelper.Application.Contratos;
 using PetHelper.Domain;
 
@@ -18,13 +19,13 @@ public class PetShopController : ControllerBase
         {
             PetShop? petShop = await _petShopService.GetPetShopByIdAsync(id);
             if (petShop is null)
-                return NotFound(new { resposta = "Pet Shop não encontrado." });
+                return NotFound(new { resposta = string.Format(Resource.MensagemDadoNaoEncontrado, "Pet Shop") });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar a Pet Shop. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "o Pet Shop", ex.Message) });
         }
     }
 
@@ -35,28 +36,28 @@ public class PetShopController : ControllerBase
         {
             PetShop? petShop = await _petShopService.GetPetShopByEmailSenha(model.Email, model.Senha);
             if (petShop is null)
-                return NotFound(new { resposta = "Pet Shop não encontrada." });
+                return NotFound(new { resposta = string.Format(Resource.MensagemDadoNaoEncontrado, "Pet Shop") });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar a Pet Shop. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "o Pet Shop", ex.Message) });
         }
     }
 
-
     [HttpPost("inscricao")]
-    public async Task<IActionResult> RealizarInscricao(InscricaoModel model)
+    public IActionResult RealizarInscricao(InscricaoModel model)
     {
         try
         {
-            return _petShopService.EnviarEmailInscricao(model) ? 
-            Ok(new { resposta = "E-mail de inscrição enviado." }) : BadRequest(new { resposta = "Ocorreu uma falha ao tentar realizar a inscrição." });
+            return _petShopService.EnviarEmailInscricao(model) ?
+            Ok(new { resposta = Resource.EmailDeInscricaoJaEnviado }) : 
+            BadRequest(new { resposta = string.Format(Resource.MensagemErroProcesso, "inscrição de Pet Shop") });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar realizar a inscrição. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoProcesso, "inscrição de Pet Shop", ex.Message) });
         }
     }
 
@@ -66,17 +67,17 @@ public class PetShopController : ControllerBase
         try
         {
             if (await _petShopService.ValidarEmailJaCadastrado(model.Email))
-                return BadRequest(new { resposta = "Erro ao tentar adicionar a Pet Shop. E-mail já cadastrado" });
+                return BadRequest(new { resposta = string.Format(Resource.MensagemErroAdicionar, "Pet Shop. E-mail já cadastrado") });
 
             PetShop? petShop = await _petShopService.AddPetShop(model);
             if (petShop is null)
-                return BadRequest(new { resposta = "Erro ao tentar adicionar a Pet Shop." });
+                return BadRequest(new { resposta = string.Format(Resource.MensagemErroAdicionar, "Pet Shop") });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar adicionar a Pet Shop. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAdicionar, "o Pet Shop", ex.Message) });
         }
     }
 
@@ -87,13 +88,13 @@ public class PetShopController : ControllerBase
         {
             PetShop? petShop = await _petShopService.UpdatePetShop(id, model);
             if (petShop is null)
-                return BadRequest(new { resposta = "Erro ao tentar atualizar a Pet Shop." });
+                return BadRequest(new { resposta = string.Format(Resource.MensagemErroAtualizar, "Pet Shop") });
 
             return Ok(petShop);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar atualizar a Pet Shop. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAtualizar, "o Pet Shop", ex.Message) });
         }
     }
 
@@ -103,11 +104,12 @@ public class PetShopController : ControllerBase
         try
         {
             return await _petShopService.DeletePetShop(id) ?
-                Ok(new { resposta = "Pet Shop deletada." }) : BadRequest(new { resposta = "Ocorreu um erro ao deletar a Pet Shop" });
+                Ok(new { resposta = string.Format(Resource.MensagemSucessoDeletar, "Pet Shop") }) :
+                 BadRequest(new { resposta = string.Format(Resource.MensagemErroDeletar, "Pet Shop") });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar deletar Pet Shop. Erro: {ex.Message}"});
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoDeletar, "o Pet Shop", ex.Message) });
         }
     }
 }

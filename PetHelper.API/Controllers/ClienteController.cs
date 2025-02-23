@@ -63,7 +63,7 @@ public class ClienteController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "os clientes", ex.Message) });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "o cliente", ex.Message) });
         }
     }
 
@@ -78,7 +78,7 @@ public class ClienteController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAdicionar, "os clientes", ex.Message) });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAdicionar, "o cliente", ex.Message) });
         }
     }
 
@@ -93,7 +93,7 @@ public class ClienteController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAtualizar, "os clientes", ex.Message) });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAtualizar, "o cliente", ex.Message) });
         }
     }
 
@@ -108,7 +108,7 @@ public class ClienteController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoDeletar, "os clientes", ex.Message) });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoDeletar, "o cliente", ex.Message) });
         }
     }
 
