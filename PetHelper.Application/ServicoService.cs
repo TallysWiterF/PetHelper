@@ -1,4 +1,5 @@
 ﻿using PetHelper.Application.Contratos;
+using PetHelper.Application.Properties;
 using PetHelper.Domain;
 using PetHelper.Persistence.Contratos;
 
@@ -95,11 +96,11 @@ public class ServicoService : IServicoService
     {
         try
         {
-            Servico servico = await _servicoPersist.GetServicoByIdAsync(servicoId);
-            if (servico is null)
-                throw new Exception("Serviço não encontrado");
+            Servico servico = await _servicoPersist.GetServicoByIdAsync(servicoId) ?? 
+                throw new Exception(string.Format(Resource.MensagemDadoNaoEncontrado, "Serviço"));
 
             _geralPersist.Delete(servico);
+
             return await _geralPersist.SaveChangesAsync();
         }
         catch (Exception ex)

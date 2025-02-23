@@ -12,7 +12,7 @@ public class Pet : IEntidadeBase
     public int PetShopId { get; set; }
     public int ClienteId { get; set; }
     public string Nome { get; set; } = string.Empty;
-    public string Raca { get; set; }
+    public string Raca { get; set; } = string.Empty;
     public RacasEnum Tipo { get; set; }
     public DateTime DataCriacao { get; set; }
     public DateTime DataAtualizacao { get; set; }

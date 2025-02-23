@@ -81,7 +81,7 @@ public class AgendamentoPersist : IAgendamentoPersist
                                                                       && a.DataAgendamento >= _primeiroDiaDoMes
                                                                       && a.DataAgendamento <= _ultimoDiaDoMes)
                                                              .ToList()
-                                                             .Select(a => a.Servico.Preco)
+                                                             .Select(a => a.Servico!.Preco)
                                                              .Sum(),
 
             PorcentagemRendimentos = GetPorcentagemRendimentos(ref queryAgendamentos, petShopId, dataAgendamento),
@@ -126,7 +126,7 @@ public class AgendamentoPersist : IAgendamentoPersist
 
         double porcentagemAgendamentos = (totalAgendamentosNoMesAtual - totalAgendamentosNoMesPassado) / (double)totalAgendamentosNoMesPassado * 100;
 
-        return porcentagemAgendamentos >= 0 ? $"+{porcentagemAgendamentos.ToString("N2")}%" : $"{porcentagemAgendamentos.ToString("N2")}%";
+        return porcentagemAgendamentos >= 0 ? $"+{porcentagemAgendamentos:N2}%" : $"{porcentagemAgendamentos:N2}%";
     }
 
     private string GetPorcentagemRendimentos(ref IQueryable<Agendamento> queryAgendamentos, int petShopId, DateTime dataAgendamento)
@@ -143,10 +143,10 @@ public class AgendamentoPersist : IAgendamentoPersist
                                                                              && a.DataAgendamento <= _ultimoDiaDoMes)
                                                                     .ToList();
 
-        decimal totalRendimentosNoMesPassado = agendamentosNoMesPassado.Select(a => a.Servico.Preco)
+        decimal totalRendimentosNoMesPassado = agendamentosNoMesPassado.Select(a => a.Servico!.Preco)
                                                                        .Sum();
 
-        decimal totalRendimentosNoMesAtual = agendamentosNoMesAtual.Select(a => a.Servico.Preco)
+        decimal totalRendimentosNoMesAtual = agendamentosNoMesAtual.Select(a => a.Servico!.Preco)
                                                                    .Sum();
 
         if (totalRendimentosNoMesAtual == 0)
@@ -154,7 +154,7 @@ public class AgendamentoPersist : IAgendamentoPersist
 
         double porcentagemRendimentos = Convert.ToDouble((totalRendimentosNoMesAtual - totalRendimentosNoMesPassado) / totalRendimentosNoMesAtual) * 100;
 
-        return porcentagemRendimentos >= 0 ? $"+{porcentagemRendimentos.ToString("N2")}%" : $"{porcentagemRendimentos.ToString("N2")}%";
+        return porcentagemRendimentos >= 0 ? $"+{porcentagemRendimentos:N2}%" : $"{porcentagemRendimentos:N2}%";
     }
 
     private string GetPorcentagemClientes(ref IQueryable<Cliente> queryClientes, int petShopId, DateTime dataAgendamento)
@@ -176,7 +176,7 @@ public class AgendamentoPersist : IAgendamentoPersist
 
         double porcentagemClientes = ((totalClientesNoMesAtual - totalClientesNoMesPassado) / (double)totalClientesNoMesAtual) * 100;
 
-        return porcentagemClientes >= 0 ? $"+{porcentagemClientes.ToString("N2")}%" : $"-{porcentagemClientes.ToString("N2")}%";
+        return porcentagemClientes >= 0 ? $"+{porcentagemClientes:N2}%" : $"-{porcentagemClientes:N2}%";
     }
 
     private string GetPorcentagemServicos(ref IQueryable<Servico> queryServicos, int petShopId, DateTime dataAgendamento)
@@ -198,7 +198,7 @@ public class AgendamentoPersist : IAgendamentoPersist
 
         double porcentagemServicos = ((totalServicosNoMesAtual - totalServicosNoMesPassado) / (double)totalServicosNoMesAtual) * 100;
 
-        return porcentagemServicos >= 0 ? $"+{porcentagemServicos.ToString("N2")}%" : $"{porcentagemServicos.ToString("N2")}%";
+        return porcentagemServicos >= 0 ? $"+{porcentagemServicos:N2}%" : $"{porcentagemServicos:N2}%";
     }
 
     #endregion

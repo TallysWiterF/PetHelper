@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PetHelper.API.Properties;
 using PetHelper.Application.Contratos;
 using PetHelper.Domain;
 
@@ -10,7 +11,7 @@ public class ClienteController : ControllerBase
 {
     private readonly IClienteService _clienteService;
     public ClienteController(IClienteService clienteService) => _clienteService = clienteService;
-   
+
     [HttpGet("{clienteId}")]
     public async Task<IActionResult> GetById(int clienteId)
     {
@@ -18,13 +19,13 @@ public class ClienteController : ControllerBase
         {
             Cliente? cliente = await _clienteService.GetClienteByIdAsync(clienteId);
             if (cliente is null)
-                return NotFound(new { resposta = "Cliente não encontrado." });
+                return NotFound(new { resposta = string.Format(Resource.MensagemDadoNaoEncontrado, "Cliente") });
 
             return Ok(cliente);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar cliente. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "o Cliente", ex.Message) });
         }
     }
 
@@ -32,16 +33,16 @@ public class ClienteController : ControllerBase
     public async Task<IActionResult> GetAllByPetShopId(int petShopId)
     {
         try
-        { 
+        {
             Cliente[] clientes = await _clienteService.GetAllClientesByPetShopIdAsync(petShopId);
             if (clientes is null)
-                return NotFound(new { resposta = "Clientes não encontrados." });
+                return NotFound(new { resposta = string.Format(Resource.MensagemDadosNaoEncontrados, "Clientes") });
 
             return Ok(clientes);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar clientes. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "os clientes", ex.Message) });
         }
     }
 
@@ -50,7 +51,7 @@ public class ClienteController : ControllerBase
     {
         try
         {
-            Cliente cliente = await _clienteService.GetClienteByPetShopIdTelefoneAsync(petShopId, telefone);
+            Cliente? cliente = await _clienteService.GetClienteByPetShopIdTelefoneAsync(petShopId, telefone);
             if (cliente is null)
                 return Ok(new Cliente()
                 {
@@ -62,7 +63,7 @@ public class ClienteController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar recuperar clientes. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoRecuperar, "o cliente", ex.Message) });
         }
     }
 
@@ -72,12 +73,12 @@ public class ClienteController : ControllerBase
         try
         {
             return await _clienteService.AddCliente(model) ?
-                  Ok(new { resposta = "Cliente adicionado com sucesso!" }) :
-                  BadRequest(new { resposta = "Ocorreu um erro ao tentar adicionar o cliente." });
+                  Ok(new { resposta = string.Format(Resource.MensagemSucessoAdicionar, "Cliente") }) :
+                  BadRequest(new { resposta = string.Format(Resource.MensagemErroAdicionar, "o cliente") });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar adicionar o cliente. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAdicionar, "o cliente", ex.Message) });
         }
     }
 
@@ -87,12 +88,12 @@ public class ClienteController : ControllerBase
         try
         {
             return await _clienteService.UpdateCliente(model) ?
-                 Ok(new { resposta = "Cliente alterado com sucesso!" }) :
-                 BadRequest(new { resposta = "Ocorreu um erro ao tentar editar o cliente." }); 
+                 Ok(new { resposta = string.Format(Resource.MensagemSucessoAtualizar, "Cliente") }) :
+                 BadRequest(new { resposta = string.Format(Resource.MensagemErroAtualizar, "o cliente") });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar editar cliente. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoAtualizar, "o cliente", ex.Message) });
         }
     }
 
@@ -102,12 +103,12 @@ public class ClienteController : ControllerBase
         try
         {
             return await _clienteService.DeleteClienteById(clienteId) ?
-                 Ok(new { resposta = "Cliente deletado com sucesso!" }) :
-                 BadRequest(new { resposta = "Ocorreu um erro ao tentar deletar o cliente." });
+                 Ok(new { resposta = string.Format(Resource.MensagemSucessoDeletar, "Cliente") }) :
+                 BadRequest(new { resposta = string.Format(Resource.MensagemErroDeletar, "o cliente") });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { resposta = $"Erro ao tentar deletar o cliente. Erro: {ex.Message}" });
+            return StatusCode(500, new { resposta = string.Format(Resource.MensagemExcecaoDeletar, "o cliente", ex.Message) });
         }
     }
 
