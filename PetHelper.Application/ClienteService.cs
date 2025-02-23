@@ -1,7 +1,7 @@
 ﻿using PetHelper.Application.Contratos;
+using PetHelper.Application.Properties;
 using PetHelper.Domain;
 using PetHelper.Persistence.Contratos;
-using System.Security.Cryptography.X509Certificates;
 
 namespace PetHelper.Application;
 
@@ -17,6 +17,7 @@ public class ClienteService : IClienteService
         _clientePersist = clientePersist;
         _petService = new PetService(geralPersist, petPersist);
     }
+
     public async Task<Cliente?> GetClienteByIdAsync(int clienteId)
     {
         try
@@ -53,7 +54,7 @@ public class ClienteService : IClienteService
         }
     }
 
-    public async Task<Cliente[]?> GetAllClientesByPetShopIdAsync(int petShopId)
+    public async Task<Cliente[]> GetAllClientesByPetShopIdAsync(int petShopId)
     {
         try
         {
@@ -110,7 +111,7 @@ public class ClienteService : IClienteService
             {
                 if (clienteSalvo.Pets.Any(x => x.Id == pet.Id))
                 {
-                    Pet petSalvo = clienteSalvo.Pets.FirstOrDefault(x => x.Id == pet.Id);
+                    Pet petSalvo = clienteSalvo.Pets.FirstOrDefault(x => x.Id == pet.Id)!;
 
                     if (!petSalvo.Equals(pet))
                         pet.DataAtualizacao = DateTime.Now.Date;
@@ -140,13 +141,12 @@ public class ClienteService : IClienteService
     {
         try
         {
-            Cliente? cliente = await _clientePersist.GetClienteByIdAsync(clienteId);
-            if (cliente is null)
-                throw new Exception("Cliente não encontrado");
+            Cliente? cliente = await _clientePersist.GetClienteByIdAsync(clienteId) ??
+                throw new Exception(string.Format(Resource.MensagemDadoNaoEncontrado, "Cliente"));
 
             _geralPersist.Delete(cliente);
-            return await _geralPersist.SaveChangesAsync();
 
+            return await _geralPersist.SaveChangesAsync();
         }
         catch (Exception ex)
         {

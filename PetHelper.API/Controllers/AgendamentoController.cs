@@ -11,7 +11,7 @@ namespace PetHelper.API.Controllers;
 [Route("api/[controller]")]
 public class AgendamentoController : ControllerBase
 {
-    IAgendamentoService _agendamentoService;
+    readonly IAgendamentoService _agendamentoService;
     readonly IHubContext<AgendamentoHub> _hubContext;
 
     public AgendamentoController(IAgendamentoService agendamentoService, IHubContext<AgendamentoHub> hubContext)
@@ -72,7 +72,7 @@ public class AgendamentoController : ControllerBase
     }
 
     [HttpGet("informativos/{petShopId}/{dataAgendamento}")]
-    public async Task<IActionResult> GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
+    public IActionResult GetInformativosPetShop(int petShopId, DateTime dataAgendamento)
     {
         try
         {

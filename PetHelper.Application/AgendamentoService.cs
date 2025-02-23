@@ -1,4 +1,5 @@
 ﻿using PetHelper.Application.Contratos;
+using PetHelper.Application.Properties;
 using PetHelper.Domain;
 using PetHelper.Persistence.Contratos;
 
@@ -11,7 +12,6 @@ public class AgendamentoService : IAgendamentoService
 
     private readonly ClienteService _clienteService;
     private readonly ServicoService _servicoService;
-    private readonly PetService _petService;
 
     public AgendamentoService(IGeralPersist geralPersist, IAgendamentoPersist agendamentoPersist, IClientePersist clientePersist, IServicoPersist servicoPersist, IPetPersist petPersist)
     {
@@ -20,7 +20,6 @@ public class AgendamentoService : IAgendamentoService
 
         _clienteService = new ClienteService(geralPersist, clientePersist, petPersist);
         _servicoService = new ServicoService(geralPersist, servicoPersist);
-        _petService = new PetService(geralPersist, petPersist);
     }
 
     public async Task<Agendamento?> GetAgendamentoByIdAsync(int agendamentoId)
@@ -91,9 +90,10 @@ public class AgendamentoService : IAgendamentoService
         try
         {
             agendamentoModel = await ValidarAgendamento(agendamentoModel);
-
             agendamentoModel.DataCriacao = agendamentoModel.DataAtualizacao = DateTime.Now.Date;
+
             _geralPersist.Add(agendamentoModel);
+
             return await _geralPersist.SaveChangesAsync();
         }
         catch (Exception ex)
@@ -107,9 +107,10 @@ public class AgendamentoService : IAgendamentoService
         try
         {
             agendamentoModel = await ValidarAgendamento(agendamentoModel);
-
             agendamentoModel.DataAtualizacao = DateTime.Now.Date;
+
             _geralPersist.Update(agendamentoModel);
+
             return await _geralPersist.SaveChangesAsync();
         }
         catch (Exception ex)
@@ -122,9 +123,8 @@ public class AgendamentoService : IAgendamentoService
     {
         try
         {
-            Agendamento? agendamento = await _agendamentoPersist.GetAgendamentoByIdAsync(agendamentoId);
-            if (agendamento is null)
-                throw new Exception("Agendamento não encontrado.");
+            Agendamento agendamento = await _agendamentoPersist.GetAgendamentoByIdAsync(agendamentoId) ??
+                throw new Exception(string.Format(Resource.MensagemDadoNaoEncontrado, "Agendamento"));
 
             _geralPersist.Delete(agendamento);
 
@@ -136,15 +136,15 @@ public class AgendamentoService : IAgendamentoService
         }
     }
 
-    #region ValidacoesAgendamentos
+    #region Validações do Agendamento
     private async Task<Agendamento[]> RecuperarDadosAgendamentos(Agendamento[] agendamentosModel)
     {
-        foreach (var agendamentoItem in agendamentosModel)
+        foreach (Agendamento agendamentoItem in agendamentosModel)
         {
             agendamentoItem.Cliente = await _clienteService.GetClienteByIdAsync(agendamentoItem.ClienteId);
             agendamentoItem.Servico = await _servicoService.GetServicoByIdAsync(agendamentoItem.ServicoId);
             agendamentoItem.Servico.LogoServico = null;
-            agendamentoItem.Pet = agendamentoItem.Cliente.Pets.FirstOrDefault(x => x.Id == agendamentoItem.PetId);
+            agendamentoItem.Pet = agendamentoItem.Cliente!.Pets.FirstOrDefault(x => x.Id == agendamentoItem.PetId);
         }
 
         return agendamentosModel;
@@ -156,22 +156,22 @@ public class AgendamentoService : IAgendamentoService
             agendamento = await ValidarCliente(agendamento);
 
         if (agendamento.Servico != null)
-            agendamento.Servico = await ValidarServico(agendamento.Servico); 
+            agendamento.Servico = await ValidarServico(agendamento.Servico);
 
         return agendamento;
     }
 
-    private async Task<Agendamento?> ValidarCliente(Agendamento agendamentoModel)
+    private async Task<Agendamento> ValidarCliente(Agendamento agendamentoModel)
     {
         Cliente? cliente = await _clienteService.GetClienteByIdAsync(agendamentoModel.ClienteId);
 
         if (cliente == null)
         {
-            agendamentoModel.Cliente.DataCriacao = agendamentoModel.Cliente.DataAtualizacao = DateTime.Now.Date;
+            agendamentoModel.Cliente!.DataCriacao = agendamentoModel.Cliente.DataAtualizacao = DateTime.Now.Date;
             if (await _clienteService.AddCliente(agendamentoModel.Cliente))
                 agendamentoModel.ClienteId = agendamentoModel.Cliente.Id;
         }
-        else if (!string.IsNullOrEmpty(agendamentoModel.Cliente.Endereco) && !cliente.Equals(agendamentoModel.Cliente))
+        else if (!string.IsNullOrEmpty(agendamentoModel.Cliente!.Endereco) && !cliente.Equals(agendamentoModel.Cliente))
         {
             agendamentoModel.Cliente.DataAtualizacao = DateTime.Now.Date;
             await _clienteService.UpdateCliente(agendamentoModel.Cliente);
@@ -179,7 +179,7 @@ public class AgendamentoService : IAgendamentoService
 
         if (agendamentoModel.Pet != null && agendamentoModel.Cliente.Pets.Any(x => x.Raca == agendamentoModel.Pet.Raca && x.Nome == agendamentoModel.Pet.Nome))
         {
-            agendamentoModel.PetId = agendamentoModel.Cliente.Pets.FirstOrDefault(x => x.Raca == agendamentoModel.Pet.Raca && x.Nome == agendamentoModel.Pet.Nome).Id;
+            agendamentoModel.PetId = agendamentoModel.Cliente.Pets.FirstOrDefault(x => x.Raca == agendamentoModel.Pet.Raca && x.Nome == agendamentoModel.Pet.Nome)!.Id;
             agendamentoModel.Pet = null;
         }
 

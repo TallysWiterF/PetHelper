@@ -15,7 +15,7 @@ public class Agendamento : IEntidadeBase
     [NotMapped]
     public Pet? Pet { get; set; }
 
-    public string HorarioMarcado { get; set; }
+    public string HorarioMarcado { get; set; } = string.Empty;
     public DateTime DataAgendamento { get; set; }
     public DateTime DataCriacao { get; set; }
     public DateTime DataAtualizacao { get; set; }

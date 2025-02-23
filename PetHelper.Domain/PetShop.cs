@@ -17,15 +17,15 @@ public class PetShop : IEntidadeBase
 
 public class LoginModel
 {
-    public string Email { get; set; }
-    public string Senha { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string Senha { get; set; } = string.Empty;
 }
 
 public class InscricaoModel
 {
-    public string Proprietario { get; set; }
-    public string Email { get; set; }
-    public string NomePetShop { get; set; }
-    public string Telefone { get; set; }
+    public string Proprietario { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string NomePetShop { get; set; } = string.Empty;
+    public string Telefone { get; set; } = string.Empty;
 }
 

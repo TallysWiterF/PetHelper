@@ -5,6 +5,7 @@ using PetHelper.Persistence.Contratos;
 using System.Net.Mail;
 using System.Net;
 using BCryptNet = BCrypt.Net.BCrypt;
+using PetHelper.Application.Properties;
 
 namespace PetHelper.Application;
 
@@ -49,8 +50,8 @@ public class PetShopService : IPetShopService
 
     public bool EnviarEmailInscricao(InscricaoModel model)
     {
-        MailAddress remetente = new(_configuration["SecretConfiguration:Email"], "PetHelper");
-        MailAddress destinatario = new(_configuration["SecretConfiguration:SendTo"]);
+        MailAddress remetente = new(_configuration["SecretConfiguration:Email"]!, "PetHelper");
+        MailAddress destinatario = new(_configuration["SecretConfiguration:SendTo"]!);
 
         using SmtpClient smtpClient = new("smtp.gmail.com", 587);
         smtpClient.UseDefaultCredentials = false;
@@ -62,8 +63,8 @@ public class PetShopService : IPetShopService
 
         MailMessage mensagem = new(remetente, destinatario)
         {
-            Subject = "Inscrição Protótipo PetHelper",
-            Body = $"A Pet Shop '{model.NomePetShop}', gostaria de participar da fase de testes do produto.\nNome Proprietário: {model.Proprietario}.\nE-mail: {model.Email}\nTelefone: {model.Telefone}",
+            Subject = Resource.EmailInscricaoTitulo,
+            Body = string.Format(Resource.EmailInscricaoMensagem, model.NomePetShop, model.Proprietario, model.Email, model.Telefone),
             Priority = MailPriority.High,
         };
 
@@ -122,9 +123,7 @@ public class PetShopService : IPetShopService
     {
         try
         {
-            PetShop? petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId);
-            if (petShop is null)
-                throw new Exception("Pet Shop não encontrada");
+            PetShop petShop = await _petShopPersist.GetPetShopByIdAsync(petShopId) ?? throw new Exception(string.Format(Resource.MensagemDadoNaoEncontrado, "Pet Shop"));
 
             _geralPersist.Delete(petShop);
             return await _geralPersist.SaveChangesAsync();

@@ -1,6 +1,5 @@
 ﻿using PetHelper.Application.Contratos;
 using PetHelper.Domain;
-using PetHelper.Persistence;
 using PetHelper.Persistence.Contratos;
 
 namespace PetHelper.Application;
