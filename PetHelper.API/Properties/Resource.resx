@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmailDeInscricaoJaEnviado" xml:space="preserve">
+    <value>E-mail de inscrição enviado.</value>
+  </data>
   <data name="MensagemDadoNaoEncontrado" xml:space="preserve">
     <value>{0} não encontrado.</value>
   </data>
@@ -132,6 +135,9 @@
   <data name="MensagemErroDeletar" xml:space="preserve">
     <value>Ocorreu um erro ao tentar deletar o {0}.</value>
   </data>
+  <data name="MensagemErroProcesso" xml:space="preserve">
+    <value>Ocorreu um erro ao tentar realizar o processo de {0}</value>
+  </data>
   <data name="MensagemExcecaoAdicionar" xml:space="preserve">
     <value>Ocorreu uma exceção ao tentar adicionar {0}. Erro: {1}</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="MensagemExcecaoDeletar" xml:space="preserve">
     <value>Ocorreu uma exceção ao tentar deletar {0}. Erro: {1}</value>
+  </data>
+  <data name="MensagemExcecaoProcesso" xml:space="preserve">
+    <value>Ocorreu uma exceção ao tentar realizar o processo de {0}. Erro: {1}</value>
   </data>
   <data name="MensagemExcecaoRecuperar" xml:space="preserve">
     <value>Ocorreu uma exceção ao tentar recuperar {0}. Erro: {1}</value>
